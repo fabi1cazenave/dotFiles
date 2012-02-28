@@ -130,4 +130,3 @@
 (setq org-default-notes-file "~/Documents/org/quicktasks.org")
 (setq org-agenda-files (list "~/Documents/org/todo.org"
                              "~/Documents/org/tutorial.org"))
-
