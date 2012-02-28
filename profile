@@ -44,4 +44,3 @@ export LC_COLLATE="fr_FR.UTF-8"
 # vimpager is a shell script that uses Vim as a pager
 export EDITOR=vim
 export PAGER=vimpager
-
