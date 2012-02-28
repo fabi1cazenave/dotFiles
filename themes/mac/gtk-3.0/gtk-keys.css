@@ -62,5 +62,3 @@ GtkTextView { gtk-key-bindings: gtk-mac-clipboard; }
 GtkEntry    { gtk-key-bindings: gtk-mac-clipboard; }
 *           { gtk-key-bindings: gtk-mac-clipboard; }
 
-
-
