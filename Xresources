@@ -1,1 +1,118 @@
-/home/kaze/.Xresources
+!|
+!| File          : ~/.Xresources
+!| Last modified : 2012-02-25
+!| Author        : Fabien Cazenave
+!| Licence       : WTFPL
+!|
+!| ~/.Xresources : Xdefaults settings for xterm / rxvt
+!|         + solarized color theme
+!| to apply: xrdb -load ~/.Xresources
+!|
+
+! anti-aliasing
+xft*antialias : true
+xft*dpi       : 96
+
+! xterm -- what else?
+!xterm*utf8            : 1
+!xterm*background      : black
+!xterm*background      : rgb:4D/4D/4D
+xterm*background      : rgb:33/33/33
+xterm*foreground      : white
+xterm*cursorColor     : green
+xterm*saveLines       : 32767
+xterm*renderFont      : true
+xterm*faceName        : Monospace
+!xterm*faceName        : Terminal
+!xterm*faceName        : Terminus
+xterm*faceSize        : 9
+
+! xterm -- lets be 8bit-clean
+xterm*utf8:            1
+xterm*eightBitInput:   false
+xterm*eightBitControl: false
+xterm*eightBitOutput:  true
+
+! xterm -- disable fullscreen on <Alt-Return>
+xterm*fullscreen: never
+xterm.omitTranslation: fullscreen
+
+! st-256color (so sloooooow)
+st-256color*utf8            : 1
+st-256color*background      : rgb:33/33/33
+st-256color*foreground      : white
+st-256color*cursorColor     : green
+st-256color*saveLines       : 32767
+st-256color*renderFont      : true
+st-256color*faceName        : Monospace
+st-256color*faceSize        : 10
+
+! rxvt (untested)
+rxvt*loginShell       : true
+rxvt*transparent      : false
+rxvt*shading          : 40
+rxvt*background       : black
+rxvt*foreground       : white
+rxvt*cursorColor      : green
+rxvt*scrollBar        : false
+rxvt*scrollBar_right  : false
+rxvt*saveLines        : 32767
+rxvt*font             : xft:Monospace:size=9
+!rxvt*font             : *-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
+!rxvt*boldFont         : *-*-fixed-bold-r-normal--*-*-110-*-*-*-*-iso8859-1
+
+! urxvt (untested)
+urxvt*loginShell      : true
+urxvt*transparent     : false
+urxvt*shading         : 40
+urxvt*background      : black
+urxvt*foreground      : white
+urxvt*cursorColor     : green
+urxvt*scrollBar       : false
+urxvt*scrollBar_right : false
+urxvt*saveLines       : 32767
+!urxvt*font            : xft:DejaVu Sans Mono:pixelsize=10
+!urxvt*font            : *-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
+!urxvt*boldFont        : *-*-fixed-bold-r-normal--*-*-110-*-*-*-*-iso8859-1
+
+! kalahari color theme (xterm, untested with other terminals)
+*fading      : 40
+*fadeColor   : #002233
+*background  : #002233
+*foreground  : #657b83
+*cursorColor : #93a1a1
+!*pointerColorForeground: #93a1a1
+!*pointerColorBackground: #586e75
+
+! 0: black
+*color0  : #000000
+*color8  : #666666
+
+! 1: red              
+*color1  : #cc7777
+*color9  : #cf6171
+
+! 2: green
+*color2  : #00cd00
+*color10 : #c5f779
+
+! 3: yellow
+*color3  : #ffbb66
+*color11 : #fff796
+
+! 4: blue
+*color4  : #22aa99
+*color12 : #bbbbff
+
+! 5: magenta
+*color5  : #ff66cc
+*color13 : #f935f9
+
+! 6: cyan
+*color6  : #88bbbb
+*color14 : #14f0f0
+
+! 7: white
+*color7  : #eeeedd
+*color15 : #ffffee
+

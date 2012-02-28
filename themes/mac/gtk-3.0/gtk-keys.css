@@ -1,0 +1,66 @@
+/*
+ * File          : ~/.themes/mac/gtk-3.0/gtk-keys.css
+ * Last modified : 2012-02-25
+ * Author        : Fabien Cazenave
+ * Licence       : WTFPL
+ */
+
+/*
+ * Alt+[left|right|backspace|delete] = word by word
+ */
+@binding-set gtk-mac-alt-arrows {
+  bind "<alt>Right"           { "move-cursor" (words,  1, 0) };
+  bind "<alt>KP_Right"        { "move-cursor" (words,  1, 0) };
+  bind "<alt>Left"            { "move-cursor" (words, -1, 0) };
+  bind "<alt>KP_Left"         { "move-cursor" (words, -1, 0) };
+  bind "<shift><alt>Right"    { "move-cursor" (words,  1, 1) };
+  bind "<shift><alt>KP_Right" { "move-cursor" (words,  1, 1) };
+  bind "<shift><alt>Left"     { "move-cursor" (words, -1, 1) };
+  bind "<shift><alt>KP_Left"  { "move-cursor" (words, -1, 1) };
+}
+@binding-set gtk-mac-alt-delete {
+  bind "<alt>Delete"    { "delete-from-cursor" (word-ends,  1) };
+  bind "<alt>KP_Delete" { "delete-from-cursor" (word-ends,  1) };
+  bind "<alt>BackSpace" { "delete-from-cursor" (word-ends, -1) };
+}
+GtkTextView { gtk-key-bindings: gtk-mac-alt-arrows, gtk-mac-alt-delete; }
+GtkEntry    { gtk-key-bindings: gtk-mac-alt-arrows, gtk-mac-alt-delete; }
+
+/*
+ * Super+[left|right|backspace|delete] = line by line
+ */
+@binding-set gtk-mac-super-arrows {
+  bind "<super>Right"           { "move-cursor" (paragraph-ends,  1, 0) };
+  bind "<super>KP_Right"        { "move-cursor" (paragraph-ends,  1, 0) };
+  bind "<super>Left"            { "move-cursor" (paragraph-ends, -1, 0) };
+  bind "<super>KP_Left"         { "move-cursor" (paragraph-ends, -1, 0) };
+  bind "<shift><super>Right"    { "move-cursor" (paragraph-ends,  1, 1) };
+  bind "<shift><super>KP_Right" { "move-cursor" (paragraph-ends,  1, 1) };
+  bind "<shift><super>Left"     { "move-cursor" (paragraph-ends, -1, 1) };
+  bind "<shift><super>KP_Left"  { "move-cursor" (paragraph-ends, -1, 1) };
+}
+@binding-set gtk-mac-super-delete {
+  bind "<super>Delete"    { "delete-from-cursor" (paragraph-ends,  1) };
+  bind "<super>KP_Delete" { "delete-from-cursor" (paragraph-ends,  1) };
+  bind "<super>BackSpace" { "delete-from-cursor" (paragraph-ends, -1) };
+}
+GtkTextView { gtk-key-bindings: gtk-mac-super-arrows, gtk-mac-super-delete; }
+GtkEntry    { gtk-key-bindings: gtk-mac-super-arrows, gtk-mac-super-delete; }
+
+/*
+ * Super+[x|c|v] = cut|copy|paste (works with <alt> but not with <super>, wtf?)
+ */
+@binding-set gtk-mac-clipboard {
+  bind "<super>x" {   "cut-clipboard" () };
+  bind "<super>c" {  "copy-clipboard" () };
+  bind "<super>v" { "paste-clipboard" () };
+  bind "<alt>x"   {   "cut-clipboard" () };
+  bind "<alt>c"   {  "copy-clipboard" () };
+  bind "<alt>v"   { "paste-clipboard" () };
+}
+GtkTextView { gtk-key-bindings: gtk-mac-clipboard; }
+GtkEntry    { gtk-key-bindings: gtk-mac-clipboard; }
+*           { gtk-key-bindings: gtk-mac-clipboard; }
+
+
+

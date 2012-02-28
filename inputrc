@@ -1,1 +1,30 @@
-/home/kaze/.inputrc
+#|
+#| File          : ~/.inputrc
+#| Last modified : 2012-02-25
+#| Author        : Fabien Cazenave
+#| Licence       : WTFPL
+#|
+#| ~/.inputrc: used by the `readline' library.
+#| Note that zsh doesn't use readline.
+#|
+
+# By default, C-x C-r is bound to re-read-init-file.
+set completion-ignore-case on
+
+# Be 8 bit clean.
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Ctrl+arrows
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Alt+arrows
+"\e[1;3C": forward-word
+"\e[1;3D": backward-word
+
+# Vim style history search
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+

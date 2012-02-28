@@ -1,1 +1,348 @@
-/home/kaze/.config/i3/config
+#|
+#| File          : ~/.config/i3/config
+#| Author        : Fabien Cazenave
+#| Version       : 0.7 (requires i3 version 4.1+)
+#| Charset       : UTF-8
+#| License       : WTFPL
+#| Last Modified : 2012-01-14
+#|
+
+# <<<
+#
+# This configuration relies on a single modifier key. It uses keycodes instead of keysyms
+# in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
+#
+# quick config:
+# ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
+# │     │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│  w11│  w12┃          ┃
+# │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
+# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┳━━━━━━━┫
+# ┃        ┃     │close│     │rsize│     │     │ prev│ next│split│start│     │     ┃ term  ┃
+# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   ┃       ┃
+# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┺┓  ⏎   ┃
+# ┃         ┃ tab │stack│ div.│ full│     │focus│focus│focus│focus│focus│focus│     ┃      ┃
+# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h ← │ j ↓ │ k ↑ │ l → │ ;   │ '   │ \   ┃      ┃
+# ┣━━━━━━┳━━┹──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┷━━━━━┻━━━━━━┫
+# ┃      ┃     │     │     │     │     │bordr│     │     │     │     │     ┃               ┃
+# ┃ ⇧    ┃ <   │ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
+# ┣━━━━━━┻┳━━━━┷━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
+# ┃       ┃ *mod* ┃       ┃         tiling/floating toggle ┃       ┃       ┃       ┃       ┃
+# ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
+# ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
+#
+# keycodes:
+# ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
+# │  49 │  10 │  11 │ 12  │  13 │  14 │  15 │  16 │  17 │  18 │  19 │  20 │  21 ┃       22 ┃
+# │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
+# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┳━━━━━━━┫
+# ┃  23    ┃  24 │  25 │  26 │  27 │  28 │  29 │  30 │  31 │  32 │  33 │  34 │  35 ┃    36 ┃
+# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   ┃       ┃
+# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┺┓  ⏎   ┃
+# ┃  66     ┃  38 │  39 │  40 │  41 │  42 │  43 │  44 │  45 │  46 │  47 │  48 │  63 ┃      ┃
+# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ;   │ '   │ \   ┃      ┃
+# ┣━━━━━━┳━━┹──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┷━━━━━┻━━━━━━┫
+# ┃  50  ┃  94 │  52 │  53 │  54 │  55 │  56 │  57 │  58 │  59 │  60 │  61 ┃            62 ┃
+# ┃ ⇧    ┃ <   │ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
+# ┣━━━━━━┻┳━━━━┷━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
+# ┃  37   ┃  Mod4 ┃  Mod1 ┃                             65 ┃    93 ┃   116 ┃   117 ┃   109 ┃
+# ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
+# ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
+#
+# >>>
+
+#|=============================================================================
+#| general <<<
+#|=============================================================================
+
+# define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
+#set $mod Mod1
+set $mod Mod4
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# define your preferred terminal - you can refer to this as $terminal later
+#set $terminal /usr/bin/uxterm
+set $terminal $(/usr/bin/uxterm -e ranger)
+
+# define your preferred application launcher
+#set $launcher /usr/bin/gmrun
+set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+
+# define your preferred screen lock
+#set $lock /usr/bin/i3lock
+#set $lock $(/usr/bin/i3lock --color 000000)
+set $lock $(/usr/bin/i3lock -d)
+
+# window font (note: iso10646 = unicode)
+font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+# default mode: workspace_layout <default|stacking|tabbed>
+workspace_layout tabbed
+
+# default mode: new_window <bp|bn|bb>
+#new_window bp
+
+# Statusline (i3bar)
+bar {
+  # TODO: remove redundant battery information from the status line
+  status_command i3status
+  position bottom
+  mode hide
+}
+
+# Default color theme:
+#   class                 border  backgr. text
+# client.focused          #4c7899 #285577 #ffffff
+# client.focused_inactive #333333 #5f676a #ffffff
+# client.unfocused        #333333 #222222 #888888
+# client.urgent           #2f343a #900000 #ffffff
+
+# Custom color theme:
+#   class                 border  backgr. text
+# client.focused          #2f343a #904040 #ffffff
+# client.focused          #2f343a #602020 #ffffff
+# client.focused          #2f343a #501010 #ffffff
+# client.focused          #2f343a #900000 #ffffff
+client.focused_inactive   #333333 #444444 #ffffff
+
+# >>>
+
+#|=============================================================================
+#| workspaces <<<
+#|=============================================================================
+
+# Workspace names:
+# the default modifier being Super_L, workspaces 6 to 12 are preferred
+# (=> left thumb + right hand to select a workspace)
+set $w01 1
+set $w02 2
+set $w03 3
+set $w04 4
+set $w05 5
+set $w06 6: mail
+set $w07 7: www
+set $w08 8: work
+set $w09 9: test
+set $w10 10: tmp
+set $w11 11: im
+set $w12 12
+
+# http://i3wm.org/docs/userguide.html#command_criteria
+# - instance    : window instance = 1st part of WM_CLASS
+# - class       : window class    = 2nd part of WM_CLASS
+# - window_role : window role     = WM_WINDOW_ROLE
+# - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
+
+# Common apps are sorted by workspace
+assign [class="^Thunderbird"] → $w06
+assign [class="^Firefox"]     → $w07
+assign [class="^Aurora"]      → $w09
+assign [class="^Nightly"]     → $w09
+assign [class="^VirtualBox"]  → $w10
+assign [class="^Pidgin"]      → $w11
+assign [class="^Skype"]       → $w11
+assign [class="^Hotot"]       → $w11
+
+# These windows require a specific rule to be displayed in floating mode:
+#for_window [window_role="^Manager"]    floating enable
+#for_window [instance="^Download"]      floating enable
+for_window [window_role="^About"]      floating enable
+for_window [instance="^Update"]        floating enable
+for_window [instance="^gcalctool"]     floating enable
+for_window [instance="^gnome-keyring"] floating enable
+for_window [instance="^file_progress"] floating enable
+for_window [title="^Compression"]      floating enable
+for_window [class="^Control-center"]   floating enable
+for_window [class="^B2G$"]             floating enable
+
+# >>>
+
+#|=============================================================================
+#| wmii-like keybindings <<<
+#|=============================================================================
+
+# Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+[asdf])
+bind $mod+38 layout tabbed
+bind $mod+39 layout stacked
+bind $mod+40 layout default
+bind $mod+41 fullscreen
+
+# Toggle global fullscreen                                       ($mod+shift+f)
+bind $mod+Shift+41 fg
+
+# Switch between tiling/floating layers                            ($mod+Space)
+bind $mod+65 focus mode_toggle
+
+# Send client to tiling/floating layer                       ($mod+Shift+Space)
+bind $mod+Shift+65 floating toggle
+
+# Kill current window                                                  ($mod+w)
+bind $mod+25 kill
+
+# Focus Window, Vim-style                                         ($mod+[hjkl])
+bind $mod+43 focus left
+bind $mod+44 focus down
+bind $mod+45 focus up
+bind $mod+46 focus right
+# Focus Window, using cursor keys                                 ($mod+arrows)
+#bindsym $mod+Left  focus left
+#bindsym $mod+Down  focus down
+#bindsym $mod+Up    focus up
+#bindsym $mod+Right focus right
+
+# Move Focused Window, Vim-style                            ($mod+Shift+[hjkl])
+bind $mod+Shift+43 move left
+bind $mod+Shift+44 move down
+bind $mod+Shift+45 move up
+bind $mod+Shift+46 move right
+# Move Focused Window, using cursor keys                    ($mod+Shift+arrows)
+#bindsym $mod+Shift+Left  move left
+#bindsym $mod+Shift+Down  move down
+#bindsym $mod+Shift+Up    move up
+#bindsym $mod+Shift+Right move right
+
+# Workspaces [1…12]                                       ($mod+[1234567890-=])
+bind $mod+10 workspace $w01
+bind $mod+11 workspace $w02
+bind $mod+12 workspace $w03
+bind $mod+13 workspace $w04
+bind $mod+14 workspace $w05
+bind $mod+15 workspace $w06
+bind $mod+16 workspace $w07
+bind $mod+17 workspace $w08
+bind $mod+18 workspace $w09
+bind $mod+19 workspace $w10
+bind $mod+20 workspace $w11
+bind $mod+21 workspace $w12
+
+# Move to Workspace [1…12]                          ($mod+Shift+[1234567890-=])
+bind $mod+Shift+10 move workspace $w01
+bind $mod+Shift+11 move workspace $w02
+bind $mod+Shift+12 move workspace $w03
+bind $mod+Shift+13 move workspace $w04
+bind $mod+Shift+14 move workspace $w05
+bind $mod+Shift+15 move workspace $w06
+bind $mod+Shift+16 move workspace $w07
+bind $mod+Shift+17 move workspace $w08
+bind $mod+Shift+18 move workspace $w09
+bind $mod+Shift+19 move workspace $w10
+bind $mod+Shift+20 move workspace $w11
+bind $mod+Shift+21 move workspace $w12
+
+# >>>
+
+#|=============================================================================
+#| i3-specific keybindings <<<
+#|=============================================================================
+
+# Resize Containers, Vim-style                            ($mod+Control+[hjkl])
+# see http://bugs.i3wm.org/report/ticket/576
+bind $mod+Control+43 resize shrink right 10 px or 5 ppt
+bind $mod+Control+44 resize grow   down  10 px or 5 ppt
+bind $mod+Control+45 resize shrink down  10 px or 5 ppt
+bind $mod+Control+46 resize grow   right 10 px or 5 ppt
+# Resize Containers, using cursor keys                    ($mod+Control+arrows)
+#bindsym $mod+Control+Left  resize shrink right 10 px or 5 ppt
+#bindsym $mod+Control+Down  resize grow   down  10 px or 5 ppt
+#bindsym $mod+Control+Up    resize shrink down  10 px or 5 ppt
+#bindsym $mod+Control+Right resize grow   right 10 px or 5 ppt
+
+# These [hjkl] bindings trigger as soon as you enter the resize mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+  # Vim-style
+  bind 43 resize shrink right 10 px or 5 ppt
+  bind 44 resize grow   down  10 px or 5 ppt
+  bind 45 resize shrink down  10 px or 5 ppt
+  bind 46 resize grow   right 10 px or 5 ppt
+  # cursor keys
+  #bindsym Left  resize shrink right 10 px or 5 ppt
+  #bindsym Down  resize grow   down  10 px or 5 ppt
+  #bindsym Up    resize shrink down  10 px or 5 ppt
+  #bindsym Right resize grow   right 10 px or 5 ppt
+
+  # back to normal: Enter or Escape or Space
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym space  mode "default"
+}
+
+# Previous/Next Workspace                                           ($mod+[ui])
+bind $mod+30 workspace prev
+bind $mod+31 workspace next
+
+# Back to last workspace                                               ($mod+')
+bind $mod+48 workspace back_and_forth
+workspace_auto_back_and_forth yes
+
+# Reload i3 configuration                                        ($mod+Shift+r)
+bind $mod+Shift+27 reload
+
+# Restart i3 inplace                                     ($mod+Shift+BackSpace)
+bind $mod+Shift+22 restart
+
+# Exit i3                                                 ($mod+Ctrl+BackSpace)
+bind $mod+Control+22 exit
+
+# Split (horizontal/vertical)                                  ($mod[+Shift]+o)
+bind $mod+32       split v
+bind $mod+Shift+32 split h
+bind $mod+47       focus parent
+
+# Cycle through border styles                                          ($mod+b)
+# (note: does not apply to tabbed containers)
+bind $mod+56 border toggle
+
+# >>>
+
+#|=============================================================================
+#| applications & scripts <<<
+#|=============================================================================
+
+# Start a new terminal                                             ($mod+Enter)
+bind $mod+36 exec $terminal                              
+
+# Lock i3                                                    ($mod+Shift+Enter)
+bind $mod+Shift+36 exec $lock
+
+# Application launcher                                                 ($mod+p)
+# Beware of gnome-settings-daemon:
+# http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut 
+# http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display 
+bind $mod+33 exec $launcher
+
+# Autostart
+# Note: 'autostart' is a user script
+exec $(autostart gtk)
+#exec autostart gtk
+#workspace "$w08"; exec $terminal
+#exec $terminal
+
+# File Browser                                                         ($mod+N)
+bind $mod+57 exec $(nautilus --no-desktop)
+
+# System Monitor                                                       ($mod+M)
+bind $mod+58 exec gnome-system-monitor
+
+# Toggle Desktop Panel                                     ($mod+Control+Space)
+bind $mod+Control+65 exec panel-toggle
+
+# Dvorak-compliant undo/cut/copy/paste (not working)              ($mod+[zxcv])
+#bind $mod+52 exec $(xdotool key ctrl+z)
+#bind $mod+53 exec $(xdotool key ctrl+x)
+#bind $mod+54 exec $(xdotool key ctrl+c)
+#bind $mod+55 exec $(xdotool key ctrl+v)
+bind $mod+52 exec xdo-undo
+bind $mod+53 exec xdo-cut
+bind $mod+54 exec xdo-copy
+bind $mod+55 exec xdo-paste
+
+# Note: 'paudio' is a user script
+bindsym XF86AudioMute        exec $(paudio mute)
+bindsym XF86AudioRaiseVolume exec $(paudio raise)
+bindsym XF86AudioLowerVolume exec $(paudio lower)
+
+# >>>
+
+# vim: set foldmethod=marker foldmarker=<<<,>>> foldlevel=0 filetype=config:
