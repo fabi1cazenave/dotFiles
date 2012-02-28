@@ -84,7 +84,7 @@
 ;|===========================================================================
 
 ;; Hide menubar in CLI mode
-(if (window-system) (menu-bar-mode 1) (menu-bar-mode 0))
+(menu-bar-mode (window-system))
 
 ;; Enable mouse in CLI mode
 (xterm-mouse-mode t)
