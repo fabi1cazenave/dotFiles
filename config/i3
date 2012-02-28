@@ -345,3 +345,4 @@ bindsym XF86AudioLowerVolume exec $(paudio lower)
 # >>>
 
 # vim: set foldmethod=marker foldmarker=<<<,>>> foldlevel=0 filetype=config:
+
