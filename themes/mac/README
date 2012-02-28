@@ -1,0 +1,9 @@
+This is a Mac OSX-like gtk key theme:
+ - alt+arrows = word movements
+ - super+arrows = paragraph movements
+
+Possibly useful links:
+ - http://mail.gnome.org/archives/commits-list/2011-January/msg11124.html
+ - http://pastebin.ch/5314 
+
+Still experimental, use at your own risk.
