@@ -4,6 +4,7 @@
 #| Charset       : UTF-8
 #| License       : WTFPL
 #| Last Modified : 2012-01-14
+#| vim           : set fdm=marker:fmr=<<<,>>>:fdl=0:
 #|
 
 # <<<
@@ -50,7 +51,7 @@
 # >>>
 
 #|=============================================================================
-#| general <<<
+#|    general                                                               <<<
 #|=============================================================================
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
@@ -108,7 +109,7 @@ client.focused_inactive   #333333 #444444 #ffffff
 # >>>
 
 #|=============================================================================
-#| workspaces <<<
+#|    workspaces                                                            <<<
 #|=============================================================================
 
 # Workspace names:
@@ -158,7 +159,7 @@ for_window [class="^B2G$"]             floating enable
 # >>>
 
 #|=============================================================================
-#| wmii-like keybindings <<<
+#|    wmii-like keybindings                                                 <<<
 #|=============================================================================
 
 # Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+[asdf])
@@ -232,7 +233,7 @@ bind $mod+Shift+21 move workspace $w12
 # >>>
 
 #|=============================================================================
-#| i3-specific keybindings <<<
+#|    i3-specific keybindings                                               <<<
 #|=============================================================================
 
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
@@ -296,7 +297,7 @@ bind $mod+56 border toggle
 # >>>
 
 #|=============================================================================
-#| applications & scripts <<<
+#|    applications & scripts                                                <<<
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
@@ -343,6 +344,4 @@ bindsym XF86AudioRaiseVolume exec $(paudio raise)
 bindsym XF86AudioLowerVolume exec $(paudio lower)
 
 # >>>
-
-# vim: set foldmethod=marker foldmarker=<<<,>>> foldlevel=0 filetype=config:
 

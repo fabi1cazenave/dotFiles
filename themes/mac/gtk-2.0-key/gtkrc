@@ -81,3 +81,4 @@ binding "gtk-vi-text-view" {
   bind "h" { "move-cursor" (logical-positions, -1, 0) }
 }
 #class "GtkTextView" binding "gtk-vi-text-view"
+

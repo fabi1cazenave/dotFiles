@@ -3,43 +3,45 @@
 "| Last modified : 2012-02-05
 "| Author        : Fabien Cazenave
 "| Licence       : WTFPL
+"| vim           : set fdm=marker:fmr=<<<,>>>:fdl=0:
+"|
+"| See also these .vimrc files:
+"|   https://gist.github.com/1689941#file_.vimrc
+"|   http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+"|   http://www.slackorama.com/projects/vim/vimrc.html
+"|   http://amix.dk/vim/vimrc.html
+"|
+"| Other valuable Vim stuff:
+"|   http://www.reddit.com/r/vim/
+"|   http://amix.dk/blog/viewLabelPosts/5
 "|
 
-" source the .vimrc file on save to apply all changes immediately
+" source configuration files on save to apply all changes immediately
 if has("autocmd")
   autocmd! BufWritePost .vimrc      source ~/.vimrc
+  autocmd! BufWritePost vimrc       source ~/.vimrc
   autocmd! BufWritePost .Xresources !xrdb -load ~/.Xresources
+  autocmd! BufWritePost Xresources  !xrdb -load ~/.Xresources
   autocmd! BufWritePost .gtkrc-2.0  !gtkrc-reload
+  autocmd! BufWritePost gtkrc-2.0   !gtkrc-reload
   autocmd! BufWritePost gtkrc       !gtkrc-reload
-endif 
-
-" see also these interesting .vimrc files:
-" http://thomas.tanreisoftware.com/?p=82
-" http://www.slackorama.com/projects/vim/vimrc.html
-" http://www.dotfiles.com/files/9/451_.vimrc
-" http://www.dotfiles.com/files/9/53_.vimrc
-" http://amix.dk/vim/vimrc.html
-" http://amix.dk/blog/viewLabelPosts/5
-" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
-"
-
-"set sessionoptions="blank,buffers,curdir,folds,help,localoptions,options,resize,slash,tabpages,unix,winpos,winsize"
-"set sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize"
-"set sessionoptions="folds,tabpages,winsize"
-
+endif
 
 "|============================================================================
-"|    Pathogen
+"|    Plugins                                                              <<<
 "|============================================================================
+
+"|    Pathogen                                                             <<<
+"|----------------------------------------------------------------------------
 
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 filetype plugin indent on
+">>>
 
-"|============================================================================
-"|    Tabular
-"|============================================================================
+"|    Tabular                                                              <<<
+"|----------------------------------------------------------------------------
 " http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
 
 if exists(":Tabularize")
@@ -50,10 +52,10 @@ if exists(":Tabularize")
   "nmap <Leader>a: :Tabularize /:\zs<CR>
   "vmap <Leader>a: :Tabularize /:\zs<CR>
 endif
+">>>
 
-"|============================================================================
-"|    Conque Term
-"|============================================================================
+"|    Conque Term                                                          <<<
+"|----------------------------------------------------------------------------
 
 " Assign Alt-Return to a new Conque Term like in dwm/wmii/i3
 " Warning: with xterm you'll have to disable Alt-Return first by adding these
@@ -62,18 +64,18 @@ endif
 " XTerm.omitTranslation: fullscreen
 
 map <silent> <Esc><Return> :ConqueTermSplit bash<CR>
+">>>
 
-"|============================================================================
-"|    Vim-orgmode
-"|============================================================================
+"|    Vim-orgmode                                                          <<<
+"|----------------------------------------------------------------------------
 
 filetype on
 filetype plugin on
 "filetype indent on
+">>>
 
-"|============================================================================
-"|    Ranger as vim file manager
-"|============================================================================
+"|    Ranger as Vim file manager                                           <<<
+"|----------------------------------------------------------------------------
 " http://ornicar.github.com/2011/02/12/ranger-as-vim-file-manager.html
 
 function! Ranger()
@@ -91,15 +93,36 @@ noremap <silent> <Esc>e :call Ranger()<CR>
 
 " when using autosession.vim, add this line to ~/.config/ranger/rc.conf:
 " map e shell vim
+">>>
 
-"|============================================================================
-"|    Zen Coding
-"|============================================================================
+"|    Zen Coding                                                           <<<
+"|----------------------------------------------------------------------------
 
 let g:user_zen_leader_key = '<S-Return>'
+">>>
+
+" comment plugin: ~/.vim/plugin/NERD_commenter.vim
+" see: http://www.vim.org/scripts/script.php?script_id=1218
+
+" web browser plugin: ~/.vim/plugin/browser.vim
+" see: http://www.vim.org/scripts/script.php?script_id=2227
+"vmap ,o :call OpenWebBrowser("<C-R><C-A>")<CR>
+
+"let g:vimwiki_home = "/home/kaze/Documents/wiki/"
+"let g:miniBufExplVSplit = 1
+
+"noremap <Esc><Return> :exe ":Project"<CR>
+
+" tags: ~/.vim/plugin/taglist.vim
+" see: http://www.vim.org/scripts/script.php?script_id=273
+"noremap <silent> <M-t> :Tlist<CR>
+"noremap <silent> <Esc>t :Tlist<CR>
+"let Tlist_Use_Right_Window = 1
+
+">>> plugins
 
 "|============================================================================
-"|    Terminal
+"|    Terminal                                                             <<<
 "|============================================================================
 
 set title
@@ -131,14 +154,20 @@ if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
   exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
 endif
 
+" GNU screen
+"http://www.semicomplete.com/blog/productivity/39.html
+"map <M-v>  :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
+"map <Esc>v :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
+
 " notify when Xim or another IME is used (not working?)
 "if has('multi_byte_ime')
   "highlight Cursor   guifg=NONE guibg=Green
   "highlight CursorIM guifg=NONE guibg=Purple
 "endif
+">>>
 
 "|============================================================================
-"|    User Interface
+"|    User Interface                                                       <<<
 "|============================================================================
 
 "behave mswin " ???
@@ -166,14 +195,19 @@ syntax on
 set showtabline=2           " show tabbar even for a single buffer
 
 " highlight nbsp ( )
-highlight NbSp ctermbg=blue guibg=red
-match NbSp /\%xa0/
+"highlight NbSp ctermbg=blue guibg=red
+"match NbSp /\%xa0/
 
 " alternative: highlight non-ASCII chars
 "match Error /[\x7f-\xff]/
 
+" better alternative: listchars
+set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
+set list
+">>>
+
 "|============================================================================
-"|    General settings
+"|    General settings                                                     <<<
 "|============================================================================
 
 "set shell=/bin/zsh
@@ -204,7 +238,7 @@ set softtabstop=2
 
 " indentation
 set expandtab
-set foldmethod=indent
+"set foldmethod=indent
 set cindent
 set smartindent
 "set autoindent
@@ -230,13 +264,15 @@ set t_kD=^?                 " ???
 "map ^H X
 map \e[3~ x
 
+"set sessionoptions="blank,buffers,curdir,folds,help,localoptions,options,resize,slash,tabpages,unix,winpos,winsize"
+"set sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize"
+"set sessionoptions="folds,tabpages,winsize"
+
+">>>
 
 "|============================================================================
-"|    General mappings
+"|    General mappings                                                     <<<
 "|============================================================================
-
-"noremap <S-Return> zz
-"noremap <Esc><Return> :exe ":Project"<CR>
 
 " disable digraph input to make <^> work faster (not working)
 set nodigraph
@@ -280,36 +316,22 @@ noremap <silent> <C-PageDown> :exe "tabmove " . tabpagenr()<CR>
 " file navigation
 noremap gF gf<CR>:tabnew<CR>:bn<CR>:exe "silent! tabmove " . (tabpagenr() - 2)<CR>:tabp<CR>
 
-" tags: ~/.vim/plugin/taglist.vim
-" see: http://www.vim.org/scripts/script.php?script_id=273
-noremap <silent> <M-t> :Tlist<CR>
-"noremap <silent> <Esc>t :Tlist<CR>
-let Tlist_Use_Right_Window = 1
-
-" comment plugin: ~/.vim/plugin/NERD_commenter.vim
-" see: http://www.vim.org/scripts/script.php?script_id=1218
-
-" web browser plugin: ~/.vim/plugin/browser.vim
-" see: http://www.vim.org/scripts/script.php?script_id=2227
-vmap ,o :call OpenWebBrowser("<C-R><C-A>")<CR>
-
-source ~/.vim/mappings.vim
-"source ~/.vim/suckless.vim
-
-"let g:vimwiki_home = "/home/kaze/Documents/wiki/"
-let g:miniBufExplVSplit = 1
-
 " Alt+E to open the file explorer
 "noremap <silent> <M-e>  :Ex<CR>
 "noremap <silent> <Esc>e :Ex<CR>
+">>>
 
-" GNU screen
-"http://www.semicomplete.com/blog/productivity/39.html
-"map <M-v>  :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-"map <Esc>v :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-
+"|============================================================================
+"|    Alt-* mappings                                                       <<<
+"|============================================================================
 " Death to the <Control> key!
-" these Alt+[left-hand] shortcuts aren't so efficient with an AltGr layout
+
+" Note: <Alt>-shortcuts work on xterm, gVim and MacVim (= the 8th bit is set),
+" but are transformed into <Esc> sequences in *rxvt and most terminal
+" emulators (= "8bit-clean" behavior).
+" Quick and dirty way to free all <Alt> shortcuts in gVim: set guioptions-=m
+
+" These Alt+[left-hand] shortcuts aren't so efficient with an AltGr layout
 " but they're still much better on a laptop without right Control key...
 "noremap  <M-r> <C-r>
 "noremap  <M-v> <C-v>
@@ -322,16 +344,6 @@ noremap  <Esc>x <C-x>
 noremap  <Esc>a <C-a>
 inoremap <Esc>o <C-o>
 
-" +1|-1 with C-[j|k] (useful when no right Ctrl key)
-noremap <C-j> <C-x>
-noremap <C-k> <C-a>
-
-" clipboard: cut/copy/paste
-" (requires vim-gtk or vim-gnome with Ubuntu 11.04)
-map <C-x> "+x
-map <C-c> "+y
-map <C-v> "+P
-
 " Meta+[BackSpace|left|right]: word-by-word
 inoremap <Esc><BS> <C-o>dB<C-o>x
 map <M-Left>  <C-Left>
@@ -342,4 +354,74 @@ noremap <C-Up> {
 noremap <C-Down> }
 noremap <M-Up> {
 noremap <M-Down> }
+">>>
+
+"|============================================================================
+"|    QWERTY mappings                                                      <<<
+"|============================================================================
+
+" lazy escape with 'jj'
+inoremap jj <C-[>
+
+" clipboard: cut/copy/paste
+" (requires vim-gtk or vim-gnome with Ubuntu 11.04)
+map <C-x> "+x
+map <C-c> "+y
+map <C-v> "+P
+
+" +1|-1 with C-[j|k] (useful when no right Ctrl key)
+noremap <C-j> <C-x>
+noremap <C-k> <C-a>
+
+" These mappings should be useable with both Vim and Vimperator
+
+"noremap <Esc> zz
+"noremap <Esc><Return> zz
+
+" switching buffers & windows
+"noremap <M-n> :bn<CR>
+"noremap <M-p> :bp<CR>
+"noremap <M-w> <C-w>
+"noremap <M-w><M-w> <C-w><C-w>
+"noremap <Leader>w  <C-w>
+"noremap <Leader>ww <C-w><C-w>
+"
+noremap <Esc>n :bn<CR>
+noremap <Esc>p :bp<CR>
+noremap <Esc>w <C-w>
+noremap <Esc>w<Esc>w <C-w><C-w>
+
+" switching / moving / creating tabs
+"noremap <silent>   <M-y> :tabnew<CR>
+"noremap <silent>   <M-u> :tabprev<CR>
+"noremap <silent>   <M-i> :tabnext<CR>
+"noremap <silent> <S-M-u> :exe "tabmove " .(tabpagenr()-2)<CR>
+"noremap <silent> <S-M-i> :exe "tabmove " . tabpagenr()<CR>
+"
+noremap <silent> <Esc>y :tabnew<CR>
+noremap <silent> <Esc>u :tabprev<CR>
+noremap <silent> <Esc>i :tabnext<CR>
+noremap <silent> <Esc>U :exe "tabmove " .(tabpagenr()-2)<CR>
+noremap <silent> <Esc>I :exe "tabmove " . tabpagenr()<CR>
+
+" code completion
+"inoremap <M-j> <C-n>
+"inoremap <M-k> <C-p>
+" alternative: use <Tab> for auto-completion in insertion mode
+inoremap <Tab> <C-n>
+inoremap <S-Tab> <C-p>
+"inoremap <Esc>i <C-x><C-o>
+"inoremap <Esc><Tab> <C-x><C-o>
+
+" Omnicomplete
+"inoremap <M-f> <C-x><C-o>
+"inoremap <M-j> <C-o>
+"inoremap <M-k> <C-p>
+"inoremap <Esc>f <C-x><C-o>
+"inoremap <Esc>j <Down>
+"inoremap <Esc>k <Up>
+"inoremap <Esc>j <C-o>
+"inoremap <Esc>k <C-p>
+
+">>>
 

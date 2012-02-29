@@ -3,6 +3,7 @@
 ;| Last modified : 2011-12-13
 ;| Author        : Fabien Cazenave
 ;| Licence       : WTFPL
+;| Vim           : set ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
 ;|
 
 (custom-set-variables
@@ -22,9 +23,8 @@
   ;; If there is more than one, they won't work right.
  )
 
-
 ;|===========================================================================
-;|   General Preferences
+;|    General Preferences                                                 <<<
 ;|===========================================================================
 
 ;; No bell, thanks.
@@ -78,9 +78,10 @@
     (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
 (global-set-key [f11] 'fullscreen)
 
+;;>>>
 
 ;|===========================================================================
-;|   Input Mode
+;|   Input Mode                                                           <<<
 ;|===========================================================================
 
 ;; Hide menubar in CLI mode
@@ -108,13 +109,14 @@
 ;; not as natural to use as ErgoEmacs but brings C-[z|x|c|v] shortcuts
 ;(cua-mode 1)
 
-;; Notepad-Mode
+;; Notepad-Mode: https://github.com/fabi1cazenave/gnupad
 ;; extends CUA-Mode with a few ErgoEmacs features
 (load-file "~/.emacs.d/notepad.el")
 
+;;>>>
 
 ;|===========================================================================
-;|   Org-Mode Settings
+;|   Org-Mode Settings                                                    <<<
 ;|===========================================================================
 ; because Org is the only reason why I sometimes use Emacs ;-)
 
@@ -130,3 +132,5 @@
 (setq org-default-notes-file "~/Documents/org/quicktasks.org")
 (setq org-agenda-files (list "~/Documents/org/todo.org"
                              "~/Documents/org/tutorial.org"))
+;;>>>
+
