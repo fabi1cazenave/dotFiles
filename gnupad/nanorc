@@ -1,0 +1,65 @@
+#|
+#| File          : ~/.nanorc
+#| Last modified : 2012-02-28
+#| Author        : Fabien Cazenave
+#| Licence       : WTFPL
+#|
+#| This configuration file should bring a Notepad-like behavior to Nano.
+#|
+#| References:
+#|  man nanorc
+#|  /usr/share/doc/nano/examples/nanorc.sample (or equivalent)
+#|
+
+## Notepad-like keybindings
+# cut/copy/paste
+bind ^X cut          main
+bind ^C copytext     main
+bind ^V uncut        main
+# undo/redo
+bind ^Z undo         all
+bind ^Y redo         all
+# find/replace
+bind ^F whereis      main
+bind ^G replace      main
+bind F3 searchagain  main
+# save/quit/help
+bind ^S writeout     all
+bind ^Q exit         all
+bind ^H help         all
+
+## Other keybindings
+# Emacs-like mark (shift+arrow won't work)
+bind ^Space  mark main
+bind M-Space mark main
+
+## Bonus: syntax highlighting
+include "/usr/share/nano/asm.nanorc"
+include "/usr/share/nano/awk.nanorc"
+include "/usr/share/nano/cmake.nanorc"
+include "/usr/share/nano/c.nanorc"
+include "/usr/share/nano/css.nanorc"
+include "/usr/share/nano/debian.nanorc"
+include "/usr/share/nano/fortran.nanorc"
+include "/usr/share/nano/gentoo.nanorc"
+include "/usr/share/nano/groff.nanorc"
+include "/usr/share/nano/html.nanorc"
+include "/usr/share/nano/java.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/man.nanorc"
+include "/usr/share/nano/mgp.nanorc"
+include "/usr/share/nano/mutt.nanorc"
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/objc.nanorc"
+include "/usr/share/nano/ocaml.nanorc"
+include "/usr/share/nano/patch.nanorc"
+include "/usr/share/nano/perl.nanorc"
+include "/usr/share/nano/php.nanorc"
+include "/usr/share/nano/pov.nanorc"
+include "/usr/share/nano/python.nanorc"
+include "/usr/share/nano/ruby.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/tcl.nanorc"
+include "/usr/share/nano/tex.nanorc"
+include "/usr/share/nano/xml.nanorc"
+
