@@ -1,6 +1,0 @@
-Emulating a standard (notepad-like) behavior in GNU Emacs and GNU nano:
-  * Ctrl+[x|c|v] => cut | copy | paste
-  * Ctrl+[o|s|q] => open | save | quit
-  * Ctrl+[f|g]   => search | replace
-  * etc.
-
