@@ -2,7 +2,7 @@
 ;| File          : ~/emacs.d/notepad.el
 ;| Version       : 0.1
 ;| Last modified : 2011-08-05
-;| Author        : Fabien Cazenave <fabien@cazenave.cc>
+;| Author        : Fabien Cazenave
 ;| License       : WTFPL
 ;|
 ;| This configuration file should bring a Notepad-like behavior to Emacs.
