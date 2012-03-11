@@ -1,4 +1,4 @@
-Here’s a copy of most of my configuration files.
+Here’s a copy of most of my configuration files, mostly Vim-oriented.
 WTFPL license. Use at your own risk.
 
 As git can’t easily handle symlinks, I recommend cloning this repository onto

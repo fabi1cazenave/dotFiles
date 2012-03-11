@@ -4,7 +4,7 @@
 #| Charset       : UTF-8
 #| License       : WTFPL
 #| Last Modified : 2012-01-14
-#| vim           : set fdm=marker:fmr=<<<,>>>:fdl=0:
+#| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:
 #|
 
 # <<<

@@ -3,7 +3,7 @@
 ;| Last modified : 2011-12-13
 ;| Author        : Fabien Cazenave
 ;| Licence       : WTFPL
-;| Vim           : set ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
+;| Vim           : ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
 ;|
 
 (custom-set-variables
@@ -100,6 +100,11 @@
 ;; funny but very limited and way to slow in "insert" mode
 ;(setq viper-mode t)
 ;(require 'viper)
+
+;; Other Vim modes: (untested)
+;; Vimpulse:  http://emacswiki.org/emacs/Vimpulse
+;; Vim-Mode:  http://emacswiki.org/emacs/VimMode
+;; Evil-Mode: http://emacswiki.org/emacs/Evil
 
 ;; ErgoEmacs
 ;; brings most standard shortcuts to Emacs, adds interesting stuff

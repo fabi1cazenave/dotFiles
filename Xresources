@@ -22,10 +22,13 @@ xterm*foreground      : white
 xterm*cursorColor     : green
 xterm*saveLines       : 32767
 xterm*renderFont      : true
-xterm*faceName        : Monospace
+!xterm*faceName        : Inconsolata
+!xterm*faceName        : Monospace
 !xterm*faceName        : Terminal
 !xterm*faceName        : Terminus
-xterm*faceSize        : 9
+!xterm*faceSize        : 9
+xterm*faceName        : Ubuntumono
+xterm*faceSize        : 11
 
 ! xterm -- lets be 8bit-clean
 xterm*utf8:            1
@@ -58,6 +61,7 @@ rxvt*scrollBar        : false
 rxvt*scrollBar_right  : false
 rxvt*saveLines        : 32767
 rxvt*font             : xft:Monospace:size=9
+!rxvt*font             : xft:Ubuntumono:size=11
 !rxvt*font             : *-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
 !rxvt*boldFont         : *-*-fixed-bold-r-normal--*-*-110-*-*-*-*-iso8859-1
 
@@ -88,7 +92,7 @@ urxvt*saveLines       : 32767
 *color0  : #000000
 *color8  : #666666
 
-! 1: red              
+! 1: red
 *color1  : #cc7777
 *color9  : #cf6171
 
@@ -115,3 +119,4 @@ urxvt*saveLines       : 32767
 ! 7: white
 *color7  : #eeeedd
 *color15 : #ffffee
+

@@ -4,14 +4,11 @@
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
 #|
-#| ~/.inputrc: used by the `readline' library.
+#| ~/.inputrc: used by the GNU readline library.
 #| Note that zsh doesn't use readline.
 #|
 
-# By default, C-x C-r is bound to re-read-init-file.
-set completion-ignore-case on
-
-# Be 8 bit clean.
+# be 8 bit clean
 set input-meta on
 set output-meta on
 set convert-meta off
@@ -24,6 +21,12 @@ set convert-meta off
 "\e[1;3C": forward-word
 "\e[1;3D": backward-word
 
-# Vim style history search
+# lazy tab completion
+set show-all-if-ambiguous on
+set completion-ignore-case on
+set completion-map-case on
+
+# Vim-style history search
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+

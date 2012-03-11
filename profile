@@ -32,6 +32,12 @@ fi
 if [ -d "$HOME/Applications/sdk" ] ; then
     PATH="$HOME/Applications/sdk:$PATH"
 fi
+
+# I hate Java but...
+export JAVA_HOME=/usr/lib/jvm/default-java/bin/
+PATH="$JAVA_HOME:$PATH"
+
+# locale
 export LANGUAGE="fr_FR:en"
 export LC_MESSAGES="fr_FR.UTF-8"
 export LC_CTYPE="fr_FR.UTF-8"
@@ -44,3 +50,4 @@ export LC_COLLATE="fr_FR.UTF-8"
 # vimpager is a shell script that uses Vim as a pager
 export EDITOR=vim
 export PAGER=vimpager
+
