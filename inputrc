@@ -26,7 +26,27 @@ set show-all-if-ambiguous on
 set completion-ignore-case on
 set completion-map-case on
 
-# Vim-style history search
-"\e[A": history-search-backward
-"\e[B": history-search-forward
+# Vim-style history search: Alt+j/k
+"\ej": history-search-forward
+"\ek": history-search-backward
+"\M-j": history-search-forward
+"\M-k": history-search-backward
+
+# Alt+r/s instead of Ctrl+r/s
+"\er": reverse-search-history
+"\es": forward-search-history
+"\M-r": reverse-search-history
+"\M-s": forward-search-history
+
+#set editing-mode vi
+$if mode=vi
+  set keymap vi-command
+  "gg": beginning-of-history
+  "G": end-of-history
+  "j": history-search-forward
+  "k": history-search-backward
+  set keymap vi-insert
+  "jj": vi-movement-mode
+  "\C-w": backward-kill-word
+$endif
 
