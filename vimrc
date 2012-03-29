@@ -20,11 +20,13 @@
 
 " source configuration files on save to apply all changes immediately
 if has("autocmd")
-  autocmd! BufWritePost .vimrc      source ~/.vimrc
   autocmd! BufWritePost _vimrc      source ~/_vimrc
+  autocmd! BufWritePost .vimrc      source ~/.vimrc
   autocmd! BufWritePost vimrc       source ~/.vimrc
   autocmd! BufWritePost .Xresources !xrdb -load ~/.Xresources
   autocmd! BufWritePost Xresources  !xrdb -load ~/.Xresources
+  autocmd! BufWritePost .tmux.conf  !tmux source-file ~/.tmux.conf
+  autocmd! BufWritePost tmux.conf   !tmux source-file ~/.tmux.conf
   autocmd! BufWritePost .gtkrc-2.0  !gtkrc-reload
   autocmd! BufWritePost gtkrc-2.0   !gtkrc-reload
   autocmd! BufWritePost gtkrc       !gtkrc-reload
@@ -36,165 +38,6 @@ endif
 set nocompatible   " required for a multi-level undo/redo stack
 set mouse=a        " enable mouse selection
 
-
-"|============================================================================
-"|    Settings                                                             <<<
-"|============================================================================
-
-"|    Terminal                                                             <<<
-"|----------------------------------------------------------------------------
-
-set title
-
-"set shell=/bin/zsh
-
-" color for xiterm, rxvt, nxterm, color-xterm
-"if has("terminfo")
-  "set t_Co=8
-  "set t_Sf=\e[3%p1%dm
-  "set t_Sb=\e[4%p1%dm
-"else
-  "set t_Co=8
-  "set t_Sf=\e[3%dm
-  "set t_Sb=\e[4%dm
-"endif
-
-" [GNU/Linux] xterm supports 256 colors out of the box
-"             but 'tput colors' returns '8' if ~/.termcap isn't set
-" see: http://zecrazytux.net/Softwares/Perfect_console_session.html
-" XXX [MacOSX] Terminal.app is declared as "xterm-color" but only supports
-"              16 colors, and will blink if forced to more. :-/
-if (&term == 'xterm') || (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
-  set t_Co=256
-endif
-
-" send the current filename to GNU Screen (not working?)
-"if ($TERM=='screen') || ($TERM=='screen-color')
-if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
-  exe "set title titlestring=Vim:%f"
-  exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
-endif
-
-" GNU screen
-"http://www.semicomplete.com/blog/productivity/39.html
-"map <M-v>  :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-"map <Esc>v :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-
-" notify when Xim or another IME is used (not working?)
-"if has('multi_byte_ime')
-  "highlight Cursor   guifg=NONE guibg=Green
-  "highlight CursorIM guifg=NONE guibg=Purple
-"endif
-">>>
-
-"|    User Interface                                                       <<<
-"|----------------------------------------------------------------------------
-
-"behave mswin " ???
-set showmode
-set cursorline
-set showfulltag
-set ruler
-"set laststatus=2 " always show statusline
-
-"set guioptions=reTm
-"set guifont=Monospace\ 9
-"colorscheme desert
-set guioptions=
-set guifont=Ubuntu\ Mono\ 11
-colorscheme kalahari
-syntax on
-
-set showtabline=2           " show tabbar even for a single buffer
-
-" highlight nbsp ( )
-"highlight NbSp ctermbg=blue guibg=red
-"match NbSp /\%xa0/
-
-" alternative: highlight non-ASCII chars
-"match Error /[\x7f-\xff]/
-
-" better alternative: listchars
-"set listchars=tab:▶\ ,trail:◀,extends:»,precedes:«
-set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
-set list
-">>>
-
-"|    General settings                                                     <<<
-"|----------------------------------------------------------------------------
-
-" Is supposed to improve terminal emulation greatly
-set guipty
-set modelines=0
-"set visualbell
-
-" text display
-set number           " set nu
-"set relativenumber   " rnu
-"set scrolloff=5     " number of screen lines to show around the cursor
-set nuw=6           " fixed number width (not working?)
-set showmatch       " when inserting a bracket, briefly jump to its match
-"set filetype=vim    " triggers the FileType event when set (local to buffer)
-
-" use the current file's directory as Vim's working directory
-set autochdir       " XXX not working on MacOSX
-" don't create backupfiles everywhere, but just in ~/.vim/backup
-set backupdir=~/.vim/backup
-set dir=~/.vim/backup
-
-" expand tabs with two spaces (= Mozilla guidelines)
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
-" indentation
-set expandtab
-set cindent
-set smartindent
-"set autoindent
-
-" search settings
-set hlsearch       " highlight search results
-set incsearch      " incremental search: find as you type
-set ignorecase     " search is case-insensitive...
-set smartcase      " ... except if the search pattern contains upper-case chars
-
-" case-insensitive tab completion
-set wildmode=longest:list
-if exists("&wildignorecase")
-  set wildignorecase
-endif
-
-" disable incrementation of octal numbers
-set nrformats=hex
-
-" imported Zenwalk settings (ZenWalk rulez)
-set updatecount=0   " number of characters typed to cause a swap file update
-set backspace=2     " <BackSpace> behavior in Insert mode
-set textwidth=80    " line length above which to break a line (local to buffer)
-set nowrap
-set nowrapscan
-"let c_comment_strings=1     " ???
-"set t_kD=^?                 " ???
-" delete / backspace
-"map ^H X
-"map \e[3~ x
-
-"set sessionoptions="blank,buffers,curdir,folds,help,localoptions,options,resize,slash,tabpages,unix,winpos,winsize"
-"set sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize"
-"set sessionoptions="folds,tabpages,winsize"
-
-" trailing whitespace kills puppies
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-">>>
-
-">>>
 
 "|============================================================================
 "|    Plugins                                                              <<<
@@ -305,6 +148,164 @@ set completeopt=menuone,longest,preview
 "let Tlist_Use_Right_Window = 1
 
 ">>> plugins
+
+"|============================================================================
+"|    Settings                                                             <<<
+"|============================================================================
+
+"|    Terminal                                                             <<<
+"|----------------------------------------------------------------------------
+
+set title
+
+"set shell=/bin/zsh
+
+" color for xiterm, rxvt, nxterm, color-xterm
+"if has("terminfo")
+  "set t_Co=8
+  "set t_Sf=\e[3%p1%dm
+  "set t_Sb=\e[4%p1%dm
+"else
+  "set t_Co=8
+  "set t_Sf=\e[3%dm
+  "set t_Sb=\e[4%dm
+"endif
+
+" [GNU/Linux] xterm supports 256 colors out of the box
+"             but 'tput colors' returns '8' if ~/.termcap isn't set
+" see: http://zecrazytux.net/Softwares/Perfect_console_session.html
+" XXX [MacOSX] Terminal.app is declared as "xterm-color" but only supports
+"              16 colors, and will blink if forced to more. :-/
+if (&term == 'xterm') || (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
+  set t_Co=256
+endif
+
+" send the current filename to GNU Screen / tmux
+"if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
+  "exe "set title titlestring=Vim:%f"
+  "exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
+"endif
+
+" GNU screen
+"http://www.semicomplete.com/blog/productivity/39.html
+"map <M-v>  :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
+"map <Esc>v :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
+
+" notify when Xim or another IME is used (not working?)
+"if has('multi_byte_ime')
+  "highlight Cursor   guifg=NONE guibg=Green
+  "highlight CursorIM guifg=NONE guibg=Purple
+"endif
+">>>
+
+"|    User Interface                                                       <<<
+"|----------------------------------------------------------------------------
+
+"behave mswin " ???
+set showmode
+set cursorline
+set showfulltag
+set ruler
+"set laststatus=2 " always show statusline
+
+"set guioptions=reTm
+"set guifont=Monospace\ 9
+"colorscheme desert
+set guioptions=
+set guifont=Ubuntu\ Mono\ 11
+colorscheme kalahari        " https://github.com/fabi1cazenave/kalahari.vim
+syntax on
+
+set showtabline=2           " show tabbar even for a single buffer
+
+" highlight nbsp ( )
+"highlight NbSp ctermbg=blue guibg=red
+"match NbSp /\%xa0/
+
+" alternative: highlight non-ASCII chars
+"match Error /[\x7f-\xff]/
+
+" better alternative: listchars
+"set listchars=tab:▶\ ,trail:◀,extends:»,precedes:«
+set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
+set list
+">>>
+
+"|    General settings                                                     <<<
+"|----------------------------------------------------------------------------
+
+" Is supposed to improve terminal emulation greatly
+set guipty
+set modelines=0
+"set visualbell
+
+" text display
+set number           " set nu
+"set relativenumber   " rnu
+"set scrolloff=5     " number of screen lines to show around the cursor
+set nuw=6           " fixed number width (not working?)
+set showmatch       " when inserting a bracket, briefly jump to its match
+"set filetype=vim    " triggers the FileType event when set (local to buffer)
+
+" use the current file's directory as Vim's working directory
+set autochdir       " XXX not working on MacOSX
+" don't create backupfiles everywhere, but just in ~/.vim/backup
+set backupdir=~/.vim/backup
+set dir=~/.vim/backup
+
+" expand tabs with two spaces (= Mozilla guidelines)
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+" indentation
+set expandtab
+set cindent
+set smartindent
+"set autoindent
+
+" search settings
+set hlsearch       " highlight search results
+set incsearch      " incremental search: find as you type
+set ignorecase     " search is case-insensitive...
+set smartcase      " ... except if the search pattern contains upper-case chars
+
+" case-insensitive tab completion
+set wildmode=longest:list
+if exists("&wildignorecase")
+  set wildignorecase
+endif
+
+" disable incrementation of octal numbers
+set nrformats=hex
+
+" imported Zenwalk settings (ZenWalk rulez)
+set updatecount=0   " number of characters typed to cause a swap file update
+set backspace=2     " <BackSpace> behavior in Insert mode
+set textwidth=80    " line length above which to break a line (local to buffer)
+set nowrap
+set nowrapscan
+"let c_comment_strings=1     " ???
+"set t_kD=^?                 " ???
+" delete / backspace
+"map ^H X
+"map \e[3~ x
+
+"set sessionoptions="blank,buffers,curdir,folds,help,localoptions,options,resize,slash,tabpages,unix,winpos,winsize"
+"set sessionoptions="blank,buffers,curdir,folds,help,options,tabpages,winsize"
+"set sessionoptions="folds,tabpages,winsize"
+
+" trailing whitespace kills puppies
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+">>>
+
+">>>
 
 "|============================================================================
 "|    Mappings                                                             <<<
