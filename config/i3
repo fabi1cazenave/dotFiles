@@ -63,7 +63,8 @@ floating_modifier $mod
 
 # define your preferred terminal - you can refer to this as $terminal later
 #set $terminal /usr/bin/uxterm
-set $terminal $(/usr/bin/uxterm -e ranger)
+#set $terminal $(/usr/bin/uxterm -e ranger)
+set $terminal $(/usr/bin/uxterm -e tmux -2)
 
 # define your preferred application launcher
 #set $launcher /usr/bin/gmrun
@@ -154,7 +155,9 @@ for_window [instance="^gnome-keyring"] floating enable
 for_window [instance="^file_progress"] floating enable
 for_window [title="^Compression"]      floating enable
 for_window [class="^Control-center"]   floating enable
+for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
+for_window [class="^B2g$"]             floating enable
 
 # >>>
 
@@ -301,7 +304,7 @@ bind $mod+56 border toggle
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
-bind $mod+36 exec $terminal                              
+bind $mod+36 exec $terminal
 
 # Lock i3                                                    ($mod+Shift+Enter)
 bind $mod+Shift+36 exec $lock

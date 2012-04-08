@@ -3,7 +3,7 @@
 ;| Last modified : 2011-12-13
 ;| Author        : Fabien Cazenave
 ;| Licence       : WTFPL
-;| Vim           : ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
+;| vim:ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
 ;|
 
 (custom-set-variables
@@ -47,6 +47,11 @@
 (line-number-mode t)
 ;; 1-char separation in CLI mode becomes 2 in GUI mode (Emacs really sucks!)
 (if (window-system) (setq linum-format "%4d") (setq linum-format "%4d "))
+
+;; no splash screen, no toolbar, no scroll bars
+(setq inhibit-splash-screen t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; Navigate windows with M-<arrows>
 ;(windmove-default-keybindings 'meta)
@@ -117,6 +122,14 @@
 ;; Notepad-Mode: https://github.com/fabi1cazenave/gnupad
 ;; extends CUA-Mode with a few ErgoEmacs features
 (load-file "~/.emacs.d/notepad.el")
+
+;;>>>
+
+;|===========================================================================
+;|   Other Mappings                                                       <<<
+;|===========================================================================
+
+;(global-set-key (kbd "M-v") 'split-window-horizontally)
 
 ;;>>>
 

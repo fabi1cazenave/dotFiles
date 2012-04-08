@@ -176,9 +176,9 @@ set title
 " see: http://zecrazytux.net/Softwares/Perfect_console_session.html
 " XXX [MacOSX] Terminal.app is declared as "xterm-color" but only supports
 "              16 colors, and will blink if forced to more. :-/
-if (&term == 'xterm') || (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
+"if (&term == 'xterm') || (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
   set t_Co=256
-endif
+"endif
 
 " send the current filename to GNU Screen / tmux
 "if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
@@ -215,6 +215,9 @@ set guioptions=
 set guifont=Ubuntu\ Mono\ 11
 colorscheme kalahari        " https://github.com/fabi1cazenave/kalahari.vim
 syntax on
+
+"http://vim.wikia.com/wiki/Fix_syntax_highlighting
+"autocmd BufEnter * :syntax sync fromstart
 
 set showtabline=2           " show tabbar even for a single buffer
 
@@ -399,23 +402,30 @@ noremap <C-Up> {
 noremap <C-Down> }
 noremap <M-Up> {
 noremap <M-Down> }
+
+" experimental: escaped movements / on-the-fly code completion
+"inoremap <Esc> <C-o>
+inoremap <Esc>h <C-o>^
+inoremap <Esc>j <C-n>
+inoremap <Esc>k <C-p>
+inoremap <Esc>l <C-o>$
+"inoremap <Esc>w <C-o>w
+"inoremap <Esc>e <C-o>e
+"inoremap <Esc>b <C-o>b
+
+" lazy command-line history: hold down Meta, dot, j|k
+noremap <Esc>. :
+cnoremap <Esc>j <Down>
+cnoremap <Esc>k <Up>
 ">>>
 
 "|    QWERTY mappings                                                      <<<
 "|----------------------------------------------------------------------------
 
-" lazy escape with 'jj'
-inoremap jj <C-[>
+" lazy escape with 'kj'
+inoremap kj <Esc>`^
+cnoremap kj <Esc>`^
 
-" clipboard: cut/copy/paste
-" (requires vim-gtk or vim-gnome with Ubuntu 11.04)
-"map <C-x> "+x
-"map <C-c> "+y
-"map <C-v> "+P
-
-" +1|-1 with C-[j|k] (useful when no right Ctrl key)
-"noremap <C-j> <C-x>
-"noremap <C-k> <C-a>
 
 " These mappings should be useable with both Vim and Vimperator
 

@@ -6,12 +6,18 @@
 #|
 #| ~/.inputrc: used by the GNU readline library.
 #| Note that zsh doesn't use readline.
+#| Use C-x C-r to reload this configuration file.
 #|
 
 # be 8 bit clean
 set input-meta on
 set output-meta on
 set convert-meta off
+
+# lazy tab completion
+#set show-all-if-ambiguous on
+set completion-ignore-case on
+set completion-map-case on
 
 # Ctrl+arrows
 "\e[1;5C": forward-word
@@ -21,12 +27,18 @@ set convert-meta off
 "\e[1;3C": forward-word
 "\e[1;3D": backward-word
 
-# lazy tab completion
-set show-all-if-ambiguous on
-set completion-ignore-case on
-set completion-map-case on
+# Vim-style word movement: Alt+[w|e|b]
+"\ew": forward-word
+"\ee": forward-word
+"\eb": backward-word
 
-# Vim-style history search: Alt+j/k
+# Alt+[h|l]
+"\eh": beginning-of-line
+"\el": end-of-line
+"\M-h": beginning-of-line
+"\M-l": end-of-line
+
+# Vim-style history search: Alt+[j|k]
 "\ej": history-search-forward
 "\ek": history-search-backward
 "\M-j": history-search-forward

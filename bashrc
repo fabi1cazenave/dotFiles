@@ -1,6 +1,6 @@
 #|
 #| File          : ~/.bashrc
-#| Last modified : 2012-02-25
+#| Last modified : 2012-04-08
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
 #|
@@ -8,7 +8,7 @@
 #| See /usr/share/doc/bash/examples/startup-files for examples
 #| (in the bash-doc package)
 #|
-#| This is Ubuntu's default ~/.bashrc with a couple tweaks.
+#| This is Ubuntu's default ~/.bashrc with a couple tweaks (mostly aliases).
 #|
 
 # If not running interactively, don't do anything
@@ -59,6 +59,7 @@ if [ -n "$force_color_prompt" ]; then
   fi
 fi
 
+# see also: http://www.askapache.com/linux/bash-power-prompt.html
 if [ "$color_prompt" = yes ]; then
   PS1='\t ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] $(__git_ps1 ["%s"])\n\$ '
 else
@@ -93,6 +94,13 @@ alias ll='ls -lh'
 alias la='ls -A'
 alias l='ls -C'
 
+# smart SSH agent: http://beyond-syntax.com/blog/2012/01/on-demand-ssh-add/
+#                  (see also: https://gist.github.com/1998129)
+alias ssh="( ssh-add -l > /dev/null || ssh-add ) && ssh"
+alias gpush="( ssh-add -l > /dev/null || ssh-add ) && git push"
+alias gpull="( ssh-add -l > /dev/null || ssh-add ) && git pull"
+alias gfetch="( ssh-add -l > /dev/null || ssh-add ) && git fetch"
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -112,3 +120,7 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
   . /etc/bash_completion
 fi
+
+# prevent ^S and ^Q doing XON/XOFF (mostly for Vim)
+#stty -ixon
+

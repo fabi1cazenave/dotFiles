@@ -15,18 +15,14 @@ xft*dpi       : 96
 
 ! xterm -- what else?
 !xterm*utf8            : 1
-!xterm*background      : black
-!xterm*background      : rgb:4D/4D/4D
 xterm*background      : rgb:33/33/33
 xterm*foreground      : white
 xterm*cursorColor     : green
 xterm*saveLines       : 32767
 xterm*renderFont      : true
-!xterm*faceName        : Inconsolata
-!xterm*faceName        : Monospace
-!xterm*faceName        : Terminal
-!xterm*faceName        : Terminus
-!xterm*faceSize        : 9
+
+! xterm -- preferred fonts:
+! Inconsolata, Monaco, Monospace, Terminal, Terminus, Ubuntu.
 xterm*faceName        : Ubuntumono
 xterm*faceSize        : 11
 
@@ -75,7 +71,8 @@ urxvt*cursorColor     : green
 urxvt*scrollBar       : false
 urxvt*scrollBar_right : false
 urxvt*saveLines       : 32767
-!urxvt*font            : xft:DejaVu Sans Mono:pixelsize=10
+!urxvt*font            : xft:DejaVu Sans Mono:pixelsize=12
+urxvt*font            : xft:Monospace:size=11
 !urxvt*font            : *-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
 !urxvt*boldFont        : *-*-fixed-bold-r-normal--*-*-110-*-*-*-*-iso8859-1
 
@@ -87,6 +84,8 @@ urxvt*saveLines       : 32767
 *cursorColor : #93a1a1
 !*pointerColorForeground: #93a1a1
 !*pointerColorBackground: #586e75
+*background  : #333333
+*foreground  : #eeeedd
 
 ! 0: black
 *color0  : #000000
