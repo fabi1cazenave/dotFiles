@@ -64,7 +64,8 @@ floating_modifier $mod
 # define your preferred terminal - you can refer to this as $terminal later
 #set $terminal /usr/bin/uxterm
 #set $terminal $(/usr/bin/uxterm -e ranger)
-set $terminal $(/usr/bin/uxterm -e tmux -2)
+#set $terminal $(/usr/bin/uxterm -e tmux -2)
+set $terminal xfterm
 
 # define your preferred application launcher
 #set $launcher /usr/bin/gmrun
@@ -137,9 +138,11 @@ set $w12 12
 
 # Common apps are sorted by workspace
 assign [class="^Thunderbird"] → $w06
-assign [class="^Firefox"]     → $w07
-assign [class="^Aurora"]      → $w09
-assign [class="^Nightly"]     → $w09
+#assign [class="^Firefox"]     → $w07
+#assign [class="^Aurora"]      → $w09
+#assign [title="^Aurora"]      → $w09
+#assign [title="Aurora$"]      → $w09
+#assign [class="^Nightly"]     → $w09
 assign [class="^VirtualBox"]  → $w10
 assign [class="^Pidgin"]      → $w11
 assign [class="^Skype"]       → $w11
@@ -158,6 +161,7 @@ for_window [class="^Control-center"]   floating enable
 for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
 for_window [class="^B2g$"]             floating enable
+for_window [title="^Debconf"]          floating enable
 
 # >>>
 
@@ -279,6 +283,18 @@ bind $mod+31 workspace next
 bind $mod+48 workspace back_and_forth
 workspace_auto_back_and_forth yes
 
+# Select adjacent output (screen)                                 ($mod+[nm,.])
+bind $mod+57 output left
+bind $mod+58 output down
+bind $mod+59 output up
+bind $mod+60 output right
+
+# Move workspace to adjacent output (screen)                      ($mod+[nm,.])
+bind $mod+Shift+57 move workspace to output left
+bind $mod+Shift+58 move workspace to output down
+bind $mod+Shift+59 move workspace to output up
+bind $mod+Shift+60 move workspace to output right
+
 # Reload i3 configuration                                        ($mod+Shift+r)
 bind $mod+Shift+27 reload
 
@@ -311,8 +327,8 @@ bind $mod+Shift+36 exec $lock
 
 # Application launcher                                                 ($mod+p)
 # Beware of gnome-settings-daemon:
-# http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut 
-# http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display 
+# http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
+# http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 bind $mod+33 exec $launcher
 
 # Autostart
@@ -322,11 +338,11 @@ exec $(autostart gtk)
 #workspace "$w08"; exec $terminal
 #exec $terminal
 
-# File Browser                                                         ($mod+N)
-bind $mod+57 exec $(nautilus --no-desktop)
+# File Browser                                                         ($mod+n)
+#bind $mod+57 exec $(nautilus --no-desktop)
 
-# System Monitor                                                       ($mod+M)
-bind $mod+58 exec gnome-system-monitor
+# System Monitor                                                       ($mod+m)
+#bind $mod+58 exec gnome-system-monitor
 
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
