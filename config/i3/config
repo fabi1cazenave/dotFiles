@@ -3,7 +3,7 @@
 #| Author        : Fabien Cazenave
 #| Charset       : UTF-8
 #| License       : WTFPL
-#| Last Modified : 2012-01-14
+#| Last Modified : 2012-10-12 (requires i3 v4.2+)
 #| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:
 #|
 
@@ -16,16 +16,16 @@
 # ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
 # │     │  w1 │  w2 │  w3 │  w4 │  w5 │  w6 │  w7 │  w8 │  w9 │  w10│  w11│  w12┃          ┃
 # │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
-# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┳━━━━━━━┫
-# ┃        ┃     │close│     │rsize│     │     │ prev│ next│split│start│     │     ┃ term  ┃
-# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   ┃       ┃
-# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┺┓  ⏎   ┃
-# ┃         ┃ tab │stack│ div.│ full│     │focus│focus│focus│focus│focus│focus│     ┃      ┃
-# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h ← │ j ↓ │ k ↑ │ l → │ ;   │ '   │ \   ┃      ┃
-# ┣━━━━━━┳━━┹──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┷━━━━━┻━━━━━━┫
-# ┃      ┃     │     │     │     │     │bordr│     │     │     │     │     ┃               ┃
-# ┃ ⇧    ┃ <   │ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
-# ┣━━━━━━┻┳━━━━┷━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
+# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┯━━━━━━━┩
+# ┃        ┃     │close│     │rsize│     │     │ prev│ next│split│start│     │ }   │ |     │
+# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   │ \     │
+# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┪
+# ┃         ┃ tab │stack│ div.│ full│     │focus│focus│focus│focus│focus│focus┃            ┃
+# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h ← │ j ↓ │ k ↑ │ l → │ ;   │ '   ┃ ⏎          ┃
+# ┣━━━━━━━━━┻━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┻━━━━━━━━━━━━┫
+# ┃            ┃     │     │     │     │bordr│     │     │     │     │     ┃               ┃
+# ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
+# ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
 # ┃       ┃ *mod* ┃       ┃         tiling/floating toggle ┃       ┃       ┃       ┃       ┃
 # ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
@@ -34,16 +34,16 @@
 # ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
 # │  49 │  10 │  11 │ 12  │  13 │  14 │  15 │  16 │  17 │  18 │  19 │  20 │  21 ┃       22 ┃
 # │ `   │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ -   │ =   ┃ ⌫        ┃
-# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┳━━━━━━━┫
-# ┃  23    ┃  24 │  25 │  26 │  27 │  28 │  29 │  30 │  31 │  32 │  33 │  34 │  35 ┃    36 ┃
-# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   ┃       ┃
-# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┺┓  ⏎   ┃
-# ┃  66     ┃  38 │  39 │  40 │  41 │  42 │  43 │  44 │  45 │  46 │  47 │  48 │  63 ┃      ┃
-# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ;   │ '   │ \   ┃      ┃
-# ┣━━━━━━┳━━┹──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┷━━━━━┻━━━━━━┫
-# ┃  50  ┃  94 │  52 │  53 │  54 │  55 │  56 │  57 │  58 │  59 │  60 │  61 ┃            62 ┃
-# ┃ ⇧    ┃ <   │ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
-# ┣━━━━━━┻┳━━━━┷━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
+# ┢━━━━━┷━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┺━━┯━━━━━━━┩
+# ┃  23    ┃  24 │  25 │  26 │  27 │  28 │  29 │  30 │  31 │  32 │  33 │  34 │  35 │    63 │
+# ┃ ↹      ┃ q   │ w   │ e   │ r   │ t   │ y   │ u   │ i   │ o   │ p   │ [   │ ]   │ \     │
+# ┣━━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┲━━━━┷━━━━━━━┪
+# ┃  66     ┃  38 │  39 │  40 │  41 │  42 │  43 │  44 │  45 │  46 │  47 │  48 ┃         36 ┃
+# ┃ ⇬       ┃ a   │ s   │ d   │ f   │ g   │ h   │ j   │ k   │ l   │ ;   │ '   ┃ ⏎          ┃
+# ┣━━━━━━━━━┻━━┱──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┲━━┻━━━━━━━━━━━━┫
+# ┃  50        ┃  52 │  53 │  54 │  55 │  56 │  57 │  58 │  59 │  60 │  61 ┃            62 ┃
+# ┃ ⇧          ┃ z   │ x   │ c   │ v   │ b   │ n   │ m   │ ,   │ .   │ /   ┃ ⇧             ┃
+# ┣━━━━━━━┳━━━━┻━━┳━━┷━━━━┱┴─────┴─────┴─────┴─────┴─────┴─┲━━━┷━━━┳━┷━━━━━╋━━━━━━━┳━━━━━━━┫
 # ┃  37   ┃  Mod4 ┃  Mod1 ┃                             65 ┃    93 ┃   116 ┃   117 ┃   109 ┃
 # ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
@@ -55,25 +55,18 @@
 #|=============================================================================
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
-#set $mod Mod1
 set $mod Mod4
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # define your preferred terminal - you can refer to this as $terminal later
-#set $terminal /usr/bin/uxterm
-#set $terminal $(/usr/bin/uxterm -e ranger)
-#set $terminal $(/usr/bin/uxterm -e tmux -2)
-set $terminal xfterm
+set $terminal roxterm
 
 # define your preferred application launcher
-#set $launcher /usr/bin/gmrun
 set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # define your preferred screen lock
-#set $lock /usr/bin/i3lock
-#set $lock $(/usr/bin/i3lock --color 000000)
 set $lock $(/usr/bin/i3lock -d)
 
 # window font (note: iso10646 = unicode)
@@ -82,8 +75,9 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout tabbed
 
-# default mode: new_window <bp|bn|bb>
-#new_window bp
+# default mode: <normal|1pixel|none|pixel>
+new_window none
+new_float normal
 
 # Statusline (i3bar)
 bar {
@@ -162,6 +156,7 @@ for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
 for_window [class="^B2g$"]             floating enable
 for_window [title="^Debconf"]          floating enable
+for_window [title="^screenkey"]        floating enable
 
 # >>>
 
@@ -326,17 +321,13 @@ bind $mod+36 exec $terminal
 bind $mod+Shift+36 exec $lock
 
 # Application launcher                                                 ($mod+p)
-# Beware of gnome-settings-daemon:
+# beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 bind $mod+33 exec $launcher
 
-# Autostart
-# Note: 'autostart' is a user script
+# Autostart (= personal startup script)
 exec $(autostart gtk)
-#exec autostart gtk
-#workspace "$w08"; exec $terminal
-#exec $terminal
 
 # File Browser                                                         ($mod+n)
 #bind $mod+57 exec $(nautilus --no-desktop)
@@ -347,20 +338,83 @@ exec $(autostart gtk)
 # Toggle Desktop Panel                                     ($mod+Control+Space)
 bind $mod+Control+65 exec panel-toggle
 
-# Dvorak-compliant undo/cut/copy/paste (not working)              ($mod+[zxcv])
-#bind $mod+52 exec $(xdotool key ctrl+z)
-#bind $mod+53 exec $(xdotool key ctrl+x)
-#bind $mod+54 exec $(xdotool key ctrl+c)
-#bind $mod+55 exec $(xdotool key ctrl+v)
-bind $mod+52 exec xdo-undo
-bind $mod+53 exec xdo-cut
-bind $mod+54 exec xdo-copy
-bind $mod+55 exec xdo-paste
+# >>>
 
-# Note: 'paudio' is a user script
-bindsym XF86AudioMute        exec $(paudio mute)
-bindsym XF86AudioRaiseVolume exec $(paudio raise)
-bindsym XF86AudioLowerVolume exec $(paudio lower)
+#|=============================================================================
+#|    generic shortcuts (xdotool powwa!)                                    <<<
+#|=============================================================================
+
+# Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
+bind $mod+53 exec $(xdotool getactivewindow key ctrl+x)
+bind $mod+54 exec $(xdotool getactivewindow key ctrl+c)
+bind $mod+55 exec $(xdotool getactivewindow key ctrl+v)
+
+# Word-by-word movements                                            (alt+arrow)
+bindsym mod1+Left  exec $(xdotool getactivewindow key ctrl+Left)
+bindsym mod1+Down  exec $(xdotool getactivewindow key ctrl+Down)
+bindsym mod1+Up    exec $(xdotool getactivewindow key ctrl+Up)
+bindsym mod1+Right exec $(xdotool getactivewindow key ctrl+Right)
+
+#                                                                 (super+arrow)
+bindsym mod4+Left  exec $(xdotool getactivewindow key Home)
+bindsym mod4+Down  exec $(xdotool getactivewindow key Next)
+bindsym mod4+Up    exec $(xdotool getactivewindow key Prior)
+bindsym mod4+Right exec $(xdotool getactivewindow key End)
+
+# Word-by-word selection                                      (alt+shift+arrow)
+bindsym mod1+Shift+Left  exec $(xdotool getactivewindow key ctrl+shift+Left)
+bindsym mod1+Shift+Down  exec $(xdotool getactivewindow key ctrl+shift+Down)
+bindsym mod1+Shift+Up    exec $(xdotool getactivewindow key ctrl+shift+Up)
+bindsym mod1+Shift+Right exec $(xdotool getactivewindow key ctrl+shift+Right)
+
+#                                                           (super+shift+arrow)
+bindsym mod4+Shift+Left  exec $(xdotool getactivewindow key shift+Home)
+bindsym mod4+Shift+Down  exec $(xdotool getactivewindow key shift+Next)
+bindsym mod4+Shift+Up    exec $(xdotool getactivewindow key shift+Prior)
+bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
+
+# Mouse pointer                                                    ($mod+arrow)
+# bindsym $mod+Left  exec $(xdotool mousemove_relative -- -20   0)
+# bindsym $mod+Down  exec $(xdotool mousemove_relative --   0  20)
+# bindsym $mod+Up    exec $(xdotool mousemove_relative --   0 -20)
+# bindsym $mod+Right exec $(xdotool mousemove_relative --  20   0)
+
+# Mouse clicks                                               ($mod+shift+arrow)
+# bindsym $mod+Shift+Left  exec $(xdotool click 1)
+# bindsym $mod+Shift+Down  exec $(xdotool click 5)
+# bindsym $mod+Shift+Up    exec $(xdotool click 4)
+# bindsym $mod+Shift+Right exec $(xdotool click 3)
+
+# >>>
+
+#|=============================================================================
+#|    multimedia keys (Thinkpad X220)                                       <<<
+#|=============================================================================
+
+# Volume control (pulseaudio)                                  (mute|vol-|vol+)
+# http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
+bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}')
+bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}')
+bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}')
+
+# Playlist control (cmus)                                            (Fn+arrow)
+#bind 121 exec $(cmus-remote --volume 0)
+bind 171 exec $(cmus-remote --next)
+bind 172 exec $(cmus-remote --pause)
+bind 173 exec $(cmus-remote --prev)
+bind 174 exec $(cmus-remote --stop)
+
+# lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
+bind 160 exec $lock
+#bind 244 exec $()
+bind 150 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend)
+bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate)
+
+# ???                                                        (Fn+[F5|F6|F7|F8])
+#bind 246 exec $()
+#bind 220 exec $()
+#bind 235 exec $()
+#bind 199 exec $()
 
 # >>>
 
