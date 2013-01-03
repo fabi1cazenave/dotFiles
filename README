@@ -3,3 +3,4 @@ WTFPL license. Use at your own risk.
 
 As git can’t easily handle symlinks, I recommend cloning this repository onto
 your disk and symlinking every file in your home dir.
+

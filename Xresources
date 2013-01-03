@@ -36,16 +36,6 @@ xterm*eightBitOutput:  true
 xterm*fullscreen: never
 xterm.omitTranslation: fullscreen
 
-! st-256color (so sloooooow)
-st-256color*utf8            : 1
-st-256color*background      : rgb:33/33/33
-st-256color*foreground      : white
-st-256color*cursorColor     : green
-st-256color*saveLines       : 32767
-st-256color*renderFont      : true
-st-256color*faceName        : Monospace
-st-256color*faceSize        : 10
-
 ! rxvt (untested)
 rxvt*loginShell       : true
 rxvt*transparent      : false
@@ -71,20 +61,19 @@ urxvt*cursorColor     : green
 urxvt*scrollBar       : false
 urxvt*scrollBar_right : false
 urxvt*saveLines       : 32767
+URxvt.font            : xft:Liberation Mono:size=9
 !urxvt*font            : xft:DejaVu Sans Mono:pixelsize=12
-urxvt*font            : xft:Monospace:size=11
+!urxvt*font            : xft:Monospace:size=11
 !urxvt*font            : *-*-fixed-medium-r-normal--*-110-*-*-*-*-iso8859-1
 !urxvt*boldFont        : *-*-fixed-bold-r-normal--*-*-110-*-*-*-*-iso8859-1
 
 ! kalahari color theme (xterm, untested with other terminals)
-*fading      : 40
-*fadeColor   : #002233
-*background  : #002233
-*foreground  : #657b83
-*cursorColor : #93a1a1
 !*pointerColorForeground: #93a1a1
 !*pointerColorBackground: #586e75
-*background  : #333333
+*fading      : 40
+*fadeColor   : #002233
+*cursorColor : #93a1a1
+*background  : #222222
 *foreground  : #eeeedd
 
 ! 0: black
