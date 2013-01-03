@@ -1,6 +1,6 @@
 #|
 #| File          : ~/.profile
-#| Last modified : 2012-02-25
+#| Last modified : 2013-01-03
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
 #|
@@ -17,9 +17,8 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
+# when running bash, include ~/.bashrc if it exists
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
@@ -34,14 +33,8 @@ if [ -d "$HOME/Applications/sdk" ] ; then
 fi
 
 # I hate Java but...
-export JAVA_HOME=/usr/lib/jvm/default-java/bin/
+export JAVA_HOME=~/Applications/sdk/jdk1.7.0_04/bin/
 PATH="$JAVA_HOME:$PATH"
-
-# locale
-export LANGUAGE="fr_FR:en"
-export LC_MESSAGES="fr_FR.UTF-8"
-export LC_CTYPE="fr_FR.UTF-8"
-export LC_COLLATE="fr_FR.UTF-8"
 
 # most is a nice, configurable pager
 #export PAGER=most
