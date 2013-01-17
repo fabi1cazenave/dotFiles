@@ -1,0 +1,33 @@
+#!/bin/sh
+#| File          : ~/bin/gsession
+#| Last modified : 2013-01-16
+#| Author        : Fabien Cazenave
+#| Licence       : WTFPL
+#|
+#| Helper script to switch lock/suspend/exit the current session:
+#|   ./gsession [lock|suspend|hibernate|logout|restart|shutdown]
+#|
+
+# lock relies on the screensaver
+screenLock='xdg-screensaver lock'
+
+# suspend/hibernate rely on a dbus message
+dbusPower='dbus-send --system --print-reply '\
+'--dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower'
+
+# logout/restart/shutdown rely on this GTK helper
+gtkLogout='/usr/lib/indicator-session/gtk-logout-helper'
+
+case $1 in
+  lock)      cmd=$screenLock             ;;
+  suspend)   cmd=$dbusPower'.Suspend'    ;;
+  hibernate) cmd=$dbusPower'.Hibernate'  ;;
+  logout)    cmd=$gtkLogout' --logout'   ;;
+  restart)   cmd=$gtkLogout' --restart'  ;;
+  shutdown)  cmd=$gtkLogout' --shutdown' ;;
+  *) echo "usage: $0 [lock|suspend|hibernate|logout|restart|shutdown]" && exit ;;
+esac
+
+echo $cmd
+eval $cmd
+

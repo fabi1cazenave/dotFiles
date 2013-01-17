@@ -1,0 +1,23 @@
+#!/bin/sh
+#| File          : ~/bin/pavolume
+#| Last modified : 2013-01-16
+#| Author        : Fabien Cazenave
+#| Licence       : WTFPL
+#|
+#| Helper script to control the main pulseaudio volume
+#|   ./pavolume [raise|lower|mute]
+#|
+#| http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
+#|
+
+case $1 in
+  +|raise) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}' ;;
+  -|lower) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}' ;;
+  0|mute)  opt='$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' ;;
+  *) echo "usage: $0 [raise|lower|mute]" && exit ;;
+esac
+
+cmd="pacmd dump|awk --non-decimal-data '$opt'"
+echo $cmd
+eval $cmd > /dev/null
+

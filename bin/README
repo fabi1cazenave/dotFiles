@@ -1,0 +1,8 @@
+Helper scripts — very simple (trivial) scripts that I use mostly as reminders /
+quick help / shortcuts, hence the echo+eval in all of them.
+
+They could be replaced by functions in ~/.bash_aliases: this works fine in a
+terminal, but real scripts can be launched from dmenu (or whatever Alt+F2).
+
+This ~/bin directory should be added to your $PATH, obviously.
+

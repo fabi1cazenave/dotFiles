@@ -1,0 +1,35 @@
+#!/bin/sh
+#| File          : ~/bin/exrandr (easy xrandr)
+#| Last modified : 2013-01-17
+#| Author        : Fabien Cazenave
+#| Licence       : WTFPL
+#|
+#| Helper script to use an external screen:
+#|   ./exrandr [left|right|above|below|same|ext|off]
+#|
+
+case $1 in
+  off)  opt="--off --output LVDS1 --auto"   ;; # internal screen only
+  ext)  opt="--auto --output LVDS1 --off"   ;; # external screen only
+  same) opt="--auto --same-as LVDS1 --auto" ;; # both screens, mirrored
+
+  # extended desktop: external screen is next to the internal one
+  left|right)  opt="--auto --$1-of LVDS1 --output LVDS1 --auto" ;;
+  above|below) opt="--auto --$1 LVDS1 --output LVDS1 --auto"    ;;
+
+  # unrecognized command => show usage
+  *) echo "usage: $0 [left|right|above|below|same|ext|off]" && exit ;;
+esac
+
+# use the first external screen along with (or instead of) LVDS1
+connected=`xrandr --current | grep '\<connected\>' | sed 's/\s.*$//g'`
+for screen in $connected; do
+  if [ $screen != "LVDS1" ]; then
+    cmd="xrandr --output $screen $opt"
+    echo $cmd
+    eval $cmd
+    exit
+  fi
+done
+echo "No external screen found."
+
