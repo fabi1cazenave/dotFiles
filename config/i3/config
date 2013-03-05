@@ -61,13 +61,16 @@ set $mod Mod4
 floating_modifier $mod
 
 # define your preferred terminal - you can refer to this as $terminal later
-set $terminal roxterm
+# set $terminal roxterm
+# set $terminal $(roxterm -e tmux -2)
+set $terminal $(urxvt -e tmux)
 
 # define your preferred application launcher
 set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # define your preferred screen lock
-set $lock $(/usr/bin/i3lock -d)
+# set $lock $(i3lock -d)
+set $lock $(xdg-screensaver lock)
 
 # window font (note: iso10646 = unicode)
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -75,8 +78,8 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout tabbed
 
-# default mode: <normal|1pixel|none|pixel>
-new_window none
+# default mode: <normal|1pixel|none>
+new_window 1pixel
 new_float normal
 
 # Statusline (i3bar)
@@ -124,7 +127,7 @@ set $w10 10: tmp
 set $w11 11: im
 set $w12 12
 
-# http://i3wm.org/docs/userguide.html#command_criteria
+# http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
 # - class       : window class    = 2nd part of WM_CLASS
 # - window_role : window role     = WM_WINDOW_ROLE
@@ -398,7 +401,6 @@ bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system (
 bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}')
 
 # Playlist control (cmus)                                            (Fn+arrow)
-#bind 121 exec $(cmus-remote --volume 0)
 bind 171 exec $(cmus-remote --next)
 bind 172 exec $(cmus-remote --pause)
 bind 173 exec $(cmus-remote --prev)
