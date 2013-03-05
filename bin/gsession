@@ -1,5 +1,5 @@
 #!/bin/sh
-#| File          : ~/bin/gsession
+#| File          : ~/.local/bin/gsession
 #| Last modified : 2013-01-16
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL

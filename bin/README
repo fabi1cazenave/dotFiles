@@ -1,8 +1,9 @@
-Helper scripts — very simple (trivial) scripts that I use mostly as reminders /
-quick help / shortcuts, hence the echo+eval in all of them.
+Helper scripts: very simple (trivial) scripts that I use mostly as reminders /
+quick-help / shortcuts, hence the `echo+eval' in all of them.
 
 They could be replaced by functions in ~/.bash_aliases: this works fine in a
-terminal, but real scripts can be launched from dmenu (or whatever Alt+F2).
+terminal, but real scripts can be launched with Alt+F2/dmenu.
 
-This ~/bin directory should be added to your $PATH, obviously.
+This `bin' directory should be added to your $PATH, obviously. That's the case
+by default on Ubuntu distros (~/bin) but I prefer to put it in ~/.local/bin.
 
