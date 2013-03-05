@@ -11,8 +11,8 @@
 
 # color support? (mostly because of gVim) <<<
 case "$TERM" in
-  xterm|xterm-color|rxvt-256color|screen|vt100)
-    COLOR_TERM=$TERM;; # we know these terms have color support
+  xterm*|rxvt*|screen|vt100)
+    COLOR_TERM=$TERM;; # we know these terms have proper color support
   *)
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
       COLOR_TERM=$TERM # we seem to have color support:
