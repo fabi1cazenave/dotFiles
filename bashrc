@@ -3,7 +3,6 @@
 #| Last modified : 2013-01-03
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
-#| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:
 #|
 #| ~/.bashrc: executed by bash(1) for non-login shells.
 #| See /usr/share/doc/bash/examples/startup-files for examples
@@ -109,3 +108,4 @@ esac
 
 # >>>
 
+# vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:

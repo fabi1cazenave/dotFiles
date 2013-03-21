@@ -59,6 +59,7 @@ URxvt*cursorBlink     : true
 URxvt*letterSpace     : -2
 URxvt*font            : xft:Inconsolata:size=11
 !URxvt*font            : xft:Ubuntumono:size=11
+!URxvt*font            : xft:Mensch:size=9
 
 ! reclaim <Alt-s> and <Ctrl-Shift-*> shortcuts
 URxvt*searchable-scrollback: M-S-s

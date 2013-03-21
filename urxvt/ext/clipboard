@@ -90,11 +90,11 @@ sub on_user_command {
 	my ($self, $cmd) = @_;
 
 	if ($cmd eq "clipboard:copy") {
-	   $self->copy;
+		$self->copy;
 	} elsif ($cmd eq "clipboard:paste") {
-	   $self->paste;
+		$self->paste;
 	} elsif ($cmd eq "clipboard:paste_escaped") {
-	   $self->paste_escaped;
+		$self->paste_escaped;
 	}
 
 	()
