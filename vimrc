@@ -1,9 +1,29 @@
 "|
-"| File          : ~/.vimrc
-"| Last modified : 2013-01-03
-"| Author        : Fabien Cazenave
-"| Licence       : WTFPL
+"| File    : ~/.vimrc
+"| Source  : https://github.com/fabi1cazenave/dotFiles
+"| Licence : WTFPL
 "|
+
+" Modern / standard / Notepad-like behavior:
+" load "mwwin.vim" or "notepad.vim" <https://github.com/fabi1cazenave/gnupad>
+"source $VIMRUNTIME/mswin.vim
+"behave mswin               	" ???
+
+set nocompatible            	" required for a multi-level undo/redo stack
+set mouse=a                 	" enable mouse selection
+
+" don't create backupfiles everywhere, but just in ~/.vim/backup
+set directory=~/.vim/backup 	" swap files
+set backupdir=~/.vim/backup 	" backup files
+
+" persistent undo
+set undofile
+set undodir=~/.vim/undodir
+
+
+"|=============================================================================
+"|    Auto-reload configuration files                                       <<<
+"|=============================================================================
 
 " source configuration files on save to apply all changes immediately
 autocmd! BufWritePost vimrc         source $MYVIMRC
@@ -20,13 +40,9 @@ autocmd! BufWritePost .gtkrc-2.0    !gtkrc-reload
 " everytime we change window, check if file has been updated outside of the editor
 autocmd WinEnter * checktime
 
-" Modern / standard / Notepad-like behavior:
-" load "mwwin.vim" or "notepad.vim" <https://github.com/fabi1cazenave/gnupad>
-"source $VIMRUNTIME/mswin.vim
-"behave mswin " ???
-set nocompatible   " required for a multi-level undo/redo stack
-set mouse=a        " enable mouse selection
-
+"http://vim.wikia.com/wiki/Fix_syntax_highlighting
+"autocmd BufEnter * :syntax sync fromstart
+">>>
 
 "|=============================================================================
 "|    Plugins                                                               <<<
@@ -106,90 +122,71 @@ source ~/.vim/mappings.vim
 "|=============================================================================
 
 set shell=/usr/bin/zsh
-set t_Co=256 " because all terms should support 256 colors nowadays…
-set title
+set t_Co=256          	" because all terms should support 256 colors nowadays…
+set title             	" set the terminal title
 
 " send the current filename to GNU Screen / tmux
-"if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
-"  exe "set title titlestring=Vim:%f"
-"  exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
-"endif
+if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
+  exe "set title titlestring=Vim"
+" exe "set title titlestring=Vim:%f"
+  exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
+endif
 
-" GNU screen
-"http://www.semicomplete.com/blog/productivity/39.html
-"map <M-v>  :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-"map <Esc>v :silent !screen -X split<CR>:silent !screen -X focus down<CR>:silent !screen -X screen /home/kaze/.vim/screener.sh<CR>:redraw!<CR>
-
+" better (?) terminal emulation in GUI mode
+set guipty
 ">>>
 
 "|=============================================================================
 "|    User Interface                                                        <<<
 "|=============================================================================
+"set visualbell
 
-set showmode
-set cursorline
-set showfulltag
-set ruler
-set laststatus=2 " always show statusline
+set showmode          	" display current mode blow the status line
+set showtabline=2     	" show tabbar even for a single buffer
+set laststatus=2      	" always show the status line
+set ruler             	" display line/col position in the status line
+set cursorline        	" highlight current line
+set splitbelow        	" consistency with most tiling WMs (wmii, i3…)
+set virtualedit=block 	" easier rectangular selections
 
-"set guioptions=reTm
-"set guifont=Monospace\ 9
-"colorscheme desert
-set guioptions=
-set guifont=Ubuntu\ Mono\ 11
-colorscheme kalahari        " https://github.com/fabi1cazenave/kalahari.vim
-syntax on
-
-"http://vim.wikia.com/wiki/Fix_syntax_highlighting
-"autocmd BufEnter * :syntax sync fromstart
-
-set showtabline=2           " show tabbar even for a single buffer
+" line numbers
+set number            	" show absolute line numbers (:set nu)
+"set relativenumber    	" show relative line numbers (:set rnu)
+set scrolloff=5       	" number of screen lines to show around the cursor
+set numberwidth=6     	" minimal number width (not working?)
 
 " show tabs / nbsp / trailing spaces
-"set listchars=tab:▶\ ,trail:◀,extends:»,precedes:«
-"set listchars=nbsp:¤,tab:>·,trail:¤,extends:>,precedes:<
 set listchars=nbsp:¤,tab:··,trail:¤,extends:>,precedes:<
 set list
 
-" split windows below the current window.
-set splitbelow
+" minimal interface when running in GUI mode
+set guioptions=
+set guifont=Inconsolata\ 11
 
+" syntax highlighting
+colorscheme kalahari  	" https://github.com/fabi1cazenave/kalahari.vim
+syntax on
 ">>>
 
 "|=============================================================================
 "|    General settings                                                      <<<
 "|=============================================================================
 
-" this is supposed to improve terminal emulation greatly (?)
-set guipty
-"set visualbell
+set encoding=utf-8
 
-" this should be the default but some distros disable modelines by default...
+" this should be the default but some distros disable modelines by default…
 set modeline
 set modelines=5
 
-" text display
-set number          	" set nu
-"set relativenumber  	" set rnu
-set scrolloff=5     	" number of screen lines to show around the cursor
-set nuw=6           	" number width (not working?)
-set showmatch       	" when inserting a bracket, briefly jump to its match
-"set filetype=vim    	" trigger the FileType event when set (local to buffer)
-
 " use the current file's directory as Vim's working directory
-set autochdir       	" XXX not working on MacOSX
+set autochdir         	" XXX not working on MacOSX
 
-" don't create backupfiles everywhere, but just in ~/.vim/backup
-set backupdir=~/.vim/backup
-set dir=~/.vim/backup
-
-" persistent undo
-set undofile
-set undodir=~/.vim/undodir
+set showmatch         	" when inserting a bracket, briefly jump to its match
+"set filetype=vim      	" trigger the FileType event when set (local to buffer)
 
 " 80-character lines (= Mozilla guidelines)
-set colorcolumn=+0
-set textwidth=80    	" line length above which to break a line
+set textwidth=80      	" line length above which to break a line
+set colorcolumn=+0    	" highlight the textwidth limit
 set nowrap
 "set nowrapscan
 set linebreak
@@ -221,12 +218,10 @@ set wildmode=longest:list
 if exists("&wildignorecase")
   set wildignorecase
 endif
+set showfulltag
 
 " disable incrementation of octal numbers
 set nrformats=hex
-
-" enable easier rectangular selections
-set virtualedit=block
 
 " set matchpairs+=<:>
 
