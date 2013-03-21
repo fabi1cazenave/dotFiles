@@ -1,8 +1,7 @@
 #|
-#| File          : ~/.bashrc
-#| Last modified : 2013-01-03
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.bashrc
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
 #| ~/.bashrc: executed by bash(1) for non-login shells.
 #| See /usr/share/doc/bash/examples/startup-files for examples

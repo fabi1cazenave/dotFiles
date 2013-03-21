@@ -1,10 +1,9 @@
 #|
-#| File          : ~/.zshrc
-#| Last modified : 2013-01-07
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.zshrc
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
-#| Warning: this file expectes ~/.bash_aliases to define $COLOR_TERM.
+#| Warning: this file expects ~/.bash_aliases to define $COLOR_TERM.
 #|
 
 
