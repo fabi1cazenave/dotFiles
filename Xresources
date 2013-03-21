@@ -1,9 +1,8 @@
 !|
 !| File          : ~/.Xresources
-!| Last modified : 2013-03-04
+!| Last modified : 2013-03-21
 !| Author        : Fabien Cazenave
 !| Licence       : WTFPL
-!| vim           : set fdm=marker:fmr=<<<,>>>:fdl=0:
 !|
 !| Default X settings for XTerm & URxvt, apply with:
 !|   xrdb -load ~/.Xresources
@@ -133,3 +132,4 @@ URxvt.keysym.C-minus  : perl:font-size:decrease
 
 !>>>
 
+! vim: set fdm=marker fmr=<<<,>>> fdl=0:

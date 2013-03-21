@@ -3,8 +3,7 @@
 #| Author        : Fabien Cazenave
 #| Charset       : UTF-8
 #| License       : WTFPL
-#| Last Modified : 2012-10-12
-#| vim           : ft=config
+#| Last Modified : 2013-01-21
 #|
 
 general {
@@ -65,3 +64,4 @@ disk "/" {
   format = "%free"
 }
 
+# vim: set ft=config:

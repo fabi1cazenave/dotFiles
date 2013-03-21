@@ -3,7 +3,6 @@
 #| Last modified : 2012-04-21
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
-#| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:
 #|
 #| ack (ack-grep on Ubuntu) is a grep replacement
 #|   http://betterthangrep.com/

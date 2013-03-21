@@ -3,8 +3,7 @@
 #| Author        : Fabien Cazenave
 #| Charset       : UTF-8
 #| License       : WTFPL
-#| Last Modified : 2012-10-12 (requires i3 v4.2+)
-#| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:
+#| Last Modified : 2013-03-21 (requires i3 v4.2+)
 #|
 
 # <<<
@@ -420,3 +419,4 @@ bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower"
 
 # >>>
 
+# vim: set fdm=marker fmr=<<<,>>> fdl=0:

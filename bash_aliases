@@ -1,9 +1,8 @@
 #|
 #| File          : ~/.bash_aliases
-#| Last modified : 2013-01-03
+#| Last modified : 2013-03-21
 #| Author        : Fabien Cazenave
 #| Licence       : WTFPL
-#| vim           : fdm=marker:fmr=<<<,>>>:fdl=0:ft=sh:
 #|
 #| These aliases are used by both bash and zsh (requires bash 4 or newer).
 #| For zsh-specific aliases, use ~/.zshrc.
@@ -108,3 +107,4 @@ function __vcs_info {
   done
 } # >>>
 
+# vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=sh:
