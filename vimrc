@@ -125,11 +125,14 @@ set shell=/usr/bin/zsh
 set t_Co=256          	" because all terms should support 256 colors nowadays…
 set title             	" set the terminal title
 
-" send the current filename to GNU Screen / tmux
-if (&term == 'screen') || (&term == 'screen-bce') || (&term == 'screen-color')
-  exe "set title titlestring=Vim"
-" exe "set title titlestring=Vim:%f"
-  exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
+" handle screen / tmux
+if &term =~ '^screen'
+  " proper italics (≠ standout)
+  set t_so=[7m      	" warning: ^[ must be entered as <C-v><C-[>
+  set t_ZH=[3m
+  " send the current filename to screen / tmux
+  " exe "set title titlestring=Vim:%f"
+  " exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
 endif
 
 " better (?) terminal emulation in GUI mode
