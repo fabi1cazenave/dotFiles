@@ -32,6 +32,8 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# one of zsh's killer features :-)
+shopt -s autocd
 
 #|=============================================================================
 #|    Personal settings (mostly shared with ~/.zshrc)                       <<<
