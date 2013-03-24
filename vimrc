@@ -4,21 +4,25 @@
 "| Licence : WTFPL
 "|
 
-" Modern / standard / Notepad-like behavior:
-" load "mwwin.vim" or "notepad.vim" <https://github.com/fabi1cazenave/gnupad>
-"source $VIMRUNTIME/mswin.vim
-"behave mswin               	" ???
+let $VIMHOME = glob('~/.vim')   	" user directory
+let $VIMTEMP = glob('~/.vim/tmp')	" temp directory
 
-set nocompatible            	" required for a multi-level undo/redo stack
-set mouse=a                 	" enable mouse selection
+" don’t create temp files everywhere, but just in $VIMTEMP if it exists
+if !empty($VIMTEMP)             	" check that the directory exists
+  set backupdir=$VIMTEMP        	" backup files
+  set directory=$VIMTEMP        	" swap files
+  set undodir  =$VIMTEMP        	" undo files
+  set undofile                  	" persistent undo
+endif
 
-" don't create backupfiles everywhere, but just in ~/.vim/backup
-set directory=~/.vim/backup 	" swap files
-set backupdir=~/.vim/backup 	" backup files
+" two solutions to let CTRL-ZXCV behave like in Notepad:
+"  * the standard "mswin.vim" resource: source $VIMRUNTIME/mswin.vim
+"  * the "cua-mode.vim" plugin: https://github.com/fabi1cazenave/cua-mode.vim
+" (the CUA mode, by default, preserves other Vim shortcuts much better)
 
-" persistent undo
-set undofile
-set undodir=~/.vim/undodir
+" modern behavior
+set nocompatible                	" required for a multi-level undo/redo stack
+set mouse=a                     	" enable mouse selection
 
 
 "|=============================================================================
@@ -49,7 +53,11 @@ autocmd WinEnter * checktime
 "|=============================================================================
 
 filetype off       " required!
-source ~/.vim/plugins.vim
+
+if filereadable($VIMHOME.'/plugins.vim')
+  source $VIMHOME/plugins.vim
+endif
+
 filetype plugin indent on
 
 " if exists("Ranger")
@@ -71,7 +79,6 @@ map Y y$
 
 " the Ex mode is useless (except for Vi compatibility), disable it
 " map Q <Nop>
-
 " Alternative: use q: instead
 nmap Q q:
 
@@ -80,41 +87,29 @@ map U <C-r>
 
 " make K more consistent with J (J = join, K = split)
 nnoremap K i<CR><Esc>k$
-
 " Alternative: use a real 'Man' on K
 " runtime ftplugin/man.vim
 " nnoremap K :Man <C-r><C-w><CR>
-
-" indexes the last search
-nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 
 " use :W to sudo-write the current buffer
 command! W w !sudo tee % > /dev/null
 
 " Enter as leader key
 " let mapleader = "\<Enter>"
-
 " Alternative: Space as leader key
 " nmap <Space> <Nop>
 " let mapleader = "\<Space>"
-
 " Alternative: Space/BackSpace for Page Down/Up
 noremap <BS> <PageUp>
 noremap <Space> <PageDown>
-noremap <C-j> <C-y>
-noremap <C-k> <C-e>
-" noremap <S-BS> <C-u>
-" noremap <S-Space> <C-d>
-" noremap   <C-d>
-" noremap <S-BS> <C-y>
-" noremap <S-Space> <C-e>
-" noremap   <C-e>
 
-" Opens a vertical split and switches over (v)
-nnoremap <leader>v <C-w>v<C-w>l
-nnoremap ŭ <C-w>v<C-w>l
+" Enter to follow tags (e.g. help links)
+noremap <Enter> <C-]>
 
-source ~/.vim/mappings.vim
+" other specific mappings
+if filereadable($VIMHOME.'/mappings.vim')
+  source $VIMHOME/mappings.vim
+endif
 ">>>
 
 "|=============================================================================
@@ -123,7 +118,8 @@ source ~/.vim/mappings.vim
 
 set shell=/usr/bin/zsh
 set t_Co=256          	" because all terms should support 256 colors nowadays…
-set title             	" set the terminal title
+set notitle           	" don’t set the title to “Thanks for flying vim” on exit
+set guipty            	" better (?) terminal emulation in GUI mode
 
 " handle screen / tmux
 if &term =~ '^screen'
@@ -134,9 +130,6 @@ if &term =~ '^screen'
   " exe "set title titlestring=Vim:%f"
   " exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
 endif
-
-" better (?) terminal emulation in GUI mode
-set guipty
 ">>>
 
 "|=============================================================================
@@ -181,7 +174,7 @@ set encoding=utf-8
 set modeline
 set modelines=5
 
-" use the current file's directory as Vim's working directory
+" use the current file’s directory as Vim’s working directory
 set autochdir         	" XXX not working on MacOSX
 
 set showmatch         	" when inserting a bracket, briefly jump to its match
@@ -227,7 +220,6 @@ set showfulltag
 set nrformats=hex
 
 " set matchpairs+=<:>
-
 ">>>
 
 " vim: set fdm=marker fmr=<<<,>>> fdl=0:

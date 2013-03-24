@@ -27,6 +27,9 @@ noremap <C-S-Tab> gT
 noremap <silent> <C-PageUp>   :exe "tabmove " .(tabpagenr()-2)<CR>
 noremap <silent> <C-PageDown> :exe "tabmove " . tabpagenr()<CR>
 
+" indexes the last search
+nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
+
 " Alt+E to open the file explorer
 "noremap <silent> <M-e>  :Ex<CR>
 "noremap <silent> <Esc>e :Ex<CR>
@@ -126,6 +129,18 @@ noremap <silent> <Esc>u :tabprev<CR>
 noremap <silent> <Esc>i :tabnext<CR>
 noremap <silent> <Esc>U :exe "tabmove " .(tabpagenr()-2)<CR>
 noremap <silent> <Esc>I :exe "tabmove " . tabpagenr()<CR>
+
+" scroll current window
+" noremap <C-j> <C-y>
+" noremap <C-k> <C-e>
+
+" open a vertical split and switch over (v)
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap         ŭ <C-w>v<C-w>l
+
+" open a horizontal split (s)
+nnoremap <leader>v <C-w>s
+nnoremap         ß <C-w>s
 
 " code completion
 "inoremap <M-j> <C-n>

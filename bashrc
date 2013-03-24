@@ -59,7 +59,6 @@ fi
 
 # Prevent ^S and ^Q doing XON/XOFF (mostly for Vim)
 stty -ixon
-
 # >>>
 
 
