@@ -5,9 +5,8 @@
 #| Licence : WTFPL
 #|
 
-#
-# Alt+[left|right|backspace|delete] = word by word
-#
+#|    Alt+[left|right|backspace|delete] = word by word                      <<<
+#|=============================================================================
 binding "gtk-mac-alt-arrows" {
   bind "<alt>Right"           { "move-cursor" (words,  1, 0) }
   bind "<alt>KP_Right"        { "move-cursor" (words,  1, 0) }
@@ -27,10 +26,10 @@ class "GtkTextView" binding "gtk-mac-alt-arrows"
 class "GtkTextView" binding "gtk-mac-alt-delete"
 class "GtkEntry"    binding "gtk-mac-alt-arrows"
 class "GtkEntry"    binding "gtk-mac-alt-delete"
+# >>>
 
-#
-# Super+[left|right|backspace|delete] = line by line
-#
+#|    Super+[left|right|backspace|delete] = line by line                    <<<
+#|=============================================================================
 binding "gtk-mac-super-arrows" {
   bind "<super>Right"           { "move-cursor" (paragraph-ends,  1, 0) }
   bind "<super>KP_Right"        { "move-cursor" (paragraph-ends,  1, 0) }
@@ -50,10 +49,11 @@ class "GtkTextView" binding "gtk-mac-super-arrows"
 class "GtkTextView" binding "gtk-mac-super-delete"
 class "GtkEntry"    binding "gtk-mac-super-arrows"
 class "GtkEntry"    binding "gtk-mac-super-delete"
+# >>>
 
-#
-# Super+[x|c|v] = cut|copy|paste (works with <alt> but not with <super>, wtf?)
-#
+#|    Super+[x|c|v] = cut|copy|paste                                        <<<
+#|=============================================================================
+# (works with <alt> but not with <super>, wtf?)
 binding "gtk-mac-clipboard" {
   bind "<super>x" {   "cut-clipboard" () }
   bind "<super>c" {  "copy-clipboard" () }
@@ -62,11 +62,13 @@ binding "gtk-mac-clipboard" {
 class "GtkTextView" binding "gtk-mac-clipboard"
 class "GtkEntry"    binding "gtk-mac-clipboard"
 class "*"           binding "gtk-mac-clipboard"
+# >>>
 
 #widget "*pidgin_conv_entry" binding "gtk-mac-alt-arrows"
 #widget "*pidgin_conv_entry" binding "gtk-mac-alt-delete"
 
-# Bonus: Vi-like bindings
+#|    Bonus: Vi-like bindings                                               <<<
+#|=============================================================================
 # http://vim.wikia.com/wiki/Vi_key_bindings_in_gtk
 binding "gtk-vi-text-view" {
   #bind "<ctrl>d" { "move-cursor" (display-lines,  5, 0) }
@@ -81,4 +83,6 @@ binding "gtk-vi-text-view" {
   bind "h" { "move-cursor" (logical-positions, -1, 0) }
 }
 #class "GtkTextView" binding "gtk-vi-text-view"
+# >>>
 
+# vim: set fdm=marker fmr=<<<,>>> fdl=0:

@@ -5,9 +5,7 @@
  * Licence : WTFPL
  */
 
-/*
- * Alt+[left|right|backspace|delete] = word by word
- */
+/* Alt+[left|right|backspace|delete] = word by word                      <<< */
 @binding-set gtk-mac-alt-arrows {
   bind "<alt>Right"           { "move-cursor" (words,  1, 0) };
   bind "<alt>KP_Right"        { "move-cursor" (words,  1, 0) };
@@ -25,10 +23,9 @@
 }
 GtkTextView { gtk-key-bindings: gtk-mac-alt-arrows, gtk-mac-alt-delete; }
 GtkEntry    { gtk-key-bindings: gtk-mac-alt-arrows, gtk-mac-alt-delete; }
+/* >>> */
 
-/*
- * Super+[left|right|backspace|delete] = line by line
- */
+/* Super+[left|right|backspace|delete] = line by line                    <<< */
 @binding-set gtk-mac-super-arrows {
   bind "<super>Right"           { "move-cursor" (paragraph-ends,  1, 0) };
   bind "<super>KP_Right"        { "move-cursor" (paragraph-ends,  1, 0) };
@@ -46,10 +43,10 @@ GtkEntry    { gtk-key-bindings: gtk-mac-alt-arrows, gtk-mac-alt-delete; }
 }
 GtkTextView { gtk-key-bindings: gtk-mac-super-arrows, gtk-mac-super-delete; }
 GtkEntry    { gtk-key-bindings: gtk-mac-super-arrows, gtk-mac-super-delete; }
+/* >>> */
 
-/*
- * Super+[x|c|v] = cut|copy|paste (works with <alt> but not with <super>, wtf?)
- */
+/* Super+[x|c|v] = cut|copy|paste                                        <<< */
+/* (works with <alt> but not with <super>, wtf?)                             */
 @binding-set gtk-mac-clipboard {
   bind "<super>x" {   "cut-clipboard" () };
   bind "<super>c" {  "copy-clipboard" () };
@@ -61,4 +58,6 @@ GtkEntry    { gtk-key-bindings: gtk-mac-super-arrows, gtk-mac-super-delete; }
 GtkTextView { gtk-key-bindings: gtk-mac-clipboard; }
 GtkEntry    { gtk-key-bindings: gtk-mac-clipboard; }
 *           { gtk-key-bindings: gtk-mac-clipboard; }
+/* >>> */
 
+/* vim: set fdm=marker fmr=<<<,>>> fdl=0: */
