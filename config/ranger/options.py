@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-#| File          : ~/.config/ranger/options.py
-#| Charset       : UTF-8
-#| Last Modified : 2012-10-22
+#| File    : ~/.config/ranger/options.py
+#| Charset : UTF-8
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
 #|
 
 # Copyright (C) 2009, 2010, 2011  Roman Zimbelmann <romanz@lavabit.com>

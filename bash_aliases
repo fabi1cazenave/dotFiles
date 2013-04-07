@@ -1,8 +1,8 @@
 #|
-#| File          : ~/.bash_aliases
-#| Last modified : 2013-03-21
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.bash_aliases
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
 #| These aliases are used by both bash and zsh (requires bash 4 or newer).
 #| For zsh-specific aliases, use ~/.zshrc.

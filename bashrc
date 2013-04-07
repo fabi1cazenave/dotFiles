@@ -1,5 +1,6 @@
 #|
 #| File    : ~/.bashrc
+#| Author  : Fabien Cazenave
 #| Source  : https://github.com/fabi1cazenave/dotFiles
 #| Licence : WTFPL
 #|

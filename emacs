@@ -1,9 +1,8 @@
 ;|
-;| File          : ~/.emacs
-;| Last modified : 2011-12-13
-;| Author        : Fabien Cazenave
-;| Licence       : WTFPL
-;| vim:ft=lisp:fdm=marker:fmr=<<<,>>>:fdl=0:
+;| File    : ~/.emacs
+;| Author  : Fabien Cazenave
+;| Source  : https://github.com/fabi1cazenave/dotFiles
+;| Licence : WTFPL
 ;|
 
 (custom-set-variables
@@ -11,7 +10,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(diary-file "~/Documents/diary.org")
+;'(diary-file "~/Documents/diary.org")
  '(ns-command-modifier (quote control))
  '(ns-right-alternate-modifier (quote none))
  '(org-hide-emphasis-markers t))
@@ -23,9 +22,8 @@
   ;; If there is more than one, they won't work right.
  )
 
-;|===========================================================================
-;|    General Preferences                                                 <<<
-;|===========================================================================
+;|    General Preferences                                                   <<<
+;|=============================================================================
 
 ;; No bell, thanks.
 ;(setq visible-bell 1)
@@ -34,6 +32,11 @@
 ;; No startup screen, thanks.
 (setq inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
+
+;; No toolbar, no scroll bars, thanks.
+(if (window-system) () ())
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; Parenthesis matching
 (show-paren-mode 1)
@@ -47,11 +50,6 @@
 (line-number-mode t)
 ;; 1-char separation in CLI mode becomes 2 in GUI mode (Emacs really sucks!)
 (if (window-system) (setq linum-format "%4d") (setq linum-format "%4d "))
-
-;; no splash screen, no toolbar, no scroll bars
-(setq inhibit-splash-screen t)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 ;; Navigate windows with M-<arrows>
 ;(windmove-default-keybindings 'meta)
@@ -72,9 +70,9 @@
 ;(require 'color-theme)
 ;(color-theme-initialize)
 ;(color-theme-charcoal-black)
-(load-file "~/.emacs.d/color-theme-desert.el")
-(color-theme-initialize)
-(color-theme-desert)
+;(load-file "~/.emacs.d/color-theme-desert.el")
+;(color-theme-initialize)
+;(color-theme-desert)
 
 ;; Full-screen toggle (GUI only)
 (defun fullscreen ()
@@ -85,9 +83,8 @@
 
 ;;>>>
 
-;|===========================================================================
-;|   Input Mode                                                           <<<
-;|===========================================================================
+;|   Input Mode                                                             <<<
+;|=============================================================================
 
 ;; Hide menubar in CLI mode
 (menu-bar-mode (window-system))
@@ -95,21 +92,11 @@
 ;; Enable mouse in CLI mode
 (xterm-mouse-mode t)
 
-;; make cut, copy and paste (keys and menu bar items) use the clipboard
-;(menu-bar-enable-clipboard)
-
-;; Use the clipboard, pretty please, so that copy/paste "works"
-(setq x-select-enable-clipboard t)
-
-;; Viper-Mode
-;; funny but very limited and way to slow in "insert" mode
-;(setq viper-mode t)
-;(require 'viper)
-
-;; Other Vim modes: (untested)
-;; Vimpulse:  http://emacswiki.org/emacs/Vimpulse
-;; Vim-Mode:  http://emacswiki.org/emacs/VimMode
-;; Evil-Mode: http://emacswiki.org/emacs/Evil
+;; Available Vim-like modes:
+;; Viper Mode: http://emacswiki.org/emacs/ViperMode (soooo sloooooow)
+;; Vimpulse:   http://emacswiki.org/emacs/Vimpulse  (untested)
+;; Vim Mode:   http://emacswiki.org/emacs/VimMode   (untested)
+;; Evil:       http://emacswiki.org/emacs/Evil      (untested)
 
 ;; ErgoEmacs
 ;; brings most standard shortcuts to Emacs, adds interesting stuff
@@ -125,17 +112,15 @@
 
 ;;>>>
 
-;|===========================================================================
-;|   Other Mappings                                                       <<<
-;|===========================================================================
+;|   Other Mappings                                                         <<<
+;|=============================================================================
 
 ;(global-set-key (kbd "M-v") 'split-window-horizontally)
 
 ;;>>>
 
-;|===========================================================================
-;|   Org-Mode Settings                                                    <<<
-;|===========================================================================
+;|   Org-Mode Settings                                                      <<<
+;|=============================================================================
 ; because Org is the only reason why I sometimes use Emacs ;-)
 
 (setq load-path (cons "~/.emacs.d/org-7.7/lisp"         load-path))
@@ -152,3 +137,4 @@
                              "~/Documents/org/tutorial.org"))
 ;;>>>
 
+; vim: set ft=lisp fdm=marker fmr=<<<,>>> fdl=0:

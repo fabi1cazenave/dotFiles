@@ -1,8 +1,8 @@
 #!/bin/sh
-#| File          : ~/.local/bin/pavolume
-#| Last modified : 2013-01-16
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.local/bin/pavolume
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
 #| Helper script to control the main pulseaudio volume
 #|   ./pavolume [raise|lower|mute]

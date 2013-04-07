@@ -1,8 +1,8 @@
 #|
-#| File          : ~/.profile
-#| Last modified : 2013-01-03
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.profile
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
 #| ~/.profile: executed by the command interpreter for login shells.
 #|

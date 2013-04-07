@@ -1,8 +1,8 @@
 #|
-#| File          : ~/.inputrc
-#| Last modified : 2012-02-25
-#| Author        : Fabien Cazenave
-#| Licence       : WTFPL
+#| File    : ~/.inputrc
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
 #|
 #| ~/.inputrc: used by the GNU readline library.
 #| Note that zsh doesn't use readline.

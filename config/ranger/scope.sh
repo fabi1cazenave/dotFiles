@@ -1,7 +1,8 @@
 #!/bin/bash
-#| File          : ~/.config/ranger/scope.sh
-#| Charset       : UTF-8
-#| Last Modified : 2012-10-22
+#| File    : ~/.config/ranger/scope.sh
+#| Charset : UTF-8
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
 #|
 
 # ranger supports enhanced previews.  If the option "use_preview_script" is set
