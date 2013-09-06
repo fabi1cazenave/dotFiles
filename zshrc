@@ -247,4 +247,57 @@ fi
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
+# # cmd/insertion mode display
+# function zle-line-init zle-keymap-select {
+#     RPS1="${${KEYMAP/vicmd/-N-}/(main|viins)/-I-}"
+#     RPS2=$RPS1
+#     zle reset-prompt
+# }
+# zle -N zle-line-init
+# zle -N zle-keymap-select
+
+#|============================================================================
+#| ZSHRC
+#|============================================================================
+
+bindkey -M vicmd "/" editory
+
+#|============================================================================
+#| EDITORY.ZSH
+#|============================================================================
+
+editory() {
+  local PREFIX=${TMPPREFIX:-/tmp/zsh}
+  local TMP=$PREFIX-editory$$
+  local VIMRC=$PREFIX-vimrc$$
+
+  cp $HISTFILE $TMP
+
+  cat <<-EOF > $VIMRC
+  :let s:buffer = bufname("%")
+  :
+  :set filetype=zsh
+  :
+  :global/^:/normal!^df;
+  :normal!gg=G
+  :
+  :fun s:keep_command_from_cursor()
+  :  exe printf('normal!?^\S%sv/\n\S%syggVG"0p', "\<cr>", "\<cr>")
+  :  update
+  :endfun
+  :
+  :autocmd VimLeavePre * call s:keep_command_from_cursor()
+	EOF
+
+  exec < /dev/tty
+
+  vim   -S  $VIMRC     $TMP
+  print -Rz -      "$(<$TMP)"
+  rm                   $TMP
+
+  zle send-break # force reload from the buffer stack
+}
+
+zle -N editory
+
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:

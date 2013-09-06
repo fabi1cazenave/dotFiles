@@ -86,7 +86,8 @@ bar {
   # TODO: remove redundant battery information from the status line
   status_command i3status
   position bottom
-  mode hide
+  # mode hide
+  mode dock
 }
 
 # Default color theme:
@@ -133,25 +134,48 @@ set $w12 12
 # - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
 
 # Common apps are sorted by workspace
-assign [class="^Thunderbird"] → $w06
-#assign [class="^Firefox"]     → $w07
-#assign [class="^Aurora"]      → $w09
-#assign [title="^Aurora"]      → $w09
-#assign [title="Aurora$"]      → $w09
-#assign [class="^Nightly"]     → $w09
-assign [class="^VirtualBox"]  → $w10
-assign [class="^Pidgin"]      → $w11
-assign [class="^Skype"]       → $w11
-assign [class="^Hotot"]       → $w11
+assign [class="^Thunderbird"]          → $w06
+assign [class="^Work$"]                → $w08
+assign [class="^VirtualBox"]           → $w10
+assign [class="^Pidgin"]               → $w11
+assign [class="^Skype"]                → $w11
+assign [class="^Hotot"]                → $w11
+assign [class="^Vidyo"]                → $w12
+
+# Firefox can be run with a --class argument: (= "Firefox" by default)
+#   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
+#   http://www.chevrel.org/carnet/?post/2012/06/06/Fonctionnement-en-parallele-de-deux-versions-de-Firefox
+# …which allows to use such commands:
+#   firefox -no-remote -profile ~/.mozilla/development --class "WebDevelopment"
+#   firefox -no-remote -profile ~/.mozilla/procrastinafox --class "Procrastinate"
+#   firefox -no-remote -profile ~/.mozilla/zimbra --class "Zimbra"
+assign [class="Firefox"]               → $w07
+assign [class="WebDevelopment"]        → $w09
+assign [class="Procrastinate"]         → $w11
+assign [class="Zimbra"]                → $w06
+
+# ROXTerm can be run with a --role argument, e.g.:
+#   roxterm --role=WeeChat -e weechat-curses
+assign [window_role="WeeChat"]         → $w11
+for_window [window_role="OrgMode"]     floating enable
+
+# ROXTerm and URxvt can be run with a -T or --title argument, e.g.:
+#   urxvt -T Org-mode -e vim ~/.notes.org
+for_window [title="Org-mode"]          floating enable
+
+# This works for Firefox, Thunderbird, and probably a lot of apps
+for_window [window_role="About"]       floating enable
+for_window [window_role="Preferences"] floating enable
 
 # These windows require a specific rule to be displayed in floating mode:
 #for_window [window_role="^Manager"]    floating enable
 #for_window [instance="^Download"]      floating enable
-for_window [window_role="^About"]      floating enable
 for_window [instance="^Update"]        floating enable
 for_window [instance="^gcalctool"]     floating enable
+for_window [instance="^galculator"]    floating enable
 for_window [instance="^gnome-keyring"] floating enable
 for_window [instance="^file_progress"] floating enable
+for_window [title="^Compress"]         floating enable
 for_window [title="^Compression"]      floating enable
 for_window [class="^Control-center"]   floating enable
 for_window [class="^Pavucontrol"]      floating enable
@@ -352,10 +376,10 @@ bind $mod+54 exec $(xdotool getactivewindow key ctrl+c)
 bind $mod+55 exec $(xdotool getactivewindow key ctrl+v)
 
 # Word-by-word movements                                            (alt+arrow)
-bindsym mod1+Left  exec $(xdotool getactivewindow key ctrl+Left)
-bindsym mod1+Down  exec $(xdotool getactivewindow key ctrl+Down)
-bindsym mod1+Up    exec $(xdotool getactivewindow key ctrl+Up)
-bindsym mod1+Right exec $(xdotool getactivewindow key ctrl+Right)
+# bindsym mod1+Left  exec $(xdotool getactivewindow key ctrl+Left)
+# bindsym mod1+Down  exec $(xdotool getactivewindow key ctrl+Down)
+# bindsym mod1+Up    exec $(xdotool getactivewindow key ctrl+Up)
+# bindsym mod1+Right exec $(xdotool getactivewindow key ctrl+Right)
 
 #                                                                 (super+arrow)
 bindsym mod4+Left  exec $(xdotool getactivewindow key Home)
@@ -364,10 +388,10 @@ bindsym mod4+Up    exec $(xdotool getactivewindow key Prior)
 bindsym mod4+Right exec $(xdotool getactivewindow key End)
 
 # Word-by-word selection                                      (alt+shift+arrow)
-bindsym mod1+Shift+Left  exec $(xdotool getactivewindow key ctrl+shift+Left)
-bindsym mod1+Shift+Down  exec $(xdotool getactivewindow key ctrl+shift+Down)
-bindsym mod1+Shift+Up    exec $(xdotool getactivewindow key ctrl+shift+Up)
-bindsym mod1+Shift+Right exec $(xdotool getactivewindow key ctrl+shift+Right)
+# bindsym mod1+Shift+Left  exec $(xdotool getactivewindow key ctrl+shift+Left)
+# bindsym mod1+Shift+Down  exec $(xdotool getactivewindow key ctrl+shift+Down)
+# bindsym mod1+Shift+Up    exec $(xdotool getactivewindow key ctrl+shift+Up)
+# bindsym mod1+Shift+Right exec $(xdotool getactivewindow key ctrl+shift+Right)
 
 #                                                           (super+shift+arrow)
 bindsym mod4+Shift+Left  exec $(xdotool getactivewindow key shift+Home)
@@ -418,5 +442,8 @@ bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower"
 #bind 199 exec $()
 
 # >>>
+
+bind $mod+61       scratchpad show
+bind $mod+Shift+61 move scratchpad
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0:
