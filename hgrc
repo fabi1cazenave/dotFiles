@@ -1,0 +1,14 @@
+#|
+#| File    : ~/.hgrc
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
+#|
+
+[extensions]
+mq =
+
+[diff]
+git = 1
+unified = 8
+

@@ -27,6 +27,9 @@ noremap <C-S-Tab> gT
 noremap <silent> <C-PageUp>   :exe "tabmove " .(tabpagenr()-2)<CR>
 noremap <silent> <C-PageDown> :exe "tabmove " . tabpagenr()<CR>
 
+" select the pasted text (http://vim.wikia.com/wiki/Selecting_your_pasted_text)
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " indexes the last search
 nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 

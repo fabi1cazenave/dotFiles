@@ -50,7 +50,7 @@ URxvt*shading         : 40
 URxvt*cursorBlink     : true
 
 ! proper font rendering:
-! the `letterSpace' option is absolutely required to keep the text readable
+! the “letterSpace” option is absolutely required to keep the text readable
 ! (problem: wide characters like ←→ might become unreadable… :-/)
 URxvt*letterSpace     : -2
 URxvt*font            : xft:Inconsolata:size=11
@@ -61,6 +61,26 @@ URxvt*font            : xft:Inconsolata:size=11
 URxvt*searchable-scrollback: M-S-s
 URxvt*iso14755        : false
 URxvt*iso14755_52     : false
+
+! make Alt-arrow work
+URxvt.keysym.M-Up     : \033[1;3A
+URxvt.keysym.M-Down   : \033[1;3B
+URxvt.keysym.M-Right  : \033[1;3C
+URxvt.keysym.M-Left   : \033[1;3D
+URxvt.keysym.M-Prior  : \033[5;3~
+URxvt.keysym.M-Next   : \033[6;3~
+URxvt.keysym.M-End    : \033[1;3F
+URxvt.keysym.M-Home   : \033[1;3H
+
+! make Ctrl-arrow work
+URxvt.keysym.C-Up     : \033[1;5A
+URxvt.keysym.C-Down   : \033[1;5B
+URxvt.keysym.C-Right  : \033[1;5C
+URxvt.keysym.C-Left   : \033[1;5D
+URxvt.keysym.C-Prior  : \033[5;5~
+URxvt.keysym.C-Next   : \033[6;5~
+URxvt.keysym.C-End    : \033[1;5F
+URxvt.keysym.C-Home   : \033[1;5H
 
 ! extensions (+ disable the selection popup)
 URxvt.perl-ext-common : default,matcher,clipboard,font-size,-selection-popup
