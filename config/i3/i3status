@@ -1,26 +1,30 @@
 #|
-#| File          : ~/.config/i3status/config
-#| Author        : Fabien Cazenave
-#| Charset       : UTF-8
-#| License       : WTFPL
-#| Last Modified : 2013-01-21
+#| File    : ~/.config/i3status/config
+#| Charset : UTF-8
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| License : WTFPL
+#|
+#| Test this with `i3-msg restart`.
 #|
 
 general {
+  output_format = "i3bar"
   colors = true
   interval = 60
-  #interval = 5
 }
 
-order  = "ipv6"
 order += "disk /"
-#order += "run_watch DHCP"
-#order += "run_watch VPN"
-order += "wireless wlan0"
-order += "ethernet eth0"
+order += "disk /home"
+# order  = "ipv6"
+# order += "run_watch DHCP"
+# order += "run_watch VPN"
+# order += "wireless wlan0"
+# order += "ethernet eth0"
 order += "battery 0"
 order += "cpu_temperature 0"
 # order += "load"
+order += "volume master"
 order += "time"
 
 wireless wlan0 {
@@ -52,16 +56,31 @@ time {
   format = "%Y-%m-%d %H:%M"
 }
 
-# load {
-#   format = "%1min"
-# }
+load {
+  format = "%1min"
+}
 
 cpu_temperature 0 {
   format = "T: %degrees °C"
 }
 
 disk "/" {
-  format = "%free"
+  # '%free' counts blocks that are reserved to root;
+  # you probably want to use '%avail' instead.
+  # format = "/ %free"
+  format = "/ %avail"
+}
+
+disk /home {
+  # I have a separate /home partition…
+  format = "/home %avail"
+}
+
+volume master {
+  format = "♪: %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
 }
 
 # vim: set ft=config:

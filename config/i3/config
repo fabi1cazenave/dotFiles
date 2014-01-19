@@ -1,9 +1,12 @@
 #|
-#| File          : ~/.config/i3/config
-#| Author        : Fabien Cazenave
-#| Charset       : UTF-8
-#| License       : WTFPL
-#| Last Modified : 2013-03-21 (requires i3 v4.2+)
+#| File    : ~/.config/i3/config
+#| Charset : UTF-8
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| License : WTFPL
+#|
+#| Requires i3 v4.2+, tested with i3 v4.7.
+#| References: /etc/i3/config, http://i3wm.org/docs/userguide.html
 #|
 
 # <<<
@@ -49,7 +52,6 @@
 #
 # >>>
 
-#|=============================================================================
 #|    general                                                               <<<
 #|=============================================================================
 
@@ -64,15 +66,19 @@ floating_modifier $mod
 # set $terminal $(roxterm -e tmux -2)
 set $terminal $(urxvt -e tmux)
 
+# Font for window titles and the status bar. Note: ISO 10646 = Unicode.
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font -*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*
+# font pango:DejaVu Sans 8
+font pango:Ubuntu 9
+
 # define your preferred application launcher
-set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+# set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+set $launcher $(dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # define your preferred screen lock
 # set $lock $(i3lock -d)
 set $lock $(xdg-screensaver lock)
-
-# window font (note: iso10646 = unicode)
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout tabbed
@@ -107,7 +113,6 @@ client.focused_inactive   #333333 #444444 #ffffff
 
 # >>>
 
-#|=============================================================================
 #|    workspaces                                                            <<<
 #|=============================================================================
 
@@ -146,13 +151,14 @@ assign [class="^Vidyo"]                → $w12
 #   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
 #   http://www.chevrel.org/carnet/?post/2012/06/06/Fonctionnement-en-parallele-de-deux-versions-de-Firefox
 # …which allows to use such commands:
-#   firefox -no-remote -profile ~/.mozilla/development --class "WebDevelopment"
-#   firefox -no-remote -profile ~/.mozilla/procrastinafox --class "Procrastinate"
-#   firefox -no-remote -profile ~/.mozilla/zimbra --class "Zimbra"
+#   firefox -no-remote -profile ~/.mozilla/social --class "social"
+#   firefox -no-remote -profile ~/.mozilla/webdev --class "webdev"
+#   firefox -no-remote -profile ~/.mozilla/zimbra --class "zimbra"
 assign [class="Firefox"]               → $w07
-assign [class="WebDevelopment"]        → $w09
-assign [class="Procrastinate"]         → $w11
-assign [class="Zimbra"]                → $w06
+assign [class="bugzilla"]              → $w08
+assign [class="social"]                → $w11
+assign [class="webdev"]                → $w09
+assign [class="zimbra"]                → $w06
 
 # ROXTerm can be run with a --role argument, e.g.:
 #   roxterm --role=WeeChat -e weechat-curses
@@ -177,23 +183,22 @@ for_window [instance="^gnome-keyring"] floating enable
 for_window [instance="^file_progress"] floating enable
 for_window [title="^Compress"]         floating enable
 for_window [title="^Compression"]      floating enable
-for_window [class="^Control-center"]   floating enable
+for_window [title="^screenkey"]        floating enable
+for_window [title="^Debconf"]          floating enable
+for_window [class="control-center"]    floating enable
 for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
 for_window [class="^B2g$"]             floating enable
-for_window [title="^Debconf"]          floating enable
-for_window [title="^screenkey"]        floating enable
 
 # >>>
 
-#|=============================================================================
 #|    wmii-like keybindings                                                 <<<
 #|=============================================================================
 
-# Switch between Tabbed/Stacking/Divided/Fullscreen modes         ($mod+[asdf])
+# Switch between tAbbed/Stacked/Divided/Fullscreen modes         ($mod+[asdf])
 bind $mod+38 layout tabbed
 bind $mod+39 layout stacked
-bind $mod+40 layout default
+bind $mod+40 layout toggle split
 bind $mod+41 fullscreen
 
 # Toggle global fullscreen                                       ($mod+shift+f)
@@ -260,7 +265,6 @@ bind $mod+Shift+21 move workspace $w12
 
 # >>>
 
-#|=============================================================================
 #|    i3-specific keybindings                                               <<<
 #|=============================================================================
 
@@ -316,6 +320,13 @@ bind $mod+Shift+58 move workspace to output down
 bind $mod+Shift+59 move workspace to output up
 bind $mod+Shift+60 move workspace to output right
 
+# Move the currently focused window to the scratchpad                  ($mod+/)
+bind $mod+61 scratchpad show
+
+# Show/hide the scratchpad window                                ($mod+Shift+/)
+# If there are multiple scratchpad windows, this command cycles through them.
+bind $mod+Shift+61 move scratchpad
+
 # Reload i3 configuration                                        ($mod+Shift+r)
 bind $mod+Shift+27 reload
 
@@ -324,11 +335,16 @@ bind $mod+Shift+22 restart
 
 # Exit i3                                                 ($mod+Ctrl+BackSpace)
 bind $mod+Control+22 exit
+# bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
 bind $mod+32       split v
 bind $mod+Shift+32 split h
+
+# Focus parent/child                                           ($mod[+Shift]+;)
+# note: this key doesn’t work well with Qwerty-Lafayette (dead key)
 bind $mod+47       focus parent
+bind $mod+Shift+47 focus child
 
 # Cycle through border styles                                          ($mod+b)
 # (note: does not apply to tabbed containers)
@@ -336,7 +352,6 @@ bind $mod+56 border toggle
 
 # >>>
 
-#|=============================================================================
 #|    applications & scripts                                                <<<
 #|=============================================================================
 
@@ -352,6 +367,10 @@ bind $mod+Shift+36 exec $lock
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 bind $mod+33 exec $launcher
 
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file.
+bind $mod+Shift+33 exec --no-startup-id i3-dmenu-desktop
+
 # Autostart (= personal startup script)
 exec $(autostart gtk)
 
@@ -366,7 +385,6 @@ bind $mod+Control+65 exec panel-toggle
 
 # >>>
 
-#|=============================================================================
 #|    generic shortcuts (xdotool powwa!)                                    <<<
 #|=============================================================================
 
@@ -413,15 +431,14 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 
 # >>>
 
-#|=============================================================================
 #|    multimedia keys (Thinkpad X220)                                       <<<
 #|=============================================================================
 
 # Volume control (pulseaudio)                                  (mute|vol-|vol+)
 # http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
-bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}')
-bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}')
-bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}')
+bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' && pkill -USR1 -x i3status)
+bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}'              && pkill -USR1 -x i3status)
+bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}'              && pkill -USR1 -x i3status)
 
 # Playlist control (cmus)                                            (Fn+arrow)
 bind 171 exec $(cmus-remote --next)
@@ -442,8 +459,5 @@ bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower"
 #bind 199 exec $()
 
 # >>>
-
-bind $mod+61       scratchpad show
-bind $mod+Shift+61 move scratchpad
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0:
