@@ -256,48 +256,56 @@ zle -N self-insert url-quote-magic
 # zle -N zle-line-init
 # zle -N zle-keymap-select
 
-#|============================================================================
-#| ZSHRC
-#|============================================================================
+# #|============================================================================
+# #| ZSHRC
+# #|============================================================================
 
-bindkey -M vicmd "/" editory
+# bindkey -M vicmd "/" editory
 
-#|============================================================================
-#| EDITORY.ZSH
-#|============================================================================
+# #|============================================================================
+# #| EDITORY.ZSH
+# #|============================================================================
 
-editory() {
-  local PREFIX=${TMPPREFIX:-/tmp/zsh}
-  local TMP=$PREFIX-editory$$
-  local VIMRC=$PREFIX-vimrc$$
+# editory() {
+#   local PREFIX=${TMPPREFIX:-/tmp/zsh}
+#   local TMP=$PREFIX-editory$$
+#   local VIMRC=$PREFIX-vimrc$$
 
-  cp $HISTFILE $TMP
+#   cp $HISTFILE $TMP
 
-  cat <<-EOF > $VIMRC
-  :let s:buffer = bufname("%")
-  :
-  :set filetype=zsh
-  :
-  :global/^:/normal!^df;
-  :normal!gg=G
-  :
-  :fun s:keep_command_from_cursor()
-  :  exe printf('normal!?^\S%sv/\n\S%syggVG"0p', "\<cr>", "\<cr>")
-  :  update
-  :endfun
-  :
-  :autocmd VimLeavePre * call s:keep_command_from_cursor()
-	EOF
+#   cat <<-EOF > $VIMRC
+#   :let s:buffer = bufname("%")
+#   :
+#   :set filetype=zsh
+#   :
+#   :global/^:/normal!^df;
+#   :normal!gg=G
+#   :
+#   :fun s:keep_command_from_cursor()
+#   :  exe printf('normal!?^\S%sv/\n\S%syggVG"0p', "\<cr>", "\<cr>")
+#   :  update
+#   :endfun
+#   :
+#   :autocmd VimLeavePre * call s:keep_command_from_cursor()
+# 	EOF
 
-  exec < /dev/tty
+#   exec < /dev/tty
 
-  vim   -S  $VIMRC     $TMP
-  print -Rz -      "$(<$TMP)"
-  rm                   $TMP
+#   vim   -S  $VIMRC     $TMP
+#   print -Rz -      "$(<$TMP)"
+#   rm                   $TMP
 
-  zle send-break # force reload from the buffer stack
-}
+#   zle send-break # force reload from the buffer stack
+# }
 
-zle -N editory
+# zle -N editory
+
+# fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+
+# function man()
+# {
+#   #vim -u ~/.vimrc.empty -XMnR "+runtime! /usr/share/vim/vim73/ftplugin/man.vim" "+Man $1" "+set nomodifiable" "+only"
+#   vim -u ~/.vimrc.empty -XMnR "+runtime! /usr/share/vim/vim73/ftplugin/" "+Man $1" "+set nomodifiable" "+only"
+# }
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:

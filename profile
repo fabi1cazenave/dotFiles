@@ -50,3 +50,7 @@ done
 # export JAVA_HOME="$HOME/.local/opt/jdk1.7.0_04/bin/"
 # [ -d "$JAVA_HOME" ] && PATH="$JAVA_HOME:$PATH"
 
+# ~/.XCompose
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+

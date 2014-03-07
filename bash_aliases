@@ -34,8 +34,8 @@ fi # >>>
 # some handy ls aliases
 alias l='ls -C'
 alias la='ls -A'
-alias ll='ls -lh'
-alias lla='ls -alh'
+alias ll='ls -lhH'
+alias lla='ls -alhH'
 
 # basic directory operations
 alias ..='cd ..'
@@ -59,6 +59,7 @@ alias alert='notify-send --urgency=low -i '\
 
 # Vim <3 <3
 alias v=vim
+alias vimrc='vim ~/.vim/vimrc ~/.vim/plugins.vim -O'
 alias lr=ranger
 alias :q=exit
 
@@ -66,7 +67,7 @@ alias :q=exit
 # (only works when commands are typed manually in a shell)
 alias less='less -F'
 alias tmux='tmux -2'
-alias gjslint='gjslint --nojsdoc'
+# alias gjslint='gjslint --nojsdoc'
 alias nautilus='nautilus --no-desktop'
 
 # __vcs_info: print branch for bzr/git/hg/svn version control in CWD <<<

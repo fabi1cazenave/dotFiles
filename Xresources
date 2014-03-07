@@ -53,9 +53,15 @@ URxvt*cursorBlink     : true
 ! the “letterSpace” option is absolutely required to keep the text readable
 ! (problem: wide characters like ←→ might become unreadable… :-/)
 URxvt*letterSpace     : -2
-URxvt*font            : xft:Inconsolata:size=11
+URxvt*font            : xft:mensch:size=9
+!URxvt*font            : xft:Inconsolata:size=11
+!URxvt*font            : xft:Inconsolata-Awesome:size=11
 !URxvt*font            : xft:Ubuntumono:size=11
-!URxvt*font            : xft:Mensch:size=9
+! not sure these fonts work at all…
+!URxvt*letterSpace     : -5
+!URxvt*font            : xft:monaco:size=9
+!URxvt*font            : xft:pomicons:size=9
+!URxvt*font            : xft:Droid-Awesome:size=9
 
 ! reclaim <Alt-s> and <Ctrl-Shift-*> shortcuts
 URxvt*searchable-scrollback: M-S-s

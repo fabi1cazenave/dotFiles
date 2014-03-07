@@ -64,7 +64,7 @@ stty -ixon
 #|    Prompt                                                                <<<
 #|=============================================================================
 
-# set variable identifying the chroot you work in (used in the prompt below)
+# set variable identifying the chroot you work in (used in the prompt xxlow)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
@@ -105,5 +105,7 @@ case "$TERM" in
 esac
 
 # >>>
+
+# fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
