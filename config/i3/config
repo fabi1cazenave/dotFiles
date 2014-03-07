@@ -119,18 +119,18 @@ client.focused_inactive   #333333 #444444 #ffffff
 # Workspace names:
 # the default modifier being Super_L, workspaces 6 to 12 are preferred
 # (=> left thumb + right hand to select a workspace)
-set $w01 1
-set $w02 2
-set $w03 3
-set $w04 4
-set $w05 5
-set $w06 6: mail
-set $w07 7: www
-set $w08 8: work
-set $w09 9: test
+set $w01  1
+set $w02  2
+set $w03  3
+set $w04  4
+set $w05  5
+set $w06  6: mail
+set $w07  7: www
+set $w08  8: work
+set $w09  9: test
 set $w10 10: tmp
 set $w11 11: im
-set $w12 12
+set $w12 12: media
 
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
@@ -146,6 +146,8 @@ assign [class="^Pidgin"]               → $w11
 assign [class="^Skype"]                → $w11
 assign [class="^Hotot"]                → $w11
 assign [class="^Vidyo"]                → $w12
+assign [class="^Vlc"]                  → $w12
+assign [class="^Totem"]                → $w12
 
 # Firefox can be run with a --class argument: (= "Firefox" by default)
 #   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
