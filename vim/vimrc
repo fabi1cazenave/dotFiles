@@ -1,11 +1,12 @@
 "|
-"| File    : ~/.vimrc
+"| File    : ~/.vim/vimrc
+"| Author  : Fabien Cazenave
 "| Source  : https://github.com/fabi1cazenave/dotFiles
 "| Licence : WTFPL
 "|
 
-let $VIMHOME = glob('~/.vim')   	" user directory
-let $VIMTEMP = glob('~/.vim/tmp')	" temp directory
+let $VIMHOME = glob('~/.vim')   	" main Vim configuration directory
+let $VIMTEMP = glob('~/.vim/tmp')	" one temp directory to rule them all
 
 " don’t create temp files everywhere, but just in $VIMTEMP if it exists
 if !empty($VIMTEMP)             	" check that the directory exists
@@ -16,17 +17,25 @@ if !empty($VIMTEMP)             	" check that the directory exists
 endif
 
 " two solutions to let CTRL-ZXCV behave like in Notepad:
-"  * the standard "mswin.vim" resource: source $VIMRUNTIME/mswin.vim
-"  * the "cua-mode.vim" plugin: https://github.com/fabi1cazenave/cua-mode.vim
+"  • the standard "mswin.vim" resource: source $VIMRUNTIME/mswin.vim
+"  • the "cua-mode.vim" plugin: https://github.com/fabi1cazenave/cua-mode.vim
 " (the CUA mode, by default, preserves other Vim shortcuts much better)
 
 " modern behavior
 set nocompatible                	" required for a multi-level undo/redo stack
 set mouse=a                     	" enable mouse selection
+"set clipboard=unnamedplus       	" use the common clipboard as default register
 
+autocmd FileType xml  setlocal  makeprg=xmllint\ -
+autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
+autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
+autocmd FileType json setlocal equalprg=python\ -mjson.tool
+" unfortunately, `formatprg' is a global option
+" autocmd FileType xml  setlocal formatprg=xmllint\ --format\ -
+" autocmd FileType html setlocal formatprg=xmllint\ --html\ --format\ -
+" autocmd FileType json setlocal formatprg=python\ -mjson.tool
 
-"|=============================================================================
-"|    Auto-reload configuration files                                       <<<
+"|    Auto-reload configuration files                                       {{{
 "|=============================================================================
 
 " source configuration files on save to apply all changes immediately
@@ -41,33 +50,42 @@ autocmd! BufWritePost gtkrc         !gtkrc-reload
 autocmd! BufWritePost gtkrc-2.0     !gtkrc-reload
 autocmd! BufWritePost .gtkrc-2.0    !gtkrc-reload
 
+" autocmd! BufNewFile,BufRead * 0r ~/.vim-include
+iabbrev gebi getElementById
+iabbrev _date <C-r>=strftime('%d/%m/%Y')<CR>
+
 " everytime we change window, check if file has been updated outside of the editor
 autocmd WinEnter * checktime
 
 "http://vim.wikia.com/wiki/Fix_syntax_highlighting
 "autocmd BufEnter * :syntax sync fromstart
-">>>
+"}}}
 
-"|=============================================================================
-"|    Plugins                                                               <<<
+"|    Plugins                                                               {{{
 "|=============================================================================
 
 filetype off       " required!
-
 if filereadable($VIMHOME.'/plugins.vim')
   source $VIMHOME/plugins.vim
 endif
-
 filetype plugin indent on
 
+" CUA-mode.vim: adjusting the balance between Vim and standard shortcuts
+behave xterm                    	" possible values: xterm, mswin
+let g:cua_mode   = 1            	" standard Vim shortcuts + CTRL-ZXCV
+let g:cua_arrows = 3            	" Notepad-mode for arrows/backspace/delete
+if has('gui_running')           	" right-click shows a popup menu in GUI mode
+  set mousemodel=popup_setpos
+endif
+" set selectmode=
+
 " if exists("Ranger")
-  noremap <silent> <Esc>e :call Ranger()<CR>
+noremap <silent> <Esc>e :call Ranger()<CR>
 " endif
 
-">>>
+"}}}
 
-"|=============================================================================
-"|    Mappings                                                              <<<
+"|    Mappings                                                              {{{
 "|=============================================================================
 
 " disable digraph input to make <^> work faster
@@ -103,17 +121,17 @@ command! W w !sudo tee % > /dev/null
 noremap <BS> <PageUp>
 noremap <Space> <PageDown>
 
-" Enter to follow tags (e.g. help links)
-noremap <Enter> <C-]>
+" g<Enter> to follow tags (e.g. help links)
+noremap g<CR> g<C-]>
+noremap <C-]> g<C-]>
 
 " other specific mappings
 if filereadable($VIMHOME.'/mappings.vim')
   source $VIMHOME/mappings.vim
 endif
-">>>
+"}}}
 
-"|=============================================================================
-"|    Terminal                                                              <<<
+"|    Terminal                                                              {{{
 "|=============================================================================
 
 set shell=/usr/bin/zsh
@@ -130,10 +148,9 @@ if &term =~ '^screen'
   " exe "set title titlestring=Vim:%f"
   " exe "set title t_ts=\<ESC>k t_fs=\<ESC>\\"
 endif
-">>>
+"}}}
 
-"|=============================================================================
-"|    User Interface                                                        <<<
+"|    User Interface                                                        {{{
 "|=============================================================================
 "set visualbell
 
@@ -143,6 +160,7 @@ set laststatus=2      	" always show the status line
 set ruler             	" display line/col position in the status line
 set cursorline        	" highlight current line
 set splitbelow        	" consistency with most tiling WMs (wmii, i3…)
+set splitright        	" consistency with most tiling WMs (wmii, i3…)
 set virtualedit=block 	" easier rectangular selections
 
 " line numbers
@@ -161,11 +179,11 @@ set guifont=Inconsolata\ 11
 
 " syntax highlighting
 colorscheme kalahari  	" https://github.com/fabi1cazenave/kalahari.vim
+set synmaxcol=200     	" don’t try to highlight super long lines
 syntax on
-">>>
+"}}}
 
-"|=============================================================================
-"|    General settings                                                      <<<
+"|    General settings                                                      {{{
 "|=============================================================================
 
 set encoding=utf-8
@@ -194,8 +212,10 @@ set softtabstop=2
 set expandtab
 set cindent
 set smartindent
+set shiftround
 "set autoindent
 autocmd FileType ?akefile set noexpandtab
+autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 "set foldmethod=indent
 autocmd FileType html,xhtml,javascript,css,c,cpp,python setlocal foldmethod=indent
 
@@ -209,9 +229,10 @@ set smartcase       	" … except if the search pattern contains uppercase chars
 " autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 " autocmd CursorMoved * exe printf('match ColorColumn /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
-" case-insensitive tab completion
-set wildmode=longest:list
-if exists("&wildignorecase")
+" case-insensitive tab completion in the command line
+set wildmenu          " enhanced command-line completion in the status line
+set wildmode=longest,full " (use `list:longest` to complete files like a shell)
+if exists("&wildignorecase") 
   set wildignorecase
 endif
 set showfulltag
@@ -220,6 +241,6 @@ set showfulltag
 set nrformats=hex
 
 " set matchpairs+=<:>
-">>>
+"}}}
 
-" vim: set fdm=marker fmr=<<<,>>> fdl=0:
+" vim: set fdm=marker fmr={{{,}}} fdl=0:

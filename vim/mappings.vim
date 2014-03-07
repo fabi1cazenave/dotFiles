@@ -1,5 +1,6 @@
 "|
-"| File    : ~/.vim/mappings
+"| File    : ~/.vim/mappings.vim
+"| Author  : Fabien Cazenave
 "| Source  : https://github.com/fabi1cazenave/dotFiles
 "| Licence : WTFPL
 "|
@@ -7,6 +8,19 @@
 
 " disable digraph input to make ^ work faster
 set nodigraph
+
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+vnoremap <Up> <Nop>
+vnoremap <Down> <Nop>
+vnoremap <Left> <Nop>
+vnoremap <Right> <Nop>
+inoremap <Up> <Nop>
+inoremap <Down> <Nop>
+inoremap <Left> <Nop>
+inoremap <Right> <Nop>
 
 "|    General mappings                                                      <<<
 "|-----------------------------------------------------------------------------
@@ -70,9 +84,9 @@ map <M-Left>  <C-Left>
 map <M-Right> <C-Right>
 
 " Meta+[up|down]: paragraph-by-paragraph
-noremap <C-Up> {
+noremap <C-Up>   {
 noremap <C-Down> }
-noremap <M-Up> {
+noremap <M-Up>   {
 noremap <M-Down> }
 
 " experimental: escaped movements / on-the-fly code completion
@@ -90,7 +104,7 @@ noremap <Esc>n <C-i>
 noremap <Esc>p <C-o>
 
 " lazy command-line history: hold down Meta, dot, j|k
-noremap <Esc>. :
+noremap  <Esc>. :
 cnoremap <Esc>j <Down>
 cnoremap <Esc>k <Up>
 ">>>
@@ -169,12 +183,12 @@ nnoremap         ß <C-w>s
 
 " swap ,/; in normal mode (feels more natural with my qwerty-lafayette layout)
 " -- disabled because I've added that to Fanf,ingTastic; instead
-"nnoremap , ;
-"nnoremap ; ,
-"vnoremap , ;
-"vnoremap ; ,
-"onoremap , ;
-"onoremap ; ,
+" nnoremap , ;
+" nnoremap ; ,
+" vnoremap , ;
+" vnoremap ; ,
+" onoremap , ;
+" onoremap ; ,
 ">>>
 
 " vim: set fdm=marker fmr=<<<,>>> fdl=0:

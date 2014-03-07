@@ -1,0 +1,116 @@
+#|
+#| File    : ~/.XCompose
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
+#|
+
+include "/usr/share/X11/locale/en_US.UTF-8/Compose"
+
+# These files are worth checking for more ~/.XCompose madness:
+# https://github.com/kragen/xcompose
+# http://ootync-xcompose.googlecode.com/files/.XCompose
+# https://github.com/luispedro/base-user/blob/master/configuration-files/XCompose
+
+# arrows
+
+<Multi_key> <h> <l>   : "↔" U2194 # LEFT RIGHT ARROW
+<Multi_key> <l> <h>   : "↔" U2194 # LEFT RIGHT ARROW
+<Multi_key> <j> <k>   : "↕" U2195 # UP DOWN ARROW
+<Multi_key> <k> <j>   : "↕" U2195 # UP DOWN ARROW
+<Multi_key> <H> <L>   : "⇔" U21D4 # LEFT RIGHT DOUBLE ARROW
+<Multi_key> <L> <H>   : "⇔" U21D4 # LEFT RIGHT DOUBLE ARROW
+<Multi_key> <J> <K>   : "⇕" U21D5 # UP DOWN DOUBLE ARROW
+<Multi_key> <K> <J>   : "⇕" U21D5 # UP DOWN DOUBLE ARROW
+
+<Multi_key> <H> <H>   : "☚" U261A # BLACK LEFT POINTING INDEX
+<Multi_key> <L> <L>   : "☛" U261B # BLACK RIGHT POINTING INDEX
+<Multi_key> <h> <h>   : "☜" U261C # WHITE LEFT POINTING INDEX
+<Multi_key> <k> <k>   : "☝" U261D # WHITE UP POINTING INDEX
+<Multi_key> <l> <l>   : "☞" U261E # WHITE RIGHT POINTING INDEX
+<Multi_key> <j> <j>   : "☟" U261F # WHITE DOWN POINTING INDEX
+
+# common symbols
+
+<Multi_key> <equal> <v>             : "✓" U2713 # CHECK MARK
+<Multi_key> <equal> <V>             : "✔" U2714 # HEAVY CHECK MARK
+<Multi_key> <equal> <x>             : "✗" U2717 # BALLOT X
+<Multi_key> <equal> <X>             : "✘" U2718 # HEAVY BALLOT X
+<Multi_key> <equal> <space> <space> : "☐" U2610 # BALLOT BOX
+<Multi_key> <equal> <space> <v>     : "☑" U2611 # BALLOT BOX WITH CHECK
+<Multi_key> <equal> <space> <x>     : "☒" U2612 # BALLOT BOX WITH X
+
+<Multi_key> <equal> <dot>           : "•" U2022 # BULLET
+<Multi_key> <equal> <greater>       : "‣" U2023 # TRIANGULAR BULLET
+<Multi_key> <equal> <asterisk>      : "★" U2605 # BLACK STAR
+
+<Multi_key> <o> <percent>           : "‰" U2030 # PER MILLE SIGN
+<Multi_key> <o> <x>                 : "¤" U00A4 # CURRENCY SIGN
+<Multi_key> <o> <o>                 : "°" U00B0 # DEGREE SIGN
+<Multi_key> <o> <C>                 : "℃" U2103 # DEGREE CELSIUS
+<Multi_key> <o> <F>                 : "℉" U2109 # DEGREE FARENHEIT
+
+# superscript
+
+<Multi_key> <k> <0>            : "⁰"
+<Multi_key> <k> <1>            : "¹"
+<Multi_key> <k> <2>            : "²"
+<Multi_key> <k> <3>            : "³"
+<Multi_key> <k> <4>            : "⁴"
+<Multi_key> <k> <5>            : "⁵"
+<Multi_key> <k> <6>            : "⁶"
+<Multi_key> <k> <7>            : "⁷"
+<Multi_key> <k> <8>            : "⁸"
+<Multi_key> <k> <9>            : "⁹"
+
+<Multi_key> <k> <plus>         : "⁺"
+<Multi_key> <k> <minus>        : "⁻"
+<Multi_key> <k> <equal>        : "⁼"
+<Multi_key> <k> <parenleft>    : "⁽"
+<Multi_key> <k> <parenright>   : "⁾"
+<Multi_key> <k> <i>            : "ⁱ"
+<Multi_key> <k> <n>            : "ⁿ"
+
+# subscript
+
+<Multi_key> <j> <0>            : "₀"
+<Multi_key> <j> <1>            : "₁"
+<Multi_key> <j> <2>            : "₂"
+<Multi_key> <j> <3>            : "₃"
+<Multi_key> <j> <4>            : "₄"
+<Multi_key> <j> <5>            : "₅"
+<Multi_key> <j> <6>            : "₆"
+<Multi_key> <j> <7>            : "₇"
+<Multi_key> <j> <8>            : "₈"
+<Multi_key> <j> <9>            : "₉"
+
+<Multi_key> <j> <plus>         : "₊"
+<Multi_key> <j> <minus>        : "₋"
+<Multi_key> <j> <equal>        : "₌"
+<Multi_key> <j> <parenleft>    : "₍"
+<Multi_key> <j> <parenright>   : "₎"
+<Multi_key> <j> <i>            : "ᵢ"
+#<Multi_key> <j> <n>           (N/A)
+
+# emoticons
+
+<Multi_key> <comma> <l>            : "♡" U2661 # WHITE HEART SUIT
+<Multi_key> <comma> <L>            : "♥" U2665 # BLACK HEART SUIT
+<Multi_key> <comma> <3>            : "♥" U2665 # BLACK HEART SUIT
+
+<Multi_key> <dot> <2>              : "☹" U2639 # WHITE FROWNING FACE
+<Multi_key> <dot> <parenleft>      : "☹" U2639 # WHITE FROWNING FACE
+<Multi_key> <dot> <3>              : "☺" U263A # WHITE SMILING FACE
+<Multi_key> <dot> <parenright>     : "☺" U263A # WHITE SMILING FACE
+
+<Multi_key> <dot> <d>              : "😃" U1F603 # SMILING FACE WITH OPEN MOUTH
+<Multi_key> <dot> <D>              : "😃" U1F603 # SMILING FACE WITH OPEN MOUTH
+<Multi_key> <o> <dot> <3>          : "😇" U1F607 # SMILING FACE WITH HALO
+<Multi_key> <o> <dot> <parenright> : "😇" U1F607 # SMILING FACE WITH HALO
+<Multi_key> <comma> <3>            : "😉" U1F609 # WINKING FACE
+<Multi_key> <comma> <parenright>   : "😉" U1F609 # WINKING FACE
+<Multi_key> <dot> <p>              : "😋" U1F60B # FACE SAVOURING DELICIOUS FOOD
+<Multi_key> <dot> <P>              : "😋" U1F60B # FACE SAVOURING DELICIOUS FOOD
+<Multi_key> <B> <3>                : "😎" U1F60E # SMILING FACE WITH SUNGLASSES
+<Multi_key> <B> <parenright>       : "😎" U1F60E # SMILING FACE WITH SUNGLASSES
+
