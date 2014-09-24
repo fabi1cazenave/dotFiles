@@ -22,6 +22,9 @@ inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
+" clear current search
+map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
+
 "|    General mappings                                                      <<<
 "|-----------------------------------------------------------------------------
 
@@ -65,48 +68,66 @@ nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 " XXX only works with MacVim, and disables <Option> keys
 "set macmeta
 
+" in gVim, Alt sets the 8th bit; otherwise, assume the terminal is 8-bit clean
+if !exists("g:MetaSendsEscape")
+  let g:MetaSendsEscape = !has("gui_running")
+endif
+
 " These Alt+[left-hand] shortcuts aren't so efficient with an AltGr layout
 " but they're still much better on a laptop without right Control key...
-"noremap  <M-r> <C-r>
-"noremap  <M-v> <C-v>
-"noremap  <M-x> <C-x>
-"noremap  <M-a> <C-a>
-"inoremap <M-o> <C-o>
-noremap  <Esc>r <C-r>
-noremap  <Esc>v <C-v>
-noremap  <Esc>x <C-x>
-noremap  <Esc>a <C-a>
-inoremap <Esc>o <C-o>
+if g:MetaSendsEscape
+  noremap  <Esc>r <C-r>
+  noremap  <Esc>v <C-v>
+  noremap  <Esc>x <C-x>
+  noremap  <Esc>a <C-a>
+  inoremap <Esc>o <C-o>
+else
+  noremap  <M-r> <C-r>
+  noremap  <M-v> <C-v>
+  noremap  <M-x> <C-x>
+  noremap  <M-a> <C-a>
+  inoremap <M-o> <C-o>
+endif
 
 " Meta+[BackSpace|left|right]: word-by-word
 inoremap <Esc><BS> <C-o>dB<C-o>x
-map <M-Left>  <C-Left>
-map <M-Right> <C-Right>
+if !g:MetaSendsEscape
+  map <M-Left>  <C-Left>
+  map <M-Right> <C-Right>
+endif
 
 " Meta+[up|down]: paragraph-by-paragraph
 noremap <C-Up>   {
 noremap <C-Down> }
-noremap <M-Up>   {
-noremap <M-Down> }
+if !g:MetaSendsEscape
+  noremap <M-Up>   {
+  noremap <M-Down> }
+endif
 
 " experimental: escaped movements / on-the-fly code completion
-"inoremap <Esc> <C-o>
-inoremap <Esc>h <C-o>^
-inoremap <Esc>j <C-n>
-inoremap <Esc>k <C-p>
-inoremap <Esc>l <C-o>$
-"inoremap <Esc>w <C-o>w
-"inoremap <Esc>e <C-o>e
-"inoremap <Esc>b <C-o>b
+if g:MetaSendsEscape
+  "inoremap <Esc> <C-o>
+  inoremap <Esc>h <C-o>^
+  inoremap <Esc>j <C-n>
+  inoremap <Esc>k <C-p>
+  inoremap <Esc>l <C-o>$
+  "inoremap <Esc>w <C-o>w
+  "inoremap <Esc>e <C-o>e
+  "inoremap <Esc>b <C-o>b
+endif
 
 " jump to newer/older position
-noremap <Esc>n <C-i>
-noremap <Esc>p <C-o>
+if g:MetaSendsEscape
+  noremap <Esc>n <C-i>
+  noremap <Esc>p <C-o>
+endif
 
 " lazy command-line history: hold down Meta, dot, j|k
-noremap  <Esc>. :
-cnoremap <Esc>j <Down>
-cnoremap <Esc>k <Up>
+if g:MetaSendsEscape
+  noremap  <Esc>. :
+  cnoremap <Esc>j <Down>
+  cnoremap <Esc>k <Up>
+endif
 ">>>
 
 "|    QWERTY mappings                                                       <<<

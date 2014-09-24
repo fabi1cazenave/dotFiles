@@ -46,8 +46,9 @@ NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-repeat'
 
 " Syntastic
-let g:syntastic_javascript_checkers = ['gjslint']
-let g:syntastic_javascript_gjslint_conf = '--nojsdoc'
+" let g:syntastic_javascript_checkers = ['gjslint']
+" let g:syntastic_javascript_gjslint_conf = '--nojsdoc'
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_mode_map = {
                          \   'mode': 'active',
                          \   'active_filetypes': ['javascript'],
@@ -177,16 +178,28 @@ NeoBundle 'tpope/vim-vinegar'
 "|    Bundles under test :: tupperVim-14.03                                 {{{
 "|-----------------------------------------------------------------------------
 
+" Dark color schemes
+NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'mattsacks/vim-eddie'
+NeoBundle 'trapd00r/neverland-vim-theme'
+
+"}}}
+
+"|    Bundles under test :: tupperVim-14.03                                 {{{
+"|-----------------------------------------------------------------------------
+
 " Astuce du mois: ouvrir avec :sp [fichier] ou :vs [fichier]
 
 " This works but always selects the last tab when Vim is resized:
 " autocmd VimResized * tabdo wincmd =
-function AutoResizeWindows()
+function! AutoResizeWindows()
   let tabnr = tabpagenr()
   tabdo wincmd =
   exe "tabnext " . tabnr
 endfunction
-autocmd VimResized * call AutoResizeWindows()
+augroup resizeGroup
+  autocmd VimResized * call AutoResizeWindows()
+augroup END
 
 " http://localhost/doc/git-cheatsheet/
 
@@ -288,8 +301,8 @@ NeoBundle 'tpope/vim-surround'
 " let g:ackprg = 'ack-grep'
 " let g:ackprg = 'ag --nogroup --nocolor --column'
 " NeoBundle 'mileszs/ack.vim'
-" noremap <Leader>f :Ack 
-" noremap ſ :Ack 
+" noremap <Leader>f :Ack
+" noremap ſ :Ack
 
 " Conque Term
 " Alternative: 'Shougo/vimshell.vim'

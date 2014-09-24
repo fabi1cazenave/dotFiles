@@ -26,29 +26,33 @@ set nocompatible                	" required for a multi-level undo/redo stack
 set mouse=a                     	" enable mouse selection
 "set clipboard=unnamedplus       	" use the common clipboard as default register
 
-autocmd FileType xml  setlocal  makeprg=xmllint\ -
-autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
-autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
-autocmd FileType json setlocal equalprg=python\ -mjson.tool
-" unfortunately, `formatprg' is a global option
-" autocmd FileType xml  setlocal formatprg=xmllint\ --format\ -
-" autocmd FileType html setlocal formatprg=xmllint\ --html\ --format\ -
-" autocmd FileType json setlocal formatprg=python\ -mjson.tool
+augroup linterConfiguration
+  autocmd FileType xml  setlocal  makeprg=xmllint\ -
+  autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
+  autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
+  autocmd FileType json setlocal equalprg=python\ -mjson.tool
+  " unfortunately, `formatprg' is a global option
+  " autocmd FileType xml  setlocal formatprg=xmllint\ --format\ -
+  " autocmd FileType html setlocal formatprg=xmllint\ --html\ --format\ -
+  " autocmd FileType json setlocal formatprg=python\ -mjson.tool
+augroup END
 
 "|    Auto-reload configuration files                                       {{{
 "|=============================================================================
 
 " source configuration files on save to apply all changes immediately
-autocmd! BufWritePost vimrc         source $MYVIMRC
-autocmd! BufWritePost .vimrc        source $MYVIMRC
-autocmd! BufWritePost _vimrc        source $MYVIMRC
-autocmd! BufWritePost Xresources    !xrdb -load ~/.Xresources
-autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
-autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
-autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
-autocmd! BufWritePost gtkrc         !gtkrc-reload
-autocmd! BufWritePost gtkrc-2.0     !gtkrc-reload
-autocmd! BufWritePost .gtkrc-2.0    !gtkrc-reload
+augroup configurationFiles
+  autocmd! BufWritePost vimrc         source $MYVIMRC
+  autocmd! BufWritePost .vimrc        source $MYVIMRC
+  autocmd! BufWritePost _vimrc        source $MYVIMRC
+  autocmd! BufWritePost Xresources    !xrdb -load ~/.Xresources
+  autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
+  autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
+  autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
+  autocmd! BufWritePost gtkrc         !gtkrc-reload
+  autocmd! BufWritePost gtkrc-2.0     !gtkrc-reload
+  autocmd! BufWritePost .gtkrc-2.0    !gtkrc-reload
+augroup END
 
 " autocmd! BufNewFile,BufRead * 0r ~/.vim-include
 iabbrev gebi getElementById
@@ -154,6 +158,10 @@ endif
 "|=============================================================================
 "set visualbell
 
+set hidden            	" don’t ask before closing a window
+
+nnoremap <Esc> ggdG
+
 set showmode          	" display current mode blow the status line
 set showtabline=2     	" show tabbar even for a single buffer
 set laststatus=2      	" always show the status line
@@ -214,10 +222,12 @@ set cindent
 set smartindent
 set shiftround
 "set autoindent
-autocmd FileType ?akefile set noexpandtab
-autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 "set foldmethod=indent
-autocmd FileType html,xhtml,javascript,css,c,cpp,python setlocal foldmethod=indent
+augroup indents
+  autocmd FileType ?akefile set noexpandtab
+  autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+  autocmd FileType html,xhtml,javascript,css,c,cpp,python setlocal foldmethod=indent
+augroup END
 
 " search settings
 set hlsearch        	" highlight search results
@@ -232,7 +242,7 @@ set smartcase       	" … except if the search pattern contains uppercase chars
 " case-insensitive tab completion in the command line
 set wildmenu          " enhanced command-line completion in the status line
 set wildmode=longest,full " (use `list:longest` to complete files like a shell)
-if exists("&wildignorecase") 
+if exists("&wildignorecase")
   set wildignorecase
 endif
 set showfulltag
