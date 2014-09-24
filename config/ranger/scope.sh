@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 #| File    : ~/.config/ranger/scope.sh
 #| Charset : UTF-8
 #| Author  : Fabien Cazenave
@@ -31,49 +31,57 @@ height="$3"  # Height of the preview pane (number of fitting characters)
 maxln=200    # Stop after $maxln lines.  Can be used like ls | head -n $maxln
 
 # Find out something about the file:
-#mimetype=$(mimetype -b "$path")
 mimetype=$(file --mime-type -Lb "$path")
 extension=${path##*.}
 
 # Functions:
-# "have $1" succeeds if $1 is an existing command/installed program
-function have { type -P "$1" > /dev/null; }
-# "success" returns the exit code of the first program in the last pipe chain
-function success { test ${PIPESTATUS[0]} = 0; }
+# runs a command and saves its output into $output.  Useful if you need
+# the return value AND want to use the output in a pipe
+try() { output=$(eval '"$@"'); }
+
+# writes the output of the previouosly used "try" command
+dump() { echo "$output"; }
+
+# a common post-processing function used after most commands
+trim() { head -n "$maxln"; }
 
 case "$extension" in
-  # Archive extensions: (a bit slow... not sure I like it)
-  7z|a|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
-  rar|rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)
-    als "$path" | head -n $maxln
-    success && exit 0 || acat "$path" | head -n $maxln && exit 3
-    exit 1;;
-  # PDF documents:
-  pdf)
-    #pdftotext -l 10 -nopgbrk -q "$path" - | head -n $maxln | fmt -s -w $width
-    success && exit 0;;
-  # BitTorrent files:
-  torrent)
-    transmission-show "$path" | head -n $maxln && exit 3
-    success && exit 5;;
-  # HTML pages:
-  htm|html|xhtml)
-    have w3m    && w3m    -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-    have lynx   && lynx   -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-    have elinks && elinks -dump "$path" | head -n $maxln | fmt -s -w $width && exit 4
-    ;; # fall back to highlight/cat if theres no lynx/elinks
+    # Archive extensions: (a bit slow... not sure I like it)
+    # - also applies to comics archives (cbz) until I find a better idea
+    7z|a|ace|alz|arc|arj|bz|bz2|cab|cbz|cpio|deb|gz|jar|lha|lz|lzh|lzma|lzo|\
+    rpm|rz|t7z|tar|tbz|tbz2|tgz|tlz|txz|tZ|tzo|war|xpi|xz|Z|zip)
+        try als        "$path" && { dump | trim; exit 0; }
+        try acat       "$path" && { dump | trim; exit 3; }
+        try bsdtar -lf "$path" && { dump | trim; exit 0; }
+        exit 1;;
+    rar)
+        try unrar -p- lt "$path" && { dump | trim; exit 0; } || exit 1;;
+    # PDF documents:
+    pdf)
+        # success && exit 0;;
+        try pdftotext -l 10 -nopgbrk -q "$path" - && \
+            { dump | trim | fmt -s -w $width; exit 0; } || exit 1;;
+    # BitTorrent Files
+    torrent)
+        try transmission-show "$path" && { dump | trim; exit 5; } || exit 1;;
+    # HTML Pages:
+    htm|html|xhtml)
+        try w3m    -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
+        try lynx   -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
+        try elinks -dump "$path" && { dump | trim | fmt -s -w $width; exit 4; }
+        ;; # fall back to highlight/cat if the text browsers fail
 esac
 
 case "$mimetype" in
-  # Syntax highlight for text files:
-  text/* | */xml)
-    highlight --out-format=ansi "$path" | head -n $maxln
-    success && exit 5 || exit 2;;
-  # Display information about images and media files:
-  image/* | video/* | audio/*)
-    have mediainfo && mediainfo "$path" | sed 's/ \{16\}:/:/;' && exit 5
-    have exiftool  && exiftool  "$path"                        && exit 5
-    ;; # fall back to file info
+    # Syntax highlight for text files:
+    text/* | */xml)
+        try highlight --out-format=ansi "$path" && { dump | trim; exit 5; } || exit 2;;
+    # Display information about images and media files:
+    image/*)
+        exiftool "$path" && exit 5;;
+    video/* | audio/*)
+        # Use sed to remove spaces so the output fits into the narrow window
+        try mediainfo "$path" && { dump | trim | sed 's/ \{16\}:/:/;';  exit 5; } || exit 1;;
 esac
 
 # Display general information for other files:

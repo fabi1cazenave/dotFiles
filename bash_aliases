@@ -60,7 +60,7 @@ alias alert='notify-send --urgency=low -i '\
 # Vim <3 <3
 alias v=vim
 alias vimrc='vim ~/.vim/vimrc ~/.vim/plugins.vim -O'
-alias lr=ranger
+alias lr='[ $RANGER_LEVEL ] && exit || ranger'
 alias :q=exit
 
 # trick to define default arguments
@@ -72,7 +72,7 @@ alias nautilus='nautilus --no-desktop'
 
 # __vcs_info: print branch for bzr/git/hg/svn version control in CWD <<<
 # http://blog.grahampoulter.com/2011/09/show-current-git-bazaar-or-mercurial.html
-function __vcs_info {
+__vcs_info() {
   local dir="$PWD"
   local logo="#"
   local vcs
@@ -107,5 +107,33 @@ function __vcs_info {
     dir="$(dirname "$dir")"
   done
 } # >>>
+
+# seconds <-> hh:mm:ss <<<
+# Works with GNU sed (Linux…), not sure it works on OSX
+__hms2sec() {
+  # with sed and bc:
+  echo $1 \
+    | sed -E 's/(.*):(.+):(.+)/\1*3600+\2*60+\3/;s/(.+):(.+)/\1*60+\2/' \
+    | bc
+  # with awk:
+  # num=`echo $1 | awk -F: '{ print NF-1 }'`
+  # case "$num" in
+  #   0) echo $1;;
+  #   1) echo $1 | awk -F: '{ print $2 + $1*60 }';;
+  #   2) echo $1 | awk -F: '{ print $3 + $2*60 + $1*3600 }';;
+  # esac
+}
+__sec2hms() {
+  # printf %02d:%02d:%02d\\n $(($1/3600)) $(($1%3600/60)) $(($1%60))
+  # handling decimals:
+  t=`echo $1 | sed -E 's/\..*$//'`
+  d=`echo $1 | sed -E 's/^.*\.//'`
+  if [ "$t" = "$1" ]; then
+    printf %02d:%02d:%02d\\n $((t/3600)) $((t%3600/60)) $((t%60))
+  else
+    printf %02d:%02d:%02d.%d\\n $((t/3600)) $((t%3600/60)) $((t%60)) $d
+  fi
+}
+# >>>
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=sh:
