@@ -25,6 +25,10 @@ inoremap <Right> <Nop>
 " clear current search
 map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
 
+" wonder how often you hit <Esc> when already in normal mode?
+" Uncomment the following line to find out. Abandon all hope.
+" nnoremap <Esc> ggdG
+
 "|    General mappings                                                      <<<
 "|-----------------------------------------------------------------------------
 

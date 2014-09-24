@@ -160,8 +160,6 @@ endif
 
 set hidden            	" don’t ask before closing a window
 
-nnoremap <Esc> ggdG
-
 set showmode          	" display current mode blow the status line
 set showtabline=2     	" show tabbar even for a single buffer
 set laststatus=2      	" always show the status line
