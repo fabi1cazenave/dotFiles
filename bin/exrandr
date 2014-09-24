@@ -22,7 +22,7 @@ case $1 in
 esac
 
 # use the first external screen along with (or instead of) LVDS1
-connected=`xrandr --current | grep '\<connected\>' | sed 's/\s.*$//g'`
+connected=$(xrandr --current | grep '\<connected\>' | sed 's/\s.*$//g')
 for screen in $connected; do
   if [ $screen != "LVDS1" ]; then
     cmd="xrandr --output $screen $opt"
