@@ -17,8 +17,8 @@ case $1 in
   left|right)  opt="--auto --$1-of LVDS1 --output LVDS1 --auto" ;;
   above|below) opt="--auto --$1 LVDS1 --output LVDS1 --auto"    ;;
 
-  # unrecognized command => show usage
-  *) echo "usage: $0 [left|right|above|below|same|ext|off]" && exit ;;
+  # unrecognized command => show usage and exit with error
+  *) echo "usage: $0 [left|right|above|below|same|ext|off]" && exit 1;;
 esac
 
 # use the first external screen along with (or instead of) LVDS1

@@ -219,14 +219,13 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path $ZSH/cache/
 
 # Don't complete uninteresting users
-zstyle ':completion:*:*:*:users' ignored-patterns \
-        adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
-        dbus distcache dovecot fax ftp games gdm gkrellmd gopher \
-        hacluster haldaemon halt hsqldb ident junkbust ldap lp mail \
-        mailman mailnull mldonkey mysql nagios \
-        named netdump news nfsnobody nobody nscd ntp nut nx openvpn \
-        operator pcap postfix postgres privoxy pulse pvm quagga radvd \
-        rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs
+zstyle ':completion:*:*:*:users' ignored-patterns                             \
+        adm amanda apache avahi beaglidx bin cacti canna clamav daemon        \
+        dbus distcache dovecot fax ftp games gdm gkrellmd gopher hacluster    \
+        haldaemon halt hsqldb ident junkbust ldap lp mail mailman mailnull    \
+        mldonkey mysql nagios named netdump news nfsnobody nobody nscd ntp    \
+        nut nx openvpn operator pcap postfix postgres privoxy pulse pvm       \
+        quagga radvd rpc rpcuser rpm shutdown squid sshd sync uucp vcsa xfs
 
 # ... unless we really want to.
 zstyle '*' single-ignored show
@@ -246,66 +245,5 @@ fi
 # smart URLs
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
-
-# # cmd/insertion mode display
-# function zle-line-init zle-keymap-select {
-#     RPS1="${${KEYMAP/vicmd/-N-}/(main|viins)/-I-}"
-#     RPS2=$RPS1
-#     zle reset-prompt
-# }
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
-# #|============================================================================
-# #| ZSHRC
-# #|============================================================================
-
-# bindkey -M vicmd "/" editory
-
-# #|============================================================================
-# #| EDITORY.ZSH
-# #|============================================================================
-
-# editory() {
-#   local PREFIX=${TMPPREFIX:-/tmp/zsh}
-#   local TMP=$PREFIX-editory$$
-#   local VIMRC=$PREFIX-vimrc$$
-
-#   cp $HISTFILE $TMP
-
-#   cat <<-EOF > $VIMRC
-#   :let s:buffer = bufname("%")
-#   :
-#   :set filetype=zsh
-#   :
-#   :global/^:/normal!^df;
-#   :normal!gg=G
-#   :
-#   :fun s:keep_command_from_cursor()
-#   :  exe printf('normal!?^\S%sv/\n\S%syggVG"0p', "\<cr>", "\<cr>")
-#   :  update
-#   :endfun
-#   :
-#   :autocmd VimLeavePre * call s:keep_command_from_cursor()
-# 	EOF
-
-#   exec < /dev/tty
-
-#   vim   -S  $VIMRC     $TMP
-#   print -Rz -      "$(<$TMP)"
-#   rm                   $TMP
-
-#   zle send-break # force reload from the buffer stack
-# }
-
-# zle -N editory
-
-# fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
-
-# function man()
-# {
-#   #vim -u ~/.vimrc.empty -XMnR "+runtime! /usr/share/vim/vim73/ftplugin/man.vim" "+Man $1" "+set nomodifiable" "+only"
-#   vim -u ~/.vimrc.empty -XMnR "+runtime! /usr/share/vim/vim73/ftplugin/" "+Man $1" "+set nomodifiable" "+only"
-# }
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:

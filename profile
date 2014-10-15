@@ -54,3 +54,4 @@ done
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 
+# vim: set ft=sh:

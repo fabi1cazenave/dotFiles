@@ -5,7 +5,7 @@
 #| Source  : https://github.com/fabi1cazenave/dotFiles
 #| License : WTFPL
 #|
-#| Requires i3 v4.2+, tested with i3 v4.7.
+#| Requires i3 v4.2+, tested with i3 v4.8.
 #| References: /etc/i3/config, http://i3wm.org/docs/userguide.html
 #|
 
@@ -61,24 +61,11 @@ set $mod Mod4
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# define your preferred terminal - you can refer to this as $terminal later
-# set $terminal roxterm
-# set $terminal $(roxterm -e tmux -2)
-set $terminal $(urxvt -e tmux)
-
 # Font for window titles and the status bar. Note: ISO 10646 = Unicode.
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # font -*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*
 # font pango:DejaVu Sans 8
 font pango:Ubuntu 9
-
-# define your preferred application launcher
-# set $launcher $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
-set $launcher $(dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
-
-# define your preferred screen lock
-# set $lock $(i3lock -d)
-set $lock $(xdg-screensaver lock)
 
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout tabbed
@@ -306,6 +293,10 @@ mode "resize" {
 bind $mod+30 workspace prev
 bind $mod+31 workspace next
 
+# Move to previous/Next Workspace                             ($mod+Shift+[ui])
+bind $mod+Shift+30 move window to workspace prev
+bind $mod+Shift+31 move window to workspace next
+
 # Back to last workspace                                               ($mod+')
 bind $mod+48 workspace back_and_forth
 workspace_auto_back_and_forth yes
@@ -358,32 +349,26 @@ bind $mod+56 border toggle
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
-bind $mod+36 exec $terminal
+# bind $mod+36 exec roxterm
+bind $mod+36 exec $(urxvt -e tmux)
 
-# Lock i3                                                    ($mod+Shift+Enter)
-bind $mod+Shift+36 exec $lock
+# Start a new file browser                                   ($mod+Shift+Enter)
+# bind $mod+Shift+36 exec $(nautilus --no-desktop)
+bind $mod+Shift+36 exec $(urxvt -e ranger)
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
-bind $mod+33 exec $launcher
+# bind $mod+33 exec $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+bind $mod+33 exec --no-startup-id $(dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file.
 bind $mod+Shift+33 exec --no-startup-id i3-dmenu-desktop
 
 # Autostart (= personal startup script)
-exec $(autostart gtk)
-
-# File Browser                                                         ($mod+n)
-#bind $mod+57 exec $(nautilus --no-desktop)
-
-# System Monitor                                                       ($mod+m)
-#bind $mod+58 exec gnome-system-monitor
-
-# Toggle Desktop Panel                                     ($mod+Control+Space)
-bind $mod+Control+65 exec panel-toggle
+# exec $(autostart gtk)
 
 # >>>
 
@@ -436,11 +421,26 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 #|    multimedia keys (Thinkpad X220)                                       <<<
 #|=============================================================================
 
+# Screenshot                                                           (PrtScr)
+# +shift ⇒ focused window only
+bind 107       exec $(scrot    -e 'mv $f ~/Pictures/Screenshots')
+bind Shift+107 exec $(scrot -u -e 'mv $f ~/Pictures/Screenshots')
+
 # Volume control (pulseaudio)                                  (mute|vol-|vol+)
 # http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
-bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' && pkill -USR1 -x i3status)
-bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}'              && pkill -USR1 -x i3status)
-bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}'              && pkill -USR1 -x i3status)
+# bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' && pkill -USR1 -x i3status)
+# bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}'              && pkill -USR1 -x i3status)
+# bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}'              && pkill -USR1 -x i3status)
+
+# Volume control (amixer)                                      (mute|vol-|vol+)
+# bind 121 exec $(amixer -q sset Master toggle && pkill -USR1 -x i3status)
+# bind 122 exec $(amixer -q sset Master 1%-    && pkill -USR1 -x i3status)
+# bind 123 exec $(amixer -q sset Master 1%+    && pkill -USR1 -x i3status)
+
+# Volume control (mvolume = custom helper script)              (mute|vol-|vol+)
+bind 121 exec $(mvolume / && pkill -USR1 -x i3status)
+bind 122 exec $(mvolume - && pkill -USR1 -x i3status)
+bind 123 exec $(mvolume + && pkill -USR1 -x i3status)
 
 # Playlist control (cmus)                                            (Fn+arrow)
 bind 171 exec $(cmus-remote --next)
@@ -449,7 +449,7 @@ bind 173 exec $(cmus-remote --prev)
 bind 174 exec $(cmus-remote --stop)
 
 # lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
-bind 160 exec $lock
+bind 160 exec $(xdg-screensaver lock || i3lock -d)
 #bind 244 exec $()
 bind 150 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend)
 bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate)

@@ -63,6 +63,9 @@ alias vimrc='vim ~/.vim/vimrc ~/.vim/plugins.vim -O'
 alias lr='[ $RANGER_LEVEL ] && exit || ranger'
 alias :q=exit
 
+# OSX style
+alias open=xdg-open
+
 # trick to define default arguments
 # (only works when commands are typed manually in a shell)
 alias less='less -F'

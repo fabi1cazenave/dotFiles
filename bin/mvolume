@@ -1,0 +1,54 @@
+#!/bin/sh
+#| File    : ~/.local/bin/pavolume
+#| Author  : Fabien Cazenave
+#| Source  : https://github.com/fabi1cazenave/dotFiles
+#| Licence : WTFPL
+#|
+#| Helper script to control the master volume:
+#|   ./mvolume [raise|lower|mute]
+#|
+#| alternative syntax:
+#|   ./mvolume +           # raise volume
+#|   ./mvolume -           # lower volume
+#|   ./mvolume /           # toggle mute
+#|
+
+show_usage() {
+  echo "usage: $0 [raise|lower|mute]" && exit 1
+}
+
+command_exists() {
+  command -v "$1" > /dev/null 2>&1
+}
+
+# pulseaudio?
+# http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
+if command_exists pacmd ; then
+  if ! command_exists awk ; then
+    echo "awk is required." && exit 1
+  fi
+  case $1 in
+    +|raise) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}' ;;
+    -|lower) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}' ;;
+    /|mute)  opt='$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' ;;
+    *) show_usage ;;
+  esac
+  cmd="pacmd dump|awk --non-decimal-data '$opt'"
+
+# alsa mixer?
+elif command_exists amixer ; then
+  case $1 in
+    +|raise) cmd="amixer -q sset Master 1%+"    ;;
+    -|lower) cmd="amixer -q sset Master 1%-"    ;;
+    /|mute)  cmd="amixer -q sset Master toggle" ;;
+    *) show_usage ;;
+  esac
+
+# no sound controller available
+else
+  echo "could not find pulseaudio 'pacmd' nor alsa 'amixer'." && exit 1
+fi
+
+echo $cmd
+eval $cmd > /dev/null
+

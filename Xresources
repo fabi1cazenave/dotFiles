@@ -62,6 +62,7 @@ URxvt*font            : xft:mensch:size=9
 !URxvt*font            : xft:monaco:size=9
 !URxvt*font            : xft:pomicons:size=9
 !URxvt*font            : xft:Droid-Awesome:size=9
+!URxvt*font            : xft:DroidSansMono:size=11
 
 ! reclaim <Alt-s> and <Ctrl-Shift-*> shortcuts
 URxvt*searchable-scrollback: M-S-s
@@ -152,5 +153,8 @@ URxvt.keysym.C-minus  : perl:font-size:decrease
 *color15 : #ffffee
 
 !>>>
+
+Xcursor.theme : Vanilla-DMZ-AA
+Xcursor.size  : 22
 
 ! vim: set fdm=marker fmr=<<<,>>> fdl=0:
