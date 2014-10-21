@@ -7,6 +7,7 @@
 #|
 #| Requires i3 v4.2+, tested with i3 v4.8.
 #| References: /etc/i3/config, http://i3wm.org/docs/userguide.html
+#| Bonus: see PotatoesMaster/i3-vim-syntax for i3 syntax hilighting.
 #|
 
 # <<<
@@ -76,7 +77,6 @@ new_float normal
 
 # Statusline (i3bar)
 bar {
-  # TODO: remove redundant battery information from the status line
   status_command i3status
   position bottom
   # mode hide
@@ -148,6 +148,16 @@ assign [class="bugzilla"]              → $w08
 assign [class="social"]                → $w11
 assign [class="webdev"]                → $w09
 assign [class="zimbra"]                → $w06
+
+# >>>
+
+#|    floating windows                                                      <<<
+#|=============================================================================
+
+# Correct handling of floating dialogs
+# https://wiki.archlinux.org/index.php/i3#Correct_handling_of_floating_dialogs
+for_window [window_role="pop-up"]      floating enable
+for_window [window_role="task_dialog"] floating enable
 
 # ROXTerm can be run with a --role argument, e.g.:
 #   roxterm --role=WeeChat -e weechat-curses
