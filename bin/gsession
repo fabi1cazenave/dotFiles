@@ -8,26 +8,57 @@
 #|   ./gsession [lock|suspend|hibernate|logout|restart|shutdown]
 #|
 
-# lock relies on the screensaver
-screenLock='xdg-screensaver lock'
+show_usage() {
+  echo "usage: $0 [lock|suspend|hibernate|logout|restart|shutdown]"
+  exit 1
+}
 
-# suspend/hibernate rely on a dbus message
-dbusPower='dbus-send --system --print-reply '\
-'--dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower'
+command_exists() {
+  command -v "$1" > /dev/null 2>&1
+}
 
-# logout/restart/shutdown rely on this GTK helper
-gtkLogout='/usr/lib/indicator-session/gtk-logout-helper'
+# lock usually relies on the screensaver; otherwise, i3 rulez.
+lock() {
+  xdg-screensaver lock || i3lock -d
+}
 
-case $1 in
-  lock)      cmd=$screenLock             ;;
-  suspend)   cmd=$dbusPower'.Suspend'    ;;
-  hibernate) cmd=$dbusPower'.Hibernate'  ;;
-  logout)    cmd=$gtkLogout' --logout'   ;;
-  restart)   cmd=$gtkLogout' --restart'  ;;
-  shutdown)  cmd=$gtkLogout' --shutdown' ;;
-  *) echo "usage: $0 [lock|suspend|hibernate|logout|restart|shutdown]" && exit ;;
-esac
+# send a dbus message to org.freedesktop.UPower:
+#   dbus_upower [Suspend|Hibernate]
+dbus_upower() {
+  dbus-send --system --print-reply            \
+            --dest="org.freedesktop.UPower"   \
+                   /org/freedesktop/UPower    \
+                    org.freedesktop.UPower.$1
+}
 
-echo $cmd
-eval $cmd
+# this GTK helper works fine with Ubuntu 12.04 -- not tested otherwise, sorry :/
+#   gtk_logout [logout|restart|shutdown]
+gtk_logout() {
+  /usr/lib/indicator-session/gtk-logout-helper --$1
+}
+
+# systemd?
+if command_exists systemctl ; then
+  case "$1" in
+    lock)      lock                        ;;
+    suspend)   lock && systemctl suspend   ;;
+    hibernate) lock && systemctl hibernate ;;
+    logout)    i3-msg exit                 ;;
+    restart)           systemctl reboot    ;;
+    shutdown)          systemctl poweroff  ;;
+    *)         show_usage                  ;;
+  esac
+
+# Ubuntu 12.04?
+else
+  case $1 in
+    lock)      lock                          ;;
+    suspend)   lock && dbus_upower Suspend   ;;
+    hibernate) lock && dbus_upower Hibernate ;;
+    logout)    gtk_logout logout             ;;
+    restart)   gtk_logout restart            ;;
+    shutdown)  gtk_logout shutdown           ;;
+    *)         show_usage                    ;;
+  esac
+fi
 

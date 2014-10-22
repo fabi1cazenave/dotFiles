@@ -436,18 +436,8 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 bind 107       exec $(scrot    -e 'mv $f ~/Pictures/Screenshots')
 bind Shift+107 exec $(scrot -u -e 'mv $f ~/Pictures/Screenshots')
 
-# Volume control (pulseaudio)                                  (mute|vol-|vol+)
-# http://ubuntuforums.org/showpost.php?p=10232181&postcount=9
-# bind 121 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' && pkill -USR1 -x i3status)
-# bind 122 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}'              && pkill -USR1 -x i3status)
-# bind 123 exec $(pacmd dump|awk --non-decimal-data '$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}'              && pkill -USR1 -x i3status)
-
-# Volume control (amixer)                                      (mute|vol-|vol+)
-# bind 121 exec $(amixer -q sset Master toggle && pkill -USR1 -x i3status)
-# bind 122 exec $(amixer -q sset Master 1%-    && pkill -USR1 -x i3status)
-# bind 123 exec $(amixer -q sset Master 1%+    && pkill -USR1 -x i3status)
-
-# Volume control (mvolume = custom helper script)              (mute|vol-|vol+)
+# Volume control                                               (mute|vol-|vol+)
+# https://github.com/fabi1cazenave/dotFiles/blob/master/bin/mvolume
 bind 121 exec $(mvolume / && pkill -USR1 -x i3status)
 bind 122 exec $(mvolume - && pkill -USR1 -x i3status)
 bind 123 exec $(mvolume + && pkill -USR1 -x i3status)
@@ -459,10 +449,11 @@ bind 173 exec $(cmus-remote --prev)
 bind 174 exec $(cmus-remote --stop)
 
 # lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
-bind 160 exec $(xdg-screensaver lock || i3lock -d)
+# https://github.com/fabi1cazenave/dotFiles/blob/master/bin/gsession
+bind 160 exec $(gsession lock)
 #bind 244 exec $()
-bind 150 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend)
-bind 213 exec $(dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate)
+bind 150 exec $(gsession suspend)
+bind 213 exec $(gsession hibernate)
 
 # ???                                                        (Fn+[F5|F6|F7|F8])
 #bind 246 exec $()
