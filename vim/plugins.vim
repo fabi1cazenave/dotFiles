@@ -21,6 +21,7 @@ NeoBundleFetch 'Shougo/neobundle.vim' " let NeoBundle manage itself - required!
 
 NeoBundle 'mozfr/mozilla.vim'
 NeoBundle 'jceb/vim-orgmode'
+NeoBundle 'tpope/vim-speeddating'
 
 " QuickFixSigns -- show markers, quickfix and VCS status
 " Alternative: 'mhinz/vim-signify'
@@ -144,6 +145,7 @@ nnoremap ſ :Unite grep:.<CR>
 " Alternative: 'kien/ctrlp.vim'
 " Alternative: 'wincent/Command-T'
 " Alternative: FuzzyFinder
+NeoBundle 'Shougo/neomru.vim'
 " nnoremap <C-p> :Unite file_rec/async<CR>
 nnoremap è :Unite -no-split file<CR>
 " nnoremap é :Unite -auto-preview buffer file file_rec/async<CR>
@@ -169,20 +171,24 @@ nnoremap þ :Unite outline<CR>
 " Plugin: file explorer
 " Alternative: 'tpope/vim-vinegar'
 " Alternative: 'scrooloose/nerdtree'
-" let g:vimfiler_as_default_explorer = 1
-" NeoBundle 'Shougo/vimfiler.vim'
-" nnoremap æ :VimFiler<CR>
-NeoBundle 'tpope/vim-vinegar'
+let g:vimfiler_as_default_explorer = 1
+NeoBundle 'Shougo/vimfiler.vim'
+nnoremap æ :VimFiler<CR>
 "}}}
 
-"|    Bundles under test :: tupperVim-14.03                                 {{{
+"|    Bundles under test :: tupperVim-14.10                                 {{{
 "|-----------------------------------------------------------------------------
+NeoBundle 'tpope/vim-eunuch'
 
-" Dark color schemes
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'mattsacks/vim-eddie'
-NeoBundle 'trapd00r/neverland-vim-theme'
-
+" + Ranger:
+"   • !shell %s
+"   • commandes perso
+"   • nouveautés 1.6.1
+"   • alias conditionnel `lr'
+"   • pré-visu images
+"
+" + vifm 0.7.7
+"
 "}}}
 
 "|    Bundles under test :: tupperVim-14.03                                 {{{

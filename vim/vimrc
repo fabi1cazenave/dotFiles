@@ -29,7 +29,8 @@ set mouse=a                     	" enable mouse selection
 augroup linterConfiguration
   autocmd FileType xml  setlocal  makeprg=xmllint\ -
   autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
-  autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
+  " autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
+  autocmd FileType html setlocal equalprg=tidy\ -q\ -i\ -w\ 80\ -utf8\ --quote-nbsp\ no\ --output-xhtml\ yes\ --show-warnings\ no\ --show-body-only\ auto\ --tidy-mark\ no\ -
   autocmd FileType json setlocal equalprg=python\ -mjson.tool
   " unfortunately, `formatprg' is a global option
   " autocmd FileType xml  setlocal formatprg=xmllint\ --format\ -
@@ -37,14 +38,23 @@ augroup linterConfiguration
   " autocmd FileType json setlocal formatprg=python\ -mjson.tool
 augroup END
 
+augroup javascript
+  autocmd BufNewFile,BufReadPost *.webapp set filetype=json
+  autocmd BufNewFile,BufReadPost *.jsm    set filetype=javascript
+augroup END
+
+augroup zip
+  autocmd BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
+augroup END
+
 "|    Auto-reload configuration files                                       {{{
 "|=============================================================================
 
 " source configuration files on save to apply all changes immediately
 augroup configurationFiles
-  autocmd! BufWritePost vimrc         source $MYVIMRC
-  autocmd! BufWritePost .vimrc        source $MYVIMRC
-  autocmd! BufWritePost _vimrc        source $MYVIMRC
+  autocmd! BufWritePost vimrc         source %
+  autocmd! BufWritePost .vimrc        source %
+  autocmd! BufWritePost _vimrc        source %
   autocmd! BufWritePost Xresources    !xrdb -load ~/.Xresources
   autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
   autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
@@ -114,7 +124,8 @@ nnoremap K i<CR><Esc>k$
 " nnoremap K :Man <C-r><C-w><CR>
 
 " use :W to sudo-write the current buffer
-command! W w !sudo tee % > /dev/null
+" command! W w !sudo tee "%" > /dev/null
+command! W w !sudo dd of=%
 
 " Enter as leader key
 " let mapleader = "\<Enter>"
@@ -176,17 +187,28 @@ set scrolloff=5       	" number of screen lines to show around the cursor
 set numberwidth=6     	" minimal number width (not working?)
 
 " show tabs / nbsp / trailing spaces
-set listchars=nbsp:¤,tab:··,trail:¤,extends:>,precedes:<
-set list
+set list listchars=nbsp:¤,tab:··,trail:¤,extends:▶,precedes:◀
 
 " minimal interface when running in GUI mode
 set guioptions=
 set guifont=Inconsolata\ 11
 
 " syntax highlighting
-colorscheme kalahari  	" https://github.com/fabi1cazenave/kalahari.vim
+syntax enable
 set synmaxcol=200     	" don’t try to highlight super long lines
-syntax on
+colorscheme kalahari  	" https://github.com/fabi1cazenave/kalahari.vim
+
+" This works but always selects the last tab when Vim is resized:
+" autocmd VimResized * tabdo wincmd =
+function! AutoResizeWindows()
+  let tabnr = tabpagenr()
+  tabdo wincmd =
+  exe "tabnext " . tabnr
+endfunction
+augroup resizeGroup
+  autocmd VimResized * call AutoResizeWindows()
+augroup END
+
 "}}}
 
 "|    General settings                                                      {{{
@@ -199,7 +221,8 @@ set modeline
 set modelines=5
 
 " use the current file’s directory as Vim’s working directory
-set autochdir         	" XXX not working on MacOSX
+" Alternative: 'airblaide/vim-rooter'
+" set autochdir         	" XXX not working on MacOSX
 
 set showmatch         	" when inserting a bracket, briefly jump to its match
 "set filetype=vim      	" trigger the FileType event when set (local to buffer)
@@ -211,12 +234,12 @@ set nowrap
 "set nowrapscan
 set linebreak
 
-" two-space indentation (= Mozilla guidelines), except for makefiles
+" two-space indentation except for Python and makefiles
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-set cindent
+" set cindent
 set smartindent
 set shiftround
 "set autoindent
@@ -251,4 +274,4 @@ set nrformats=hex
 " set matchpairs+=<:>
 "}}}
 
-" vim: set fdm=marker fmr={{{,}}} fdl=0:
+" vim: set ft=vim fdm=marker fmr={{{,}}} fdl=0:

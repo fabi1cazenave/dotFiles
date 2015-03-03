@@ -6,6 +6,10 @@
 "|
 
 
+augroup mappings
+  autocmd! BufWritePost mappings.vim source %
+augroup END
+
 " disable digraph input to make ^ work faster
 set nodigraph
 
@@ -23,7 +27,8 @@ inoremap <Left> <Nop>
 inoremap <Right> <Nop>
 
 " clear current search
-map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
+" map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
+map <silent> <Leader><Space> :noh<CR>
 
 " wonder how often you hit <Esc> when already in normal mode?
 " Uncomment the following line to find out. Abandon all hope.
@@ -31,6 +36,15 @@ map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
 
 "|    General mappings                                                      <<<
 "|-----------------------------------------------------------------------------
+
+" quick save on <Return>
+noremap <silent> <CR> :up<CR><CR>
+
+" spare one VimGolf point (and a Shift press) on :q, :w, :e, :x
+noremap <Leader>q :q<CR>
+noremap <Leader>w :w<CR>
+noremap <Leader>e :e<CR>
+noremap <Leader>x :x<CR>
 
 " lazy code folding / unfolding
 noremap <Tab>   za
@@ -84,17 +98,17 @@ if g:MetaSendsEscape
   noremap  <Esc>v <C-v>
   noremap  <Esc>x <C-x>
   noremap  <Esc>a <C-a>
-  inoremap <Esc>o <C-o>
+  " inoremap <Esc>o <C-o>
 else
   noremap  <M-r> <C-r>
   noremap  <M-v> <C-v>
   noremap  <M-x> <C-x>
   noremap  <M-a> <C-a>
-  inoremap <M-o> <C-o>
+  " inoremap <M-o> <C-o>
 endif
 
 " Meta+[BackSpace|left|right]: word-by-word
-inoremap <Esc><BS> <C-o>dB<C-o>x
+" inoremap <Esc><BS> <C-o>dB<C-o>x
 if !g:MetaSendsEscape
   map <M-Left>  <C-Left>
   map <M-Right> <C-Right>
@@ -111,10 +125,10 @@ endif
 " experimental: escaped movements / on-the-fly code completion
 if g:MetaSendsEscape
   "inoremap <Esc> <C-o>
-  inoremap <Esc>h <C-o>^
-  inoremap <Esc>j <C-n>
-  inoremap <Esc>k <C-p>
-  inoremap <Esc>l <C-o>$
+  " inoremap <Esc>h <C-o>^
+  " inoremap <Esc>j <C-n>
+  " inoremap <Esc>k <C-p>
+  " inoremap <Esc>l <C-o>$
   "inoremap <Esc>w <C-o>w
   "inoremap <Esc>e <C-o>e
   "inoremap <Esc>b <C-o>b
@@ -122,15 +136,19 @@ endif
 
 " jump to newer/older position
 if g:MetaSendsEscape
-  noremap <Esc>n <C-i>
-  noremap <Esc>p <C-o>
+  nnoremap <Esc>n <C-i>
+  nnoremap <Esc>p <C-o>
 endif
 
 " lazy command-line history: hold down Meta, dot, j|k
 if g:MetaSendsEscape
-  noremap  <Esc>. :
+  nnoremap <Esc>. :
   cnoremap <Esc>j <Down>
   cnoremap <Esc>k <Up>
+else
+  nnoremap <M-.> :
+  cnoremap <M-j> <Down>
+  cnoremap <M-k> <Up>
 endif
 ">>>
 
@@ -143,38 +161,51 @@ endif
 inoremap kj <Esc>
 cnoremap kj <Esc>
 
-"noremap <Esc> zz
-"noremap <Esc><Return> zz
+
+"nnoremap <Esc> zz
+"nnoremap <Esc><Return> zz
 
 " switching buffers & windows
-"noremap <M-n> :bn<CR>
-"noremap <M-p> :bp<CR>
-"noremap <M-w> <C-w>
-"noremap <M-w><M-w> <C-w><C-w>
-"noremap <Leader>w  <C-w>
-"noremap <Leader>ww <C-w><C-w>
-"
-noremap <Esc>N :bn<CR>
-noremap <Esc>P :bp<CR>
-noremap <Esc>w <C-w>
-noremap <Esc>w<Esc>w <C-w><C-w>
+if g:MetaSendsEscape
+  nnoremap <Esc>N :bn<CR>
+  nnoremap <Esc>P :bp<CR>
+  nnoremap <Esc>w <C-w>
+  nnoremap <Esc>w<Esc>w <C-w><C-w>
+else
+  nnoremap <S-M-n> :bn<CR>
+  nnoremap <S-M-p> :bp<CR>
+  nnoremap <M-w> <C-w>
+  nnoremap <M-w><M-w> <C-w><C-w>
+endif
+
+" capitalize previous word
+" Note: <c-u> deletes text entered in the current line.
+if g:MetaSendsEscape
+  inoremap <Esc>u <C-o>b<C-o>gUw<C-o>w
+  inoremap <Esc>U <C-o>B<C-o>gUW<C-o>W
+else
+  inoremap   <M-u> <C-o>b<C-o>gUw<C-o>w
+  inoremap <S-M-u> <C-o>B<C-o>gUW<C-o>W
+endif
 
 " switching / moving / creating tabs
-"noremap <silent>   <M-y> :tabnew<CR>
-"noremap <silent>   <M-u> :tabprev<CR>
-"noremap <silent>   <M-i> :tabnext<CR>
-"noremap <silent> <S-M-u> :exe "tabmove " .(tabpagenr()-2)<CR>
-"noremap <silent> <S-M-i> :exe "tabmove " . tabpagenr()<CR>
-"
-noremap <silent> <Esc>y :tabnew<CR>
-noremap <silent> <Esc>u :tabprev<CR>
-noremap <silent> <Esc>i :tabnext<CR>
-noremap <silent> <Esc>U :exe "tabmove " .(tabpagenr()-2)<CR>
-noremap <silent> <Esc>I :exe "tabmove " . tabpagenr()<CR>
+if g:MetaSendsEscape
+  nnoremap <silent> <Esc>y :tabnew<CR>
+  nnoremap <silent> <Esc>u :tabprev<CR>
+  nnoremap <silent> <Esc>i :tabnext<CR>
+  nnoremap <silent> <Esc>U :exe "tabmove " .(tabpagenr()-2)<CR>
+  nnoremap <silent> <Esc>I :exe "tabmove " . tabpagenr()<CR>
+else
+  nnoremap <silent>   <M-y> :tabnew<CR>
+  nnoremap <silent>   <M-u> :tabprev<CR>
+  nnoremap <silent>   <M-i> :tabnext<CR>
+  nnoremap <silent> <S-M-u> :exe "tabmove " .(tabpagenr()-2)<CR>
+  nnoremap <silent> <S-M-i> :exe "tabmove " . tabpagenr()<CR>
+endif
 
 " scroll current window
-" noremap <C-j> <C-y>
-" noremap <C-k> <C-e>
+noremap <C-j> <C-y>
+noremap <C-k> <C-e>
 
 " open a vertical split and switch over (v)
 nnoremap <leader>v <C-w>v<C-w>l
