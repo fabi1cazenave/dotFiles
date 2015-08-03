@@ -1,5 +1,5 @@
 #!/bin/sh
-#| File    : ~/.local/bin/pavolume
+#| File    : ~/.local/bin/mvolume
 #| Author  : Fabien Cazenave
 #| Source  : https://github.com/fabi1cazenave/dotFiles
 #| Licence : WTFPL
@@ -8,8 +8,8 @@
 #|   ./mvolume [raise|lower|mute]
 #|
 #| alternative syntax:
-#|   ./mvolume +           # raise volume
-#|   ./mvolume -           # lower volume
+#|   ./mvolume +           # raise volume 1%
+#|   ./mvolume -           # lower volume 1%
 #|   ./mvolume /           # toggle mute
 #|
 
@@ -28,12 +28,15 @@ if command_exists pacmd ; then
     echo "awk is required." && exit 1
   fi
   case $1 in
-    +|raise) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+1000)}' ;;
-    -|lower) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-1000)}' ;;
+    # Note: 655 is about 1% of 65536
+    +|raise) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3+655)}' ;;
+    -|lower) opt='$1~/set-sink-volume/{system ("pacmd "$1" "$2" "$3-655)}' ;;
     /|mute)  opt='$1~/set-sink-mute/{system ("pacmd "$1" "$2" "($3=="yes"?"no":"yes"))}' ;;
     *) show_usage ;;
   esac
-  cmd="pacmd dump|awk --non-decimal-data '$opt'"
+  cmd="pacmd dump|awk '$opt'"
+  # Note, Ubuntu 12.04 required that:
+  # cmd="pacmd dump|awk --non-decimal-data '$opt'"
 
 # alsa mixer?
 elif command_exists amixer ; then
