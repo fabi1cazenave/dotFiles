@@ -18,7 +18,7 @@
 
 " Suggestion: quick save on <Enter>
 " (if you wonder why `noremap`, try with `map` ^^)
-noremap <silent> <CR> :up<CR><CR>
+noremap <silent> <CR> :update<CR><CR>
 
 " Suggestion: Space/BackSpace for Page Down/Up
 " (using `noremap` in case the “badass mode” is on)
@@ -59,7 +59,7 @@ map <silent> z9 :set fdl=9<CR>
 nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 
 " quick way to clear the current search
-map <silent> <Leader><Space> :noh<CR>
+map <silent> <Leader><Space> :nohlsearch<CR>
 "}}}
 
 "|    Alt-* mappings                                                        {{{
@@ -85,16 +85,16 @@ endif
 " These Alt+[left-hand] shortcuts aren't so efficient with an AltGr layout
 " but they're still much better on a laptop without right Control key...
 if g:MetaSendsEscape
-  noremap  <Esc>r <C-r>
-  noremap  <Esc>v <C-v>
-  noremap  <Esc>x <C-x>
-  noremap  <Esc>a <C-a>
+  noremap <Esc>r <C-r>
+  noremap <Esc>v <C-v>
+  noremap <Esc>x <C-x>
+  noremap <Esc>a <C-a>
   " inoremap <Esc>o <C-o>
 else
-  noremap  <M-r> <C-r>
-  noremap  <M-v> <C-v>
-  noremap  <M-x> <C-x>
-  noremap  <M-a> <C-a>
+  noremap <M-r> <C-r>
+  noremap <M-v> <C-v>
+  noremap <M-x> <C-x>
+  noremap <M-a> <C-a>
   " inoremap <M-o> <C-o>
 endif
 
@@ -137,13 +137,13 @@ endif
 
 " switching buffers & windows
 if g:MetaSendsEscape
-  nmap <Esc>N :bn<CR>
-  nmap <Esc>P :bp<CR>
+  nmap <Esc>N :bnext<CR>
+  nmap <Esc>P :bprevious<CR>
   nmap <Esc>w <C-w>
   nmap <Esc>w<Esc>w <C-w><C-w>
 else
-  nmap <S-M-n> :bn<CR>
-  nmap <S-M-p> :bp<CR>
+  nmap <S-M-n> :bnext<CR>
+  nmap <S-M-p> :bprevious<CR>
   nmap <M-w> <C-w>
   nmap <M-w><M-w> <C-w><C-w>
 endif
@@ -195,14 +195,14 @@ nmap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 "|-----------------------------------------------------------------------------
 
 " Disable all arrows, become a better Vimmer. Really.
-map  <Up>    <nop>
-imap <Up>    <nop>
-map  <Down>  <nop>
-imap <Down>  <nop>
-map  <Left>  <nop>
-imap <Left>  <nop>
-map  <Right> <nop>
-imap <Right> <nop>
+map  <Up>    <Nop>
+imap <Up>    <Nop>
+map  <Down>  <Nop>
+imap <Down>  <Nop>
+map  <Left>  <Nop>
+imap <Left>  <Nop>
+map  <Right> <Nop>
+imap <Right> <Nop>
 
 " Same thing for home/end/pgup/pgdn. You’ll thank me later.
 map  <Home>     <Nop>
