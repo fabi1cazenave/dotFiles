@@ -1,0 +1,12 @@
+With its saner default settings, Neovim gives an opportunity to come up with a
+simpler Vim configuration. Besides, the built-in async support encourages trying
+a different set of plugins.
+
+So this configuration is not shared with Vim at all.
+
+`init.vim` is the base configuration file (Neovim’s equivalent of .vimrc).
+It can load two optional files, `mappings.vim` and `plugins.vim`.
+
+Alternatively, Neovim can be started with the (much simpler) `core.vim` config:
+     nvim -u ~/.config/nvim/core.vim
+
