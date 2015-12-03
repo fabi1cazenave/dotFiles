@@ -130,23 +130,13 @@ else
 endif
 "}}}
 
-"|    Buffers, Windows, Tabs                                                {{{
+"|    Windows and Tabs                                                      {{{
 "|-----------------------------------------------------------------------------
-" These mappings work fine with all Qwerty variants (i.e. Qwertz, Azerty) but
-" are probably useless with Dvorak-style layouts.
+" See also: https://github.com/fabi1cazenave/suckless.vim
 
-" switching buffers & windows
-if g:MetaSendsEscape
-  nmap <Esc>N :bnext<CR>
-  nmap <Esc>P :bprevious<CR>
-  nmap <Esc>w <C-w>
-  nmap <Esc>w<Esc>w <C-w><C-w>
-else
-  nmap <S-M-n> :bnext<CR>
-  nmap <S-M-p> :bprevious<CR>
-  nmap <M-w> <C-w>
-  nmap <M-w><M-w> <C-w><C-w>
-endif
+" scroll current window
+map <C-j> <C-y>
+map <C-k> <C-e>
 
 " switching / moving / creating tabs
 if g:MetaSendsEscape
@@ -163,15 +153,11 @@ else
   nmap <silent> <S-M-i> :exe "tabmove " . tabpagenr()<CR>
 endif
 
-" scroll current window
-map <C-j> <C-y>
-map <C-k> <C-e>
-
 " open a vertical split and switch over (v)
-nmap <leader>v <C-w>v<C-w>l
-nmap         ŭ <C-w>v<C-w>l
+nmap <leader>v <C-w>v
+nmap         ŭ <C-w>v
 
-" open a horizontal split (s)
+" open a horizontal split and switch over (s)
 nmap <leader>s <C-w>s
 nmap         ß <C-w>s
 "}}}
@@ -191,33 +177,9 @@ vmap <C-x> <C-x>gv
 nmap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " }}}
 
-"|    Badass mode                                                           {{{
-"|-----------------------------------------------------------------------------
-
-" Disable all arrows, become a better Vimmer. Really.
-map  <Up>    <Nop>
-imap <Up>    <Nop>
-map  <Down>  <Nop>
-imap <Down>  <Nop>
-map  <Left>  <Nop>
-imap <Left>  <Nop>
-map  <Right> <Nop>
-imap <Right> <Nop>
-
-" Same thing for home/end/pgup/pgdn. You’ll thank me later.
-map  <Home>     <Nop>
-imap <Home>     <Nop>
-map  <End>      <Nop>
-imap <End>      <Nop>
-map  <PageUp>   <Nop>
-imap <PageUp>   <Nop>
-map  <PageDown> <Nop>
-imap <PageDown> <Nop>
-
 " Wonder how often you hit <Esc> when already in normal mode?
 " Uncomment the following line to find out. Abandon all hope.
 map <Esc> ggcGboo!<CR><Esc>
-"}}}
 
 " swap ,/; in normal mode (feels more natural with my qwerty-lafayette layout)
 " (to be disabled when using my patched Fanf,ingTastic;)
