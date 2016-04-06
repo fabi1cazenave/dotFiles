@@ -18,7 +18,10 @@
 
 " Suggestion: quick save on <Enter>
 " (if you wonder why `noremap`, try with `map` ^^)
-noremap <silent> <CR> :update<CR><CR>
+" nnoremap <silent> <CR> :update<CR>
+
+" Note: remapping <Enter> also affects the command-line, so let’s revert:
+" cnoremap <CR> <C-c><CR>
 
 " Suggestion: Space/BackSpace for Page Down/Up
 " (using `noremap` in case the “badass mode” is on)
@@ -174,7 +177,8 @@ vmap <C-a> <C-a>gv
 vmap <C-x> <C-x>gv
 
 " select the pasted text (http://vim.wikia.com/wiki/Selecting_your_pasted_text)
-nmap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" nmap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+nmap gp `[v`]
 " }}}
 
 " Wonder how often you hit <Esc> when already in normal mode?

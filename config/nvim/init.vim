@@ -7,14 +7,14 @@
 
 " This variable is used in the optional mappings.vim file and in some of my
 " plugins (cua-mode.vim and suckless.vim) to handle Alt-* shortcuts properly.
-" let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
+let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
 
 " Plugins and extra mappings that are probably not worth sharing with humans.
-" source ~/.config/nvim/mappings.vim
-" source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/mappings.vim
+source ~/.config/nvim/plugins.vim
 
 "|    General settings                                                      {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 
 "set encoding=utf-8
 
@@ -56,7 +56,7 @@ set nrformats=hex
 "}}}
 
 "|    Indentation                                                           {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 " two-space indentation everywhere, except for Python and makefiles
 
 set tabstop=2
@@ -77,7 +77,7 @@ augroup END
 "}}}
 
 "|    User Interface                                                        {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 "set visualbell
 set hidden            	" don’t ask before closing a window
 
@@ -103,7 +103,7 @@ set synmaxcol=200     	" don’t try to highlight super long lines
 "}}}
 
 "|    Keyboard Mappings                                                     {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 
 " disable digraph input to make ^ work faster
 set nodigraph
@@ -132,6 +132,8 @@ nmap K i<CR><Esc>k$
 " Note: if the 'paste' option is set, then insert mode maps are disabled.
 imap kj <Esc>
 cmap kj <Esc>
+imap KJ <Esc>
+cmap KJ <Esc>
 "}}}
 
 " Source configuration files on save to apply all changes immediately.

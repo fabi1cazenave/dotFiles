@@ -13,10 +13,10 @@
 " Alternative: 'sunaku/vim-unbundle'
 " Alternative: 'MarcWeber/vim-addon-manager'
 " Alternative: 'junegunn/vim-plug'
-call plug#begin(expand('~/.config/nvim/bundle/'))
+call plug#begin('~/.config/nvim/bundle/')
 
 "|    Basic features                                                        {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 
 " In Tim Pope we trust.
 Plug 'tpope/vim-surround'        " quoting/parenthesizing made simple
@@ -41,7 +41,7 @@ set splitright                   " consistency with most tiling WMs (wmii, i3…
 "}}}
 
 "|    Web Development                                                       {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 
 " Up-to-date HTML5+JS support
 Plug 'othree/html5.vim'
@@ -63,12 +63,12 @@ Plug 'rhysd/committia.vim'
 "}}}
 
 "|    Color schemes                                                         {{{
-"|=============================================================================
+"|-----------------------------------------------------------------------------
 
 " dark themes
 Plug 'fabi1cazenave/kalahari.vim'   " variation of `desert`
 Plug 'tomasr/molokai'
-" Plug 'zenorocha/dracula-theme'      " XXX not working?
+" Plug 'zenorocha/dracula-theme'          " XXX not working with Neovim
 
 " Color schemes suitable for dark/light backgrounds, just set bg accordingly:
 "    :set background=[dark|light]
@@ -87,6 +87,12 @@ Plug 'freeo/vim-kalisi'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" tupperVim 1603
+Plug 'yegappan/mru'
+
+" tupperVim 1602
+" Plug 'justinmk/vim-dirvish'
 
 " add plugins to &runtimepath and enable syntax highlighting
 call plug#end()
