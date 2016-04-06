@@ -41,6 +41,7 @@ ethernet eth0 {
 
 battery 0 {
   integer_battery_capacity = true
+  hide_seconds = true
   format = "%status %percentage %remaining"
 }
 

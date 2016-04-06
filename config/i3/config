@@ -10,10 +10,11 @@
 #| Bonus: see PotatoesMaster/i3-vim-syntax for i3 syntax hilighting.
 #|
 
-# <<<
-#
-# This configuration relies on a single modifier key. It uses keycodes instead of keysyms
-# in order to be compatible with any keyboard layout: qwerty, qwertz, azerty, dvorak…
+#|    overview                                                              {{{
+#|-----------------------------------------------------------------------------
+# This configuration relies on a single modifier key.
+# It uses keycodes instead of keysyms in order to be compatible with any
+# keyboard layout: qwerty, qwertz, azerty, dvorak…
 #
 # quick config:
 # ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━━┓
@@ -51,10 +52,10 @@
 # ┃ Ctrl  ┃ super ┃ Alt   ┃ Space                          ┃ AltGr ┃ super ┃ menu  ┃ Ctrl  ┃
 # ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┻━━━━━━━┛
 #
-# >>>
+# }}}
 
-#|    general                                                               <<<
-#|=============================================================================
+#|    general                                                               {{{
+#|-----------------------------------------------------------------------------
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
 set $mod Mod4
@@ -98,10 +99,10 @@ bar {
 # client.focused          #2f343a #900000 #ffffff
 client.focused_inactive   #333333 #444444 #ffffff
 
-# >>>
+# }}}
 
-#|    workspaces                                                            <<<
-#|=============================================================================
+#|    workspaces                                                            {{{
+#|-----------------------------------------------------------------------------
 
 # Workspace names:
 # the default modifier being Super_L, workspaces 6 to 12 are preferred
@@ -128,7 +129,9 @@ set $w12 12: media
 # Common apps are sorted by workspace
 assign [class="^Thunderbird"]          → $w06
 assign [class="^Work$"]                → $w08
+assign [class="^B2g$"]                 → $w09
 assign [class="^VirtualBox"]           → $w10
+assign [class="^Telegram$"]            → $w11
 assign [class="^Pidgin"]               → $w11
 assign [class="^Skype"]                → $w11
 assign [class="^Hotot"]                → $w11
@@ -143,32 +146,35 @@ assign [class="^Totem"]                → $w12
 #   firefox -no-remote -profile ~/.mozilla/social --class "social"
 #   firefox -no-remote -profile ~/.mozilla/webdev --class "webdev"
 #   firefox -no-remote -profile ~/.mozilla/zimbra --class "zimbra"
+assign [title="Firefox Developer"]     → $w09
+assign [title="Firefox WebIDE"]        → $w09
+assign [instance="Devtools"]           → $w09
 assign [class="Firefox"]               → $w07
 assign [class="bugzilla"]              → $w08
-assign [class="social"]                → $w11
 assign [class="webdev"]                → $w09
-assign [class="zimbra"]                → $w06
+assign [class="social"]                → $w11
 
-# >>>
+# }}}
 
-#|    floating windows                                                      <<<
-#|=============================================================================
+#|    floating windows                                                      {{{
+#|-----------------------------------------------------------------------------
 
 # Correct handling of floating dialogs
 # https://wiki.archlinux.org/index.php/i3#Correct_handling_of_floating_dialogs
 for_window [window_role="pop-up"]      floating enable
 for_window [window_role="task_dialog"] floating enable
 
-# ROXTerm can be run with a --role argument, e.g.:
-#   roxterm --role=WeeChat -e weechat-curses
-assign [window_role="WeeChat"]         → $w11
+# Gnome-Terminal and ROXTerm can be run with a --role argument, e.g.:
+#   roxterm --role=irc -e weechat-curses
+assign [window_role="irc"]             → $w11
 for_window [window_role="OrgMode"]     floating enable
 
 # ROXTerm and URxvt can be run with a -T or --title argument, e.g.:
 #   urxvt -T Org-mode -e vim ~/.notes.org
-for_window [title="Org-mode"]          floating enable
+# for_window [title="Org-mode"]          floating enable
 
 # This works for Firefox, Thunderbird, and probably a lot of apps
+#for_window [window_role="browser"]     floating enable
 for_window [window_role="About"]       floating enable
 for_window [window_role="Preferences"] floating enable
 
@@ -189,10 +195,10 @@ for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
 for_window [class="^B2g$"]             floating enable
 
-# >>>
+# }}}
 
-#|    wmii-like keybindings                                                 <<<
-#|=============================================================================
+#|    wmii-like keybindings                                                 {{{
+#|-----------------------------------------------------------------------------
 
 # Switch between tAbbed/Stacked/Divided/Fullscreen modes         ($mod+[asdf])
 bind $mod+38 layout tabbed
@@ -262,10 +268,10 @@ bind $mod+Shift+19 move workspace $w10
 bind $mod+Shift+20 move workspace $w11
 bind $mod+Shift+21 move workspace $w12
 
-# >>>
+# }}}
 
-#|    i3-specific keybindings                                               <<<
-#|=============================================================================
+#|    i3-specific keybindings                                               {{{
+#|-----------------------------------------------------------------------------
 
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
 # see http://bugs.i3wm.org/report/ticket/576
@@ -353,10 +359,10 @@ bind $mod+Shift+47 focus child
 # (note: does not apply to tabbed containers)
 bind $mod+56 border toggle
 
-# >>>
+# }}}
 
-#|    applications & scripts                                                <<<
-#|=============================================================================
+#|    applications & scripts                                                {{{
+#|-----------------------------------------------------------------------------
 
 # Start a new terminal                                             ($mod+Enter)
 # bind $mod+36 exec roxterm
@@ -380,10 +386,10 @@ bind $mod+Shift+33 exec --no-startup-id i3-dmenu-desktop
 # Autostart (= personal startup script)
 # exec $(autostart gtk)
 
-# >>>
+# }}}
 
-#|    generic shortcuts (xdotool powwa!)                                    <<<
-#|=============================================================================
+#|    generic shortcuts (xdotool powwa!)                                    {{{
+#|-----------------------------------------------------------------------------
 
 # Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
 bind $mod+53 exec $(xdotool getactivewindow key ctrl+x)
@@ -426,10 +432,10 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 # bindsym $mod+Shift+Up    exec $(xdotool click 4)
 # bindsym $mod+Shift+Right exec $(xdotool click 3)
 
-# >>>
+# }}}
 
-#|    multimedia keys (Thinkpad X220)                                       <<<
-#|=============================================================================
+#|    multimedia keys (Thinkpad X220)                                       {{{
+#|-----------------------------------------------------------------------------
 
 # Screenshot                                                           (PrtScr)
 # +shift ⇒ focused window only
@@ -461,6 +467,6 @@ bind 213 exec $(gsession hibernate)
 #bind 235 exec $()
 #bind 199 exec $()
 
-# >>>
+# }}}
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0:
+# vim: set fdm=marker fmr={{{,}}} fdl=0:
