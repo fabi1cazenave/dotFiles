@@ -109,3 +109,5 @@ esac
 # fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

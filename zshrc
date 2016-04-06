@@ -168,8 +168,8 @@ alias d='dirs -v | head -10'
 
 #|    Auto-completion                                                       <<<
 #|=============================================================================
-# stolen from ~/.oh-my-zsh/lib/completion.zsh
 
+# stolen from ~/.oh-my-zsh/lib/completion.zsh
 unsetopt menu_complete   # do not autoselect the first completion entry
 unsetopt flowcontrol
 setopt auto_menu         # show completion menu on succesive tab press
@@ -179,6 +179,10 @@ setopt always_to_end
 WORDCHARS=''
 
 zmodload -i zsh/complist
+
+# https://wiki.archlinux.org/index.php/Zsh#Command_completion
+autoload -U compinit
+compinit
 
 ## case-insensitive (all),partial-word and then substring completion
 if [ "x$CASE_SENSITIVE" = "xtrue" ]; then
@@ -202,17 +206,17 @@ zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-dir
 cdpath=(.)
 
 # use /etc/hosts and known_hosts for hostname completion
-[ -r /etc/ssh/ssh_known_hosts ] && _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _global_ssh_hosts=()
-[ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
-[ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-hosts=(
-  "$_global_ssh_hosts[@]"
-  "$_ssh_hosts[@]"
-  "$_etc_hosts[@]"
-  "$HOST"
-  localhost
-)
-zstyle ':completion:*:hosts' hosts $hosts
+# [ -r /etc/ssh/ssh_known_hosts ] && _global_ssh_hosts=(${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _global_ssh_hosts=()
+# [ -r ~/.ssh/known_hosts ] && _ssh_hosts=(${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[\|]*}%%\ *}%%,*}) || _ssh_hosts=()
+# [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+# hosts=(
+#   "$_global_ssh_hosts[@]"
+#   "$_ssh_hosts[@]"
+#   "$_etc_hosts[@]"
+#   "$HOST"
+#   localhost
+# )
+# zstyle ':completion:*:hosts' hosts $hosts
 
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion::complete:*' use-cache 1
@@ -247,3 +251,5 @@ autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

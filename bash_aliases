@@ -57,8 +57,11 @@ alias alert='notify-send --urgency=low -i '\
 '"$([ $? = 0 ] && echo terminal || echo error)" '\
 '"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# geekiest thing ever
+alias wather='curl wttr.in/Grenoble'
+
 # Vim <3 <3
-alias v=vim
+alias v='if [ -e .vimrc ]; then; vim -u .vimrc; else; vim; fi'
 alias vimrc='vim ~/.vim/vimrc ~/.vim/plugins.vim -O'
 alias lr='[ $RANGER_LEVEL ] && exit || ranger'
 alias :q=exit
@@ -72,6 +75,10 @@ alias less='less -F'
 alias tmux='tmux -2'
 # alias gjslint='gjslint --nojsdoc'
 alias nautilus='nautilus --no-desktop'
+alias nemo='nemo --no-desktop'
+
+# CPU performance
+alias watch_cpu="watch -n 1 'cat /proc/cpuinfo | grep -i mhz'"
 
 # __vcs_info: print branch for bzr/git/hg/svn version control in CWD <<<
 # http://blog.grahampoulter.com/2011/09/show-current-git-bazaar-or-mercurial.html
