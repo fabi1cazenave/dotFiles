@@ -246,10 +246,6 @@ fi
 
 # >>>
 
-# smart URLs
-autoload -U url-quote-magic
-zle -N self-insert url-quote-magic
-
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

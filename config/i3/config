@@ -159,15 +159,18 @@ assign [class="social"]                → $w11
 #|    floating windows                                                      {{{
 #|-----------------------------------------------------------------------------
 
+# Floating windows should have a border and titlebar (not working?)
+new_float normal
+
 # Correct handling of floating dialogs
 # https://wiki.archlinux.org/index.php/i3#Correct_handling_of_floating_dialogs
-for_window [window_role="pop-up"]      floating enable
-for_window [window_role="task_dialog"] floating enable
+for_window [window_role="pop-up"]      floating enable border normal
+for_window [window_role="task_dialog"] floating enable border normal
 
 # Gnome-Terminal and ROXTerm can be run with a --role argument, e.g.:
 #   roxterm --role=irc -e weechat-curses
 assign [window_role="irc"]             → $w11
-for_window [window_role="OrgMode"]     floating enable
+for_window [window_role="OrgMode"]     floating enable border normal
 
 # ROXTerm and URxvt can be run with a -T or --title argument, e.g.:
 #   urxvt -T Org-mode -e vim ~/.notes.org
@@ -175,25 +178,25 @@ for_window [window_role="OrgMode"]     floating enable
 
 # This works for Firefox, Thunderbird, and probably a lot of apps
 #for_window [window_role="browser"]     floating enable
-for_window [window_role="About"]       floating enable
-for_window [window_role="Preferences"] floating enable
+for_window [window_role="About"]       floating enable border normal
+for_window [window_role="Preferences"] floating enable border normal
 
 # These windows require a specific rule to be displayed in floating mode:
 #for_window [window_role="^Manager"]    floating enable
 #for_window [instance="^Download"]      floating enable
-for_window [instance="^Update"]        floating enable
-for_window [instance="^gcalctool"]     floating enable
-for_window [instance="^galculator"]    floating enable
-for_window [instance="^gnome-keyring"] floating enable
-for_window [instance="^file_progress"] floating enable
-for_window [title="^Compress"]         floating enable
-for_window [title="^Compression"]      floating enable
-for_window [title="^screenkey"]        floating enable
-for_window [title="^Debconf"]          floating enable
-for_window [class="control-center"]    floating enable
-for_window [class="^Pavucontrol"]      floating enable
-for_window [class="^B2G$"]             floating enable
-for_window [class="^B2g$"]             floating enable
+for_window [instance="^Update"]        floating enable border normal
+for_window [instance="^gcalctool"]     floating enable border normal
+for_window [instance="^galculator"]    floating enable border normal
+for_window [instance="^gnome-keyring"] floating enable border normal
+for_window [instance="^file_progress"] floating enable border normal
+for_window [title="^Compress"]         floating enable border normal
+for_window [title="^Compression"]      floating enable border normal
+for_window [title="^screenkey"]        floating enable border normal
+for_window [title="^Debconf"]          floating enable border normal
+for_window [class="control-center"]    floating enable border normal
+for_window [class="^Pavucontrol"]      floating enable border normal
+for_window [class="^B2G$"]             floating enable border normal
+for_window [class="^B2g$"]             floating enable border normal
 
 # }}}
 
