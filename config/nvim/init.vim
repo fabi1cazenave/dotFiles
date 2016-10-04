@@ -9,9 +9,13 @@
 " plugins (cua-mode.vim and suckless.vim) to handle Alt-* shortcuts properly.
 let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
 
+" 24bit colors, baby!
+set termguicolors
+
 " Plugins and extra mappings that are probably not worth sharing with humans.
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugins.vim
+source ~/.config/nvim/terminal.vim
 
 "|    General settings                                                      {{{
 "|-----------------------------------------------------------------------------
@@ -135,6 +139,9 @@ cmap kj <Esc>
 imap KJ <Esc>
 cmap KJ <Esc>
 "}}}
+
+noremap <M-n> g,
+noremap <M-p> g;
 
 " Source configuration files on save to apply all changes immediately.
 augroup configurationFiles

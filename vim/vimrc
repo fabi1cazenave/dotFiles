@@ -5,16 +5,15 @@
 "| Licence : WTFPL
 "|
 
-let $VIMHOME = glob('~/.vim')   	" main Vim configuration directory
-let $VIMTEMP = glob('~/.vim/tmp')	" one temp directory to rule them all
+" set gdefault                      " regexp: s/foo/bar/g by default
+set formatoptions=croqlj            " 'j' kills ponies
+set nojoinspaces                    " let 'J' be 'gJ'
 
-" don’t create temp files everywhere, but just in $VIMTEMP if it exists
-if !empty($VIMTEMP)             	" check that the directory exists
-  set backupdir=$VIMTEMP        	" backup files
-  set directory=$VIMTEMP        	" swap files
-  set undodir  =$VIMTEMP        	" undo files
-  set undofile                  	" persistent undo
-endif
+let $VIMHOME = glob('~/.vim')   	" main Vim configuration directory
+"let $VIMHOME = expand('%:p:h')  	" directory of current vimrc file (~/.vim)
+"let s:VimHome = expand('%:p:h') 	" directory of current vimrc file (~/.vim)
+"let s:VimTemp = s:VimHome.'/tmp'	" one directory to rule all Vim temp files
+let s:VimTemp = $VIMHOME.'/tmp' 	" one directory to rule all Vim temp files
 
 " two solutions to let CTRL-ZXCV behave like in Notepad:
 "  • the standard "mswin.vim" resource: source $VIMRUNTIME/mswin.vim
@@ -22,46 +21,50 @@ endif
 " (the CUA mode, by default, preserves other Vim shortcuts much better)
 
 " modern behavior
-set nocompatible                	" required for a multi-level undo/redo stack
+"set nocompatible                	" required for a multi-level undo/redo stack
 set mouse=a                     	" enable mouse selection
 "set clipboard=unnamedplus       	" use the common clipboard as default register
 
 augroup linterConfiguration
-  autocmd FileType xml  setlocal  makeprg=xmllint\ -
-  autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
+  " autocmd FileType xml  setlocal  makeprg=xmllint\ -
+  " autocmd FileType xml  setlocal equalprg=xmllint\ --format\ -
   " autocmd FileType html setlocal equalprg=xmllint\ --html\ --format\ -
-  autocmd FileType html setlocal equalprg=tidy\ -q\ -i\ -w\ 80\ -utf8\ --quote-nbsp\ no\ --output-xhtml\ yes\ --show-warnings\ no\ --show-body-only\ auto\ --tidy-mark\ no\ -
-  autocmd FileType json setlocal equalprg=python\ -mjson.tool
+  " autocmd FileType html setlocal equalprg=tidy\ -q\ -i\ -w\ 80\ -utf8\ --quote-nbsp\ no\ --output-xhtml\ yes\ --show-warnings\ no\ --show-body-only\ auto\ --tidy-mark\ no\ -
+  " autocmd FileType json setlocal equalprg=python\ -mjson.tool
   " unfortunately, `formatprg' is a global option
   " autocmd FileType xml  setlocal formatprg=xmllint\ --format\ -
   " autocmd FileType html setlocal formatprg=xmllint\ --html\ --format\ -
   " autocmd FileType json setlocal formatprg=python\ -mjson.tool
 augroup END
 
+augroup zip
+  autocmd BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
+augroup END
+
 augroup javascript
   autocmd BufNewFile,BufReadPost *.webapp set filetype=json
   autocmd BufNewFile,BufReadPost *.jsm    set filetype=javascript
-augroup END
-
-augroup zip
-  autocmd BufReadCmd *.jar,*.xpi call zip#Browse(expand("<amatch>"))
+  " autocmd BufReadPost *.js set fdl=1
+  " autocmd FileType javascript set fdl=1
 augroup END
 
 "|    Auto-reload configuration files                                       {{{
 "|=============================================================================
 
-" source configuration files on save to apply all changes immediately
+" source configuration files
+" on save to apply all changes immediately
+
 augroup configurationFiles
-  autocmd! BufWritePost vimrc         source %
-  autocmd! BufWritePost .vimrc        source %
-  autocmd! BufWritePost _vimrc        source %
-  autocmd! BufWritePost Xresources    !xrdb -load ~/.Xresources
-  autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
-  autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
-  autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
-  autocmd! BufWritePost gtkrc         !gtkrc-reload
-  autocmd! BufWritePost gtkrc-2.0     !gtkrc-reload
-  autocmd! BufWritePost .gtkrc-2.0    !gtkrc-reload
+  autocmd BufWritePost vimrc         source %
+  autocmd BufWritePost .vimrc        source %
+  autocmd BufWritePost _vimrc        source %
+  autocmd BufWritePost Xresources    !xrdb -load ~/.Xresources
+  autocmd BufWritePost .Xresources   !xrdb -load ~/.Xresources
+  autocmd BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
+  autocmd BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
+  autocmd BufWritePost gtkrc         !gtkrc-reload
+  autocmd BufWritePost gtkrc-2.0     !gtkrc-reload
+  autocmd BufWritePost .gtkrc-2.0    !gtkrc-reload
 augroup END
 
 " autocmd! BufNewFile,BufRead * 0r ~/.vim-include
@@ -124,8 +127,8 @@ nnoremap K i<CR><Esc>k$
 " nnoremap K :Man <C-r><C-w><CR>
 
 " use :W to sudo-write the current buffer
-" command! W w !sudo tee "%" > /dev/null
-command! W w !sudo dd of=%
+command! W w !sudo tee "%" > /dev/null
+" command! W w !sudo dd of=%
 
 " Enter as leader key
 " let mapleader = "\<Enter>"
@@ -187,7 +190,7 @@ set scrolloff=5       	" number of screen lines to show around the cursor
 set numberwidth=6     	" minimal number width (not working?)
 
 " show tabs / nbsp / trailing spaces
-set list listchars=nbsp:¤,tab:··,trail:¤,extends:▶,precedes:◀
+set list listchars=nbsp:·,tab:¬·,trail:¤,extends:▶,precedes:◀
 
 " minimal interface when running in GUI mode
 set guioptions=
@@ -254,7 +257,9 @@ augroup END
 set hlsearch        	" highlight search results
 set incsearch       	" incremental search: find as you type
 set ignorecase      	" search is case-insensitive…
-set smartcase       	" … except if the search pattern contains uppercase chars
+" set smartcase       	" … except if the search pattern contains uppercase chars
+set nowrapscan      	" don’t loop through search results
+highlight incsearch cterm=underline " in Shanti we trust
 
 " http://stackoverflow.com/questions/1551231/highlight-variable-under-cursor-in-vim-like-in-netbeans
 " autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
@@ -273,5 +278,8 @@ set nrformats=hex
 
 " set matchpairs+=<:>
 "}}}
+
+let @h="this is a test."
+let @g="ggVGd"
 
 " vim: set ft=vim fdm=marker fmr={{{,}}} fdl=0:

@@ -183,7 +183,7 @@ nmap gp `[v`]
 
 " Wonder how often you hit <Esc> when already in normal mode?
 " Uncomment the following line to find out. Abandon all hope.
-map <Esc> ggcGboo!<CR><Esc>
+" map <Esc> ggcGboo!<CR><Esc>
 
 " swap ,/; in normal mode (feels more natural with my qwerty-lafayette layout)
 " (to be disabled when using my patched Fanf,ingTastic;)

@@ -30,6 +30,12 @@ inoremap <Right> <Nop>
 " map <silent> <Leader><Space> :let @/ = '\v$.'<CR>
 map <silent> <Leader><Space> :noh<CR>
 
+vnoremap < <gv
+vnoremap > >gv
+
+vnoremap <C-a> <C-a>gv
+vnoremap <C-x> <C-x>gv
+
 " wonder how often you hit <Esc> when already in normal mode?
 " Uncomment the following line to find out. Abandon all hope.
 " nnoremap <Esc> ggdG
@@ -71,6 +77,18 @@ nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 " Alt+E to open the file explorer
 "noremap <silent> <M-e>  :Ex<CR>
 "noremap <silent> <Esc>e :Ex<CR>
+
+" folding
+noremap <silent> z0 :set fdl=0<CR>
+noremap <silent> z1 :set fdl=1<CR>
+noremap <silent> z2 :set fdl=2<CR>
+noremap <silent> z3 :set fdl=3<CR>
+noremap <silent> z4 :set fdl=4<CR>
+noremap <silent> z5 :set fdl=5<CR>
+noremap <silent> z6 :set fdl=6<CR>
+noremap <silent> z7 :set fdl=7<CR>
+noremap <silent> z8 :set fdl=8<CR>
+noremap <silent> z9 :set fdl=9<CR>
 ">>>
 
 "|    Alt-* mappings                                                        <<<

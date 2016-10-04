@@ -14,6 +14,8 @@ call plug#begin('~/.config/nvim/bundle/')
 call plug#end() " add plugins to &runtimepath and enable syntax highlighting
 
 " User Interface settings
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 set number              " show absolute line numbers
 set ruler               " display cursor position in the status line
 colorscheme kalahari    " `desert` variant (mostly to test the plugin manager)
