@@ -2,7 +2,8 @@
 autocmd BufEnter term://* startinsert
 
 " Exit built-in terminal (same shortcut as my tmux prefix)
-tnoremap <A-Space> <C-\><C-n>
+" tnoremap <A-Space> <C-\><C-n>
+tnoremap kj <C-\><C-n>
 " This does not work, unfortunately :-(
 " tnoremap <A-h> <C-\><C-n><A-h>
 " tnoremap <A-j> <C-\><C-n><A-j>

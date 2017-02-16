@@ -17,6 +17,17 @@ autocmd FileType startify set foldmethod=marker
 " Alternative: 'junegunn/vim-plug'
 call plug#begin('~/.config/nvim/bundle/')
 
+
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+" For example, with the following mappings you can navigate to the identifier
+" under the cursor and open it on the current buffer, on an horizontal or
+" vertical split, or go straight to the documentation:
+" au FileType rust nmap gd <Plug>(rust-def)
+" au FileType rust nmap gs <Plug>(rust-def-split)
+" au FileType rust nmap gx <Plug>(rust-def-vertical)
+" au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
 "|    Basic features                                                        {{{
 "|-----------------------------------------------------------------------------
 
@@ -86,6 +97,7 @@ Plug 'rakr/vim-one'
 Plug 'rakr/vim-two-firewatch'
 Plug 'noahfrederick/vim-hemisu'
 Plug 'freeo/vim-kalisi'
+Plug 'zanglg/nova.vim'
 
 " automatically switches between dark & light backgrounds
 " Plug 'amdt/sunset'
@@ -97,6 +109,11 @@ Plug 'freeo/vim-kalisi'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+Plug 'suan/vim-instant-markdown'
+
+Plug 'ElmCast/elm-vim'
+let g:elm_format_autosave = 1
 
 " tupperVim 16-10 {{{
 Plug 'sheerun/vim-polyglot'

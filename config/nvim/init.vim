@@ -12,6 +12,9 @@ let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
 " 24bit colors, baby!
 set termguicolors
 
+" tupperVim Lyon, indispensable, à utiliser sous peine de mourir dans la honte.
+set inccommand=split
+
 " Plugins and extra mappings that are probably not worth sharing with humans.
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugins.vim
@@ -111,6 +114,8 @@ set synmaxcol=200     	" don’t try to highlight super long lines
 
 " disable digraph input to make ^ work faster
 set nodigraph
+
+set wrap
 
 " make Y copy to the end of the line (more consistant with D, C, etc.)
 map Y y$

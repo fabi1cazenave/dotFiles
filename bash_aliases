@@ -37,6 +37,11 @@ alias la='ls -A'
 alias ll='ls -lhH'
 alias lla='ls -alhH'
 
+# list files modified today
+lmru() {
+  find $1 -mtime -1 -print
+}
+
 # basic directory operations
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -58,7 +63,10 @@ alias alert='notify-send --urgency=low -i '\
 '"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # geekiest thing ever
-alias wather='curl wttr.in/Grenoble'
+alias weather='curl wttr.in/Grenoble'
+
+# Manuel 4 ever!
+alias 49.3=sudo
 
 # Vim <3 <3
 alias v='if [ -e .vimrc ]; then; vim -u .vimrc; else; vim; fi'
@@ -79,6 +87,9 @@ alias nemo='nemo --no-desktop'
 
 # CPU performance
 alias watch_cpu="watch -n 1 'cat /proc/cpuinfo | grep -i mhz'"
+
+# MRU
+alias freq='cut -f1 -d" " $HISTFILE | sort | uniq -c | sort -nr | head -n 30'
 
 # __vcs_info: print branch for bzr/git/hg/svn version control in CWD <<<
 # http://blog.grahampoulter.com/2011/09/show-current-git-bazaar-or-mercurial.html
