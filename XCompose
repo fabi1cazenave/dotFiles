@@ -14,6 +14,15 @@ include "/usr/share/X11/locale/en_US.UTF-8/Compose"
 
 # arrows
 
+<Multi_key> <h> <h>   : "←" U2190 # LEFTWARDS ARROW
+<Multi_key> <k> <k>   : "↑" U2191 # UPWARDS ARROW
+<Multi_key> <l> <l>   : "→" U2192 # RIGHTWARDS ARROW
+<Multi_key> <j> <j>   : "↓" U2193 # DOWNWARDS ARROW
+<Multi_key> <H> <H>   : "⇐" U21D0 # LEFTWARDS DOUBLE ARROW
+<Multi_key> <K> <K>   : "⇑" U21D1 # UPWARDS DOUBLE ARROW
+<Multi_key> <L> <L>   : "⇒" U21D2 # RIGHTWARDS DOUBLE ARROW
+<Multi_key> <J> <J>   : "⇓" U21D3 # DOWNWARDS DOUBLE ARROW
+
 <Multi_key> <h> <l>   : "↔" U2194 # LEFT RIGHT ARROW
 <Multi_key> <l> <h>   : "↔" U2194 # LEFT RIGHT ARROW
 <Multi_key> <j> <k>   : "↕" U2195 # UP DOWN ARROW
@@ -22,13 +31,6 @@ include "/usr/share/X11/locale/en_US.UTF-8/Compose"
 <Multi_key> <L> <H>   : "⇔" U21D4 # LEFT RIGHT DOUBLE ARROW
 <Multi_key> <J> <K>   : "⇕" U21D5 # UP DOWN DOUBLE ARROW
 <Multi_key> <K> <J>   : "⇕" U21D5 # UP DOWN DOUBLE ARROW
-
-<Multi_key> <H> <H>   : "☚" U261A # BLACK LEFT POINTING INDEX
-<Multi_key> <L> <L>   : "☛" U261B # BLACK RIGHT POINTING INDEX
-<Multi_key> <h> <h>   : "☜" U261C # WHITE LEFT POINTING INDEX
-<Multi_key> <k> <k>   : "☝" U261D # WHITE UP POINTING INDEX
-<Multi_key> <l> <l>   : "☞" U261E # WHITE RIGHT POINTING INDEX
-<Multi_key> <j> <j>   : "☟" U261F # WHITE DOWN POINTING INDEX
 
 # common symbols
 
@@ -113,4 +115,3 @@ include "/usr/share/X11/locale/en_US.UTF-8/Compose"
 <Multi_key> <dot> <P>              : "😋" U1F60B # FACE SAVOURING DELICIOUS FOOD
 <Multi_key> <B> <3>                : "😎" U1F60E # SMILING FACE WITH SUNGLASSES
 <Multi_key> <B> <parenright>       : "😎" U1F60E # SMILING FACE WITH SUNGLASSES
-

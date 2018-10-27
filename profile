@@ -20,18 +20,30 @@ if [ -n "$BASH_VERSION" ]; then
   [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 fi
 
-# most is a nice, configurable pager
-# export PAGER=most
-# export MOST_EDITOR=vim
+export TZ=Europe/Paris
+export TERMINAL=urxvt
 
-# vimpager is a shell script that uses Vim as a pager
-export EDITOR=vim
-export PAGER=vimpager
+# pager
+export PAGER=less       # good old stuff, gets the job done
+# export PAGER=most     # better alternative w/ highlighting (but unmaintained)
+# export PAGER=vimpage  # shell script that uses Vim as a pagerr
+
+# Neovim > Vim
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
+
+# ~/.XCompose
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
 
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 
 # support all apps that have been installed to the user's private opt
+# (note: $DYLD_LIBRARY_PATH is specific to OSX)
 for dir in $HOME/.local/opt/*; do
   [ -d "$dir/bin" ]       && PATH="${dir}/bin:${PATH}"
   [ -d "$dir/sbin" ]      && PATH="${dir}/sbin:${PATH}"
@@ -40,18 +52,9 @@ for dir in $HOME/.local/opt/*; do
   if [ -d "$dir/lib" ]; then
     LD_RUN_PATH="${dir}/lib:${LD_RUN_PATH}"
     LD_LIBRARY_PATH="${dir}/lib:${LD_LIBRARY_PATH}"
-    # uncomment the following line on OSX
-    # DYLD_LIBRARY_PATH="${dir}/lib:${DYLD_LIBRARY_PATH}"
+    [ -n "$DYLD_LIBRARY_PATH" ] && DYLD_LIBRARY_PATH="${dir}/lib:${DYLD_LIBRARY_PATH}"
     [ -d "$dir/lib/pkgconfig" ] && PKG_CONFIG_PATH="${dir}/lib/pkgconfig:${PKG_CONFIG_PATH}"
   fi
 done
-
-# I hate Java but...
-# export JAVA_HOME="$HOME/.local/opt/jdk1.7.0_04/bin/"
-# [ -d "$JAVA_HOME" ] && PATH="$JAVA_HOME:$PATH"
-
-# ~/.XCompose
-export GTK_IM_MODULE=xim
-export QT_IM_MODULE=xim
 
 # vim: set ft=sh:
