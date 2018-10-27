@@ -62,7 +62,9 @@ map <silent> z9 :set fdl=9<CR>
 nmap g/ :vimgrep /<C-r>//j %<Bar>cw<CR>
 
 " quick way to clear the current search
-map <silent> <Leader><Space> :nohlsearch<CR>
+" Alternative: Plug 'romainl/vim-cool'
+" Alternative: Plug 'junegunn/vim-slash'
+" map <silent> <Leader><Space> :nohlsearch<CR>
 "}}}
 
 "|    Alt-* mappings                                                        {{{

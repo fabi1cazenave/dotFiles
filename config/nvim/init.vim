@@ -5,15 +5,16 @@
 "| Licence : WTFPL
 "|
 
+" tupperVim 1803-Lyon: create the file if the `gf` target does not exist
+map gf :e <cfile><CR>
+map gs :sp <cfile><CR>
+
 " This variable is used in the optional mappings.vim file and in some of my
 " plugins (cua-mode.vim and suckless.vim) to handle Alt-* shortcuts properly.
 let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
 
 " 24bit colors, baby!
 set termguicolors
-
-" tupperVim Lyon, indispensable, à utiliser sous peine de mourir dans la honte.
-set inccommand=split
 
 " Plugins and extra mappings that are probably not worth sharing with humans.
 source ~/.config/nvim/mappings.vim
@@ -40,7 +41,6 @@ set showmatch       	" when inserting a bracket, briefly jump to its match
 set textwidth=80    	" line length above which to break a line
 set colorcolumn=+0  	" highlight the textwidth limit
 set nowrap
-"set nowrapscan
 set linebreak
 
 " search settings
@@ -106,7 +106,7 @@ set list listchars=nbsp:¤,tab:··,trail:¤,extends:▶,precedes:◀
 
 " syntax highlighting
 syntax enable
-set synmaxcol=200     	" don’t try to highlight super long lines
+" set synmaxcol=200     	" don’t try to highlight super long lines
 "}}}
 
 "|    Keyboard Mappings                                                     {{{
@@ -114,8 +114,6 @@ set synmaxcol=200     	" don’t try to highlight super long lines
 
 " disable digraph input to make ^ work faster
 set nodigraph
-
-set wrap
 
 " make Y copy to the end of the line (more consistant with D, C, etc.)
 map Y y$
@@ -127,6 +125,9 @@ map U <C-r>
 " map Q <Nop>
 " Alternative: use q: instead
 nmap Q q:
+" Alternative
+" nmap q b
+" nmap Q B
 
 " g<Enter> to follow tags (e.g. help links)
 map g<CR> <C-]>

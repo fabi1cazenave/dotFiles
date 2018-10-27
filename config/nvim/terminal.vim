@@ -2,13 +2,16 @@
 autocmd BufEnter term://* startinsert
 
 " Exit built-in terminal (same shortcut as my tmux prefix)
-" tnoremap <A-Space> <C-\><C-n>
-tnoremap kj <C-\><C-n>
+tnoremap <A-Space> <C-\><C-n>
+
+" This is perfect for regular shell commands but a PITA with interactive apps
+" tnoremap kj <C-\><C-n>
+
 " This does not work, unfortunately :-(
-" tnoremap <A-h> <C-\><C-n><A-h>
-" tnoremap <A-j> <C-\><C-n><A-j>
-" tnoremap <A-k> <C-\><C-n><A-k>
-" tnoremap <A-l> <C-\><C-n><A-l>
+tnoremap <A-h> <C-\><C-n><A-h>
+tnoremap <A-j> <C-\><C-n><A-j>
+tnoremap <A-k> <C-\><C-n><A-k>
+tnoremap <A-l> <C-\><C-n><A-l>
 
 " Kalahari term color theme (copied from my ~/.Xresources)
 " 0: black

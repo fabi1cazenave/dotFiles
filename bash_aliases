@@ -49,6 +49,16 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias -- -='cd -'
 
+# Vim <3 Neovim <3 <3
+# alias v="if [ -e .vimrc ]; then; vim -u .vimrc; else; vim; fi"
+alias v=nvim
+alias vi="vim -u NONE"
+alias nvi="nvim -u NONE"
+alias vimrc="vim ~/.vimrc"
+alias nvimrc="nvim ~/.config/nvim/init.vim"
+alias lr="[ $RANGER_LEVEL ] && exit || ranger"
+alias :q=exit
+
 # smart SSH agent: http://beyond-syntax.com/blog/2012/01/on-demand-ssh-add/
 #       (see also: https://gist.github.com/1998129)
 alias ssh='( ssh-add -l > /dev/null || ssh-add ) && ssh'
@@ -64,15 +74,6 @@ alias alert='notify-send --urgency=low -i '\
 
 # geekiest thing ever
 alias weather='curl wttr.in/Grenoble'
-
-# Manuel 4 ever!
-alias 49.3=sudo
-
-# Vim <3 <3
-alias v='if [ -e .vimrc ]; then; vim -u .vimrc; else; vim; fi'
-alias vimrc='vim ~/.vim/vimrc ~/.vim/plugins.vim -O'
-alias lr='[ $RANGER_LEVEL ] && exit || ranger'
-alias :q=exit
 
 # OSX style
 alias open=xdg-open
