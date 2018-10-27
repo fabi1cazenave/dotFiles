@@ -246,6 +246,11 @@ fi
 
 # >>>
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
+# rbenv (should be in ~/.profile?)
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
+# FZF is pure happiness -- try Ctrl-R and Ctrl-T, enjoy.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:

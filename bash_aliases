@@ -22,7 +22,7 @@ esac # >>>
 # enable color support for ls and grep when possible <<<
 if [ "$COLOR_TERM" ]; then
   # export GREP_COLOR='1;32'
-  export GREP_OPTIONS='--color=auto'
+  # export GREP_OPTIONS='--color=auto'
   # find the option for using colors in ls, depending on the version: GNU or BSD
   ls --color -d . &>/dev/null 2>&1 \
     && alias ls='ls --group-directories-first --color=auto' \
@@ -32,10 +32,24 @@ else
 fi # >>>
 
 # some handy ls aliases
-alias l='ls -C'
-alias la='ls -A'
-alias ll='ls -lhH'
-alias lla='ls -alhH'
+if command -v exa >/dev/null 2>&1; then
+  # super-fancy variants, powered by `exa` (rust)
+  alias l='exa --group-directories-first'
+  alias la='l -a'
+  alias ll='l -l --git'
+  alias lla='l -la --git'
+else
+  # good old stuff, works everywhere
+  alias l='ls -C'
+  alias la='ls -A'
+  alias ll='ls -lhH'
+  alias lla='ls -alhH'
+fi
+
+# man pages look better in `most` than in `less`
+if command -v most >/dev/null 2>&1; then
+  alias man='man -P most'
+fi
 
 # list files modified today
 lmru() {
@@ -58,6 +72,15 @@ alias vimrc="vim ~/.vimrc"
 alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias lr="[ $RANGER_LEVEL ] && exit || ranger"
 alias :q=exit
+
+# ring a bell to the window manager
+# (requires `urgentOnBell` to be set to true for urxvt)
+alias bell="echo -e '\a'"
+
+# \_o<
+alias ducksay="cowsay -f duck"
+alias coin='echo "\_o<"'
+alias pan='echo "\_x<"'
 
 # smart SSH agent: http://beyond-syntax.com/blog/2012/01/on-demand-ssh-add/
 #       (see also: https://gist.github.com/1998129)
@@ -82,7 +105,6 @@ alias open=xdg-open
 # (only works when commands are typed manually in a shell)
 alias less='less -F'
 alias tmux='tmux -2'
-# alias gjslint='gjslint --nojsdoc'
 alias nautilus='nautilus --no-desktop'
 alias nemo='nemo --no-desktop'
 

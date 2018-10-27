@@ -49,11 +49,15 @@ URxvt*transparent     : false
 URxvt*shading         : 40
 URxvt*cursorBlink     : true
 
+! notify the WM when the bell rings
+URxvt*urgentOnBell    : true
+
 ! proper font rendering:
 ! the “letterSpace” option is absolutely required to keep the text readable
 ! (problem: wide characters like ←→ might become unreadable… :-/)
 URxvt*letterSpace     : -2
 URxvt*font            : xft:mensch:size=9
+!URxvt*font            : xft:fira:size=9
 !URxvt*font            : xft:Inconsolata:size=11
 !URxvt*font            : xft:Inconsolata-Awesome:size=11
 !URxvt*font            : xft:Ubuntumono:size=11
@@ -94,6 +98,7 @@ URxvt.perl-ext-common : default,matcher,clipboard,font-size,-selection-popup
 
 ! extensions -> matcher: open URL with a left click
 URxvt.urlLauncher     : xdg-open
+URxvt.url-launcher    : xdg-open
 URxvt.matcher.button  : 1
 
 ! extensions -> clipboard (requires xsel)

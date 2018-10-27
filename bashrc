@@ -106,8 +106,11 @@ esac
 
 # >>>
 
-# fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+# rbenv (should be in ~/.profile?)
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# FZF is pure happiness -- try Ctrl-R and Ctrl-T, enjoy.
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # vim: set fdm=marker fmr=<<<,>>> fdl=0 ft=zsh:
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
