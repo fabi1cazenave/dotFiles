@@ -6,12 +6,9 @@
 "|
 
 " tupperVim 1803-Lyon: create the file if the `gf` target does not exist
-map gf :e <cfile><CR>
+map gf :e  <cfile><CR>
 map gs :sp <cfile><CR>
-
-" This variable is used in the optional mappings.vim file and in some of my
-" plugins (cua-mode.vim and suckless.vim) to handle Alt-* shortcuts properly.
-let g:MetaSendsEscape = 0 " Neovim is not utf8-clean. THIS IS SO LAME.
+map gS :vs <cfile><CR>
 
 " 24bit colors, baby!
 set termguicolors
@@ -19,7 +16,6 @@ set termguicolors
 " Plugins and extra mappings that are probably not worth sharing with humans.
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugins.vim
-source ~/.config/nvim/terminal.vim
 
 "|    General settings                                                      {{{
 "|-----------------------------------------------------------------------------
@@ -46,6 +42,7 @@ set linebreak
 " search settings
 set hlsearch        	" highlight search results
 set incsearch       	" incremental search: find as you type
+set inccommand=split	" incremental replace: show as you type (in a split)
 set ignorecase      	" search is case-insensitive…
 set smartcase       	" … except if the search pattern contains uppercase chars
 set nowrapscan      	" don’t loop through search results
@@ -86,7 +83,8 @@ augroup END
 "|    User Interface                                                        {{{
 "|-----------------------------------------------------------------------------
 "set visualbell
-set hidden            	" don’t ask before closing a window
+"set hidden            	" don’t ask before closing a window
+                      	" XXX this may leave a lot of empty buffers
 
 set showmode          	" display current mode blow the status line
 set showtabline=2     	" show tabbar even for a single buffer
@@ -145,9 +143,6 @@ cmap kj <Esc>
 imap KJ <Esc>
 cmap KJ <Esc>
 "}}}
-
-noremap <M-n> g,
-noremap <M-p> g;
 
 " Source configuration files on save to apply all changes immediately.
 augroup configurationFiles
