@@ -5,17 +5,22 @@
 "| Licence : WTFPL
 "|
 
-" tupperVim 1803-Lyon: create the file if the `gf` target does not exist
-map gf :e  <cfile><CR>
-map gs :sp <cfile><CR>
-map gS :vs <cfile><CR>
-
-" 24bit colors, baby!
-set termguicolors
+set termguicolors " 24bit colors, baby!
+set winblend=20   " Neovim 0.4+ pseudo-transparency for floating windows <3
 
 " Plugins and extra mappings that are probably not worth sharing with humans.
 source ~/.config/nvim/mappings.vim
 source ~/.config/nvim/plugins.vim
+
+" TupperVim:
+" sudo sysctl vm.swappiness=0
+" see https://askubuntu.com/questions/235146/why-does-ubuntu-use-swap-when-there-is-enough-free-memory
+
+" TupperVim: change the curent indentation size
+" :set ts=4 sts=4 noet
+" :retab!
+" :set ts=2 sts=2 et
+" :retab
 
 "|    General settings                                                      {{{
 "|-----------------------------------------------------------------------------
@@ -102,6 +107,9 @@ set numberwidth=6     	" minimal number width (not working?)
 " show tabs / nbsp / trailing spaces
 set list listchars=nbsp:¤,tab:··,trail:¤,extends:▶,precedes:◀
 
+" GUI (neovim-qt)
+set guifont=DejaVu\ Sans\ Mono:h9
+
 " syntax highlighting
 syntax enable
 " set synmaxcol=200     	" don’t try to highlight super long lines
@@ -123,9 +131,6 @@ map U <C-r>
 " map Q <Nop>
 " Alternative: use q: instead
 nmap Q q:
-" Alternative
-" nmap q b
-" nmap Q B
 
 " g<Enter> to follow tags (e.g. help links)
 map g<CR> <C-]>
@@ -151,6 +156,12 @@ augroup configurationFiles
   autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
   autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
   autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
+augroup END
+
+augroup specialFiles
+  autocmd FileType help      setlocal nonumber nolist foldmethod=marker
+  autocmd FileType markdown  setlocal wrap linebreak fdm=syntax
+  autocmd FileType pandoc    setlocal wrap linebreak fdm=syntax
 augroup END
 
 " vim: set ft=vim fdm=marker fmr={{{,}}} fdl=0:

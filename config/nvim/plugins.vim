@@ -19,6 +19,45 @@ autocmd! bufwritepost plugins.vim source %
 " Alternative: 'MarcWeber/vim-addon-manager'
 call plug#begin('~/.config/nvim/bundle/')
 
+" Plug 'rbong/vim-crystalline'
+
+" function! StatusLine()
+"   return ' %f%h%w%m%r '
+" endfunction
+" set statusline=%!StatusLine()
+" set laststatus=2
+
+" function! StatusLine(...)
+"   return crystalline#mode() . ' %f%h%w%m%r '
+" endfunction
+" let g:crystalline_statusline_fn = 'StatusLine'
+" let g:crystalline_theme = 'default'
+" set laststatus=2
+
+" to check:
+" deoplete + LSP
+" denite instead of FZF
+" vim-sneak to get a 2-char f/t search
+
+" tupperVim juillet Grenoble
+" BufferGator
+
+" " requires Ruby 2.0+
+" " gem install mdn_query
+" Plug 'jungomi/vim-mdnquery'
+" " :MdnQuery array remove
+" " :MdnQueryFirstMatch array.pop
+" autocmd FileType html setlocal keywordprg=:MdnQueryFirstMatch
+
+" Plug 'Tehnix/spaceneovim'
+" Plug 'zakj/vim-showmarks'
+
+" tupperVim 17-02
+"   :lopen / :lclose   open/close the location window
+"   :lnext / :lprev    jump to the next/previous error
+"   :ll                jump to the current error
+Plug 'romainl/vim-qf'
+
 "|    Basic Features                                                        {{{
 "|-----------------------------------------------------------------------------
 
@@ -30,14 +69,16 @@ Plug 'tpope/vim-commentary'      " toggle comments easily
 
 " CUA: adjusting the balance between Vim and standard shortcuts,
 " i.e. make Ctrl-ZXCV and Ctrl-arrows work as expected.
-Plug 'fabi1cazenave/cua-mode.vim'
+Plug '~/Documents/vimFiles/cua-mode.vim' " local working directory
+" Plug 'fabi1cazenave/cua-mode.vim'
 behave xterm                     " possible values: xterm, mswin
 let g:cua_mode   = 1             " standard Vim shortcuts + CTRL-ZXCV
 let g:cua_arrows = 0             " disable arrow keys (badass mode!)
 
 " wmii/i3-like window management
 " Alternative: 'jceb/vmux'
-Plug 'fabi1cazenave/suckless.vim'
+" Plug 'fabi1cazenave/suckless.vim'
+Plug '~/Documents/vimFiles/suckless.vim' " local working directory
 let g:suckless_tmap = 1
 let g:suckless_mappings = {
 \        '<M-[sdf]>'      :   'SetTilingMode("[sdf]")'    ,
@@ -53,8 +94,7 @@ let g:suckless_mappings = {
 \        '<M-[123456789]>':       'SelectTab([123456789])',
 \        '<M-[!@#$%^&*(]>': 'MoveWindowToTab([123456789])',
 \}
-set splitbelow " consistency with most tiling WMs (wmii, i3…)
-set splitright " consistency with most tiling WMs (wmii, i3…)
+set splitbelow splitright " consistency with most tiling WMs (wmii, i3…)
 
 " highlight the yanked region
 Plug 'machakann/vim-highlightedyank'
@@ -76,13 +116,13 @@ nmap <Leader>a <Plug>(EasyAlign)
 
 " Smooth scrolling
 " Alternative: 'yuttie/comfortable-motion.vim'
-Plug 'terryma/vim-smooth-scroll' " {{{
-noremap <silent> <c-u>       :call smooth_scroll#up  (&scroll,   0, 2)<CR>
-noremap <silent> <c-d>       :call smooth_scroll#down(&scroll,   0, 2)<CR>
-noremap <silent> <c-b>       :call smooth_scroll#up  (&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f>       :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-noremap <silent> <Backspace> :call smooth_scroll#up  (&scroll*2, 0, 4)<CR>
-noremap <silent> <Space>     :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" Plug 'terryma/vim-smooth-scroll' " {{{
+" noremap <silent> <c-u>       :call smooth_scroll#up  (&scroll,   0, 2)<CR>
+" noremap <silent> <c-d>       :call smooth_scroll#down(&scroll,   0, 2)<CR>
+" noremap <silent> <c-b>       :call smooth_scroll#up  (&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f>       :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" noremap <silent> <Backspace> :call smooth_scroll#up  (&scroll*2, 0, 4)<CR>
+" noremap <silent> <Space>     :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 " }}}
 
 " start screen
@@ -104,7 +144,8 @@ Plug 'jacoborus/tender.vim'
 
 " suitable themes for dark/light backgrounds, just set bg accordingly:
 "    :set background=[dark|light]
-Plug 'fabi1cazenave/kalahari.vim'
+Plug '~/Documents/vimFiles/kalahari.vim'
+" Plug 'fabi1cazenave/kalahari.vim'
 Plug 'rakr/vim-one'
 Plug 'rakr/vim-two-firewatch'
 Plug 'junegunn/seoul256.vim'
@@ -138,7 +179,7 @@ function! AutoBackground()
     let &background = (l:dark > 0 ? 'dark' : 'light')
   endif
 endfunction
-call AutoBackground()
+" call AutoBackground()
 
 " automatically switches between dark & light backgrounds
 " Plug 'amdt/sunset'
@@ -240,30 +281,80 @@ Plug 'kana/vim-textobj-user' | Plug 'thalesmello/vim-textobj-methodcall'
 " Alternative: 'justinmk/vim-dirvish'
 " Alternative: 'yegappan/mru'
 " Alternative: 'francoiscabrol/ranger.vim' | Plug 'rbgrouleff/bclose.vim'
+" Plug '~/Documents/vimFiles/ranger.vim' | Plug 'rbgrouleff/bclose.vim'
 " Alternative: 'ptzz/lf.vim'
-Alternative: 'fabi1cazenave/termopen.vim'
+" Alternative: 'fabi1cazenave/termopen.vim'
+Plug '~/Documents/vimFiles/termopen.vim'
 if has('nvim')
   let g:termopen_mappings = 0
   nnoremap <silent>   <M-Return> :call TermOpen()<CR>
   nnoremap <silent> <S-M-Return> :call TermOpenRanger()<CR>
   tnoremap            <M-Return> <C-\><C-n>
-else
-  nnoremap <silent> <Leader>f :call TermOpenRanger()<CR>
 endif
+" sometimes, M-Return does not work (e.g. Windows)
+nnoremap <silent> <Leader><Tab>   :call TermOpen()<CR>
+nnoremap <silent> <Leader><Space> :call TermOpen('', 'f')<CR>
+nnoremap <silent> <Leader>r       :call TermOpenRanger('lf')<CR>
+nnoremap <silent> <Leader>R       :call TermOpenRanger()<CR>
+" Note: mapping <S-Return> is tricky, see: {{{
+" https://stackoverflow.com/questions/16359878/vim-how-to-map-shift-enter
+" Add this to ~/.alacritty/alacritty.yml in the 'keybindings' section:
+"   - { key: Return,   mods: Shift,       chars:     "\x1b[13;2u" }
+"   - { key: Return,   mods: Shift|Alt,   chars: "\x1b\x1b[13;2u" }
+"   - { key: Return,   mods: Control,     chars:     "\x1b[13;5u" }
+" For urxvt, add this to ~/.Xresources:
+"   URxvt.keysym.C-Return   :     \033[13;5u
+"   URxvt.keysym.S-Return   :     \033[13;2u
+"   URxvt.keysym.M-S-Return : \033\033[13;2u
+" }}}
+nmap <Leader>p :call TermOpen('python3')<CR>
+nmap <Leader>t :call TermOpen('tig', 't')<CR>
+nmap <Leader>d :call TermOpen('git diff')<CR>
+" HJKL powwa
+nmap <Leader>T :call TermOpen('tetris', 'f')<CR>
+nmap <Leader>S :call TermOpen('nsnake', 'f')<CR>
 
 " In junegunn we trust, too.
 " see https://github.com/junegunn/fzf#git-ls-tree-for-fast-traversal
 " Alternative: 'Shougo/denite.nvim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim' " {{{
-nmap <leader>r :Files<CR>
-nmap <leader>g :GFiles<CR>
-nmap <leader><tab> <plug>(fzf-maps-n)
+
+" TODO: utiliser ripgrep à la place de grep dans fzf
+" ça permettrait d’utilise :Files dans tous les cas
+nmap <Leader>f :Files<CR>
+nmap <Leader>g :GFiles<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>m <plug>(fzf-maps-n)
+
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Floating FZF window (requires Neovim 0.4+)
+" https://github.com/junegunn/fzf.vim/issues/664
+let g:fzf_layout = { 'window': 'call FloatingWindow()' }
+function! FloatingWindow(...)
+  let ignoreSplits = a:0 >= 1 ? a:1 : v:false
+  " window size and position
+  let rel     = ignoreSplits ? 'editor' : 'win'
+  let columns = ignoreSplits ? &columns : winwidth(0)
+  let lines   = ignoreSplits ? &lines   : winheight(0)
+  let width = float2nr(columns * 0.8)
+  let height = lines - 5
+  " display flowting window
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+  call nvim_open_win(buf, v:true, {
+        \ 'relative': rel,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'col': float2nr((columns - width) / 2),
+        \ 'row': float2nr((lines - height) / 2)
+        \ })
+endfunction
 
 " custom FZF statusline when started in a :term
 " function! s:fzf_statusline()
@@ -279,12 +370,54 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " }}}
 
 " Authoring
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'suan/vim-instant-markdown'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'suan/vim-instant-markdown'
+" Plug 'jszakmeister/markdown2ctags'  " XXX to be tested
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+" let g:markdown_fenced_languages = [ 'css', 'erb=eruby', 'javascript', 'js=javascript', 'json=javascript', 'ruby', 'sass', 'xml', 'html']
+" Plug 'tpope/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 
 " add plugins to &runtimepath and enable syntax highlighting
 call plug#end()
+
+" kalahari experiments {{{
+" let g:kalahari_palette = { 'Comment': 134 }
+let g:kalahari_groups = [
+\  [ 'StatusLine', 16, 'Visual_bg', 'none' ],
+\  [ 'TabLineSel', 16, 'Visual_bg', 'none' ],
+\  [ 'fzf1',       16, 'Visual_bg', 'none' ],
+\  [ 'fzf2',       16, 'Visual_bg', 'none' ],
+\  [ 'fzf3',       16, 'Visual_bg', 'none' ],
+\]
+
+function! ToggleColorMode()
+  if g:colors_name == 'kalahari'
+    let g:kalahari_ansi = !( exists('g:kalahari_ansi') && g:kalahari_ansi )
+    colorscheme kalahari
+    if g:kalahari_ansi
+      set notermguicolors
+      call AutoBackground()
+    else
+      set termguicolors
+    endif
+    echo g:kalahari_ansi ? "  ANSI mode" : "  256-color mode"
+  endif
+endfunction
+nmap <Leader>\ :call ToggleColorMode()<CR>
+
+" italics can be tricky to display with tmux
+" https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/
+" https://jsatk.us/vim-tmux-italics-and-insanity-9a96b69eeca6
+set t_ZH=[3m
+set t_ZR=[23m
+" }}}
 colorscheme kalahari
+
+augroup NetrwByPass
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter * if isdirectory(expand('%')) | call TermOpenRanger('lf', '') | endif
+augroup END
 
 " vim: set ft=vim fdm=marker fmr={{{,}}} fdl=0:

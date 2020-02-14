@@ -35,6 +35,11 @@ noremap <Space> <PageDown>
 " http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
 cmap w!! w !sudo tee > /dev/null %
 
+" tupperVim 1803-Lyon: create the file if the `gf` target does not exist
+nmap gf :e  <cfile><CR>
+nmap gs :sp <cfile><CR>
+nmap gS :vs <cfile><CR>
+
 " spare one VimGolf point (and a Shift press) on :q, :w, :e, :x
 nmap <Leader>q :q<CR>
 nmap <Leader>w :w<CR>
@@ -177,6 +182,21 @@ vnoremap , ;
 vnoremap ; ,
 onoremap , ;
 onoremap ; ,
+
+nmap <C-S-j> :echo 'FOO'<CR>
+nmap <C-S-k> :echo 'BAR'<CR>
+
+" map <S-C-j> :echo 'FOO'<CR>
+" map <S-C-k> :echo 'BAR'<CR>
+
+" map <C-J> :echo 'FOO'<CR>
+" map <C-K> :echo 'BAR'<CR>
+
+nmap <C-j> :echo 'foo'<CR>
+nmap <C-k> :echo 'bar'<CR>
+
+map [<Space> O<Esc>
+map ]<Space> o<Esc>
 
 " noremap <M-n> g,
 " noremap <M-p> g;
