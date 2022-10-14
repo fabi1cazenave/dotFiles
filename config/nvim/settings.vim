@@ -1,5 +1,5 @@
 "|
-"| File    : ~/.config/nvim/init.vim
+"| File    : ~/.config/nvim/settings.vim
 "| Author  : Fabien Cazenave
 "| Source  : https://github.com/fabi1cazenave/dotFiles
 "| Licence : WTFPL
@@ -7,10 +7,9 @@
 
 set termguicolors " 24bit colors, baby!
 set winblend=20   " Neovim 0.4+ pseudo-transparency for floating windows <3
-
-" Plugins and extra mappings that are probably not worth sharing with humans.
-source ~/.config/nvim/mappings.vim
-source ~/.config/nvim/plugins.vim
+set mouse=a
+set updatetime=300
+set winminheight=0
 
 " TupperVim:
 " sudo sysctl vm.swappiness=0
@@ -57,6 +56,8 @@ set wildmenu        	" enhanced command-line completion in the status line
 set wildmode=longest,full " (use `list:longest` to complete files like a shell)
 set wildignorecase
 set showfulltag
+set completeopt=menuone,noinsert,noselect " better completion experience
+set shortmess+=c " avoid showing message extra message when using completion
 
 " disable incrementation of octal numbers
 set nrformats=hex
@@ -76,12 +77,25 @@ set expandtab
 set smartindent
 set shiftround
 "set autoindent
-set foldmethod=indent
 
-augroup indents
-  autocmd FileType ?akefile set noexpandtab
-  autocmd FileType python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+" Makefile, Python: tab / 4-space indents
+augroup specialIndents
+  autocmd FileType ?akefile setlocal noexpandtab
+  autocmd FileType python   setlocal expandtab ts=4 sw=4 sts=4
   " autocmd FileType html,xhtml,javascript,css,c,cpp,python setlocal foldmethod=indent
+augroup END
+
+" fold on indentation by default, except for these specific file types
+set foldmethod=indent
+augroup specialFolds
+  autocmd FileType help      setlocal foldmethod=marker nonumber nolist
+  autocmd FileType vim-plug  setlocal foldmethod=manual nonumber
+  autocmd FileType startify  setlocal foldmethod=manual
+  autocmd FileType lspinfo   setlocal foldmethod=marker
+  autocmd FileType git       setlocal foldmethod=syntax
+  autocmd FileType diff      setlocal foldmethod=syntax
+  autocmd FileType markdown  setlocal foldmethod=syntax wrap linebreak
+  autocmd FileType pandoc    setlocal foldmethod=syntax wrap linebreak
 augroup END
 "}}}
 
@@ -107,12 +121,10 @@ set numberwidth=6     	" minimal number width (not working?)
 " show tabs / nbsp / trailing spaces
 set list listchars=nbsp:¤,tab:··,trail:¤,extends:▶,precedes:◀
 
-" GUI (neovim-qt)
-set guifont=DejaVu\ Sans\ Mono:h9
-
 " syntax highlighting
 syntax enable
 " set synmaxcol=200     	" don’t try to highlight super long lines
+
 "}}}
 
 "|    Keyboard Mappings                                                     {{{
@@ -121,11 +133,12 @@ syntax enable
 " disable digraph input to make ^ work faster
 set nodigraph
 
-" make Y copy to the end of the line (more consistant with D, C, etc.)
-map Y y$
-
-" U is useless (except for Vi compatibility), make it a redo instead
-map U <C-r>
+if !has('nvim')
+  " make Y copy to the end of the line (more consistant with D, C, etc.)
+  map Y y$
+  " U is useless (except for Vi compatibility), make it a redo instead
+  map U <C-r>
+endif
 
 " the Ex mode is useless (except for Vi compatibility), disable it
 " map Q <Nop>
@@ -136,7 +149,7 @@ nmap Q q:
 map g<CR> <C-]>
 
 " make K more consistent with J (J = join, K = split)
-nmap K i<CR><Esc>k$
+" nmap K i<CR><Esc>k$
 " Alternative: use a real 'Man' on K
 " runtime ftplugin/man.vim
 " nmap K :Man <C-r><C-w><CR>
@@ -151,17 +164,25 @@ cmap KJ <Esc>
 
 " Source configuration files on save to apply all changes immediately.
 augroup configurationFiles
-  autocmd! BufWritePost init.vim      source %
+  autocmd! BufWritePost settings.vim  source %
   autocmd! BufWritePost Xresources    !xrdb -load ~/.Xresources
   autocmd! BufWritePost .Xresources   !xrdb -load ~/.Xresources
   autocmd! BufWritePost tmux.conf     !tmux source-file ~/.tmux.conf
   autocmd! BufWritePost .tmux.conf    !tmux source-file ~/.tmux.conf
 augroup END
 
-augroup specialFiles
-  autocmd FileType help      setlocal nonumber nolist foldmethod=marker
-  autocmd FileType markdown  setlocal wrap linebreak fdm=syntax
-  autocmd FileType pandoc    setlocal wrap linebreak fdm=syntax
-augroup END
+" Bluecime guidelines: 4-space indents & 100-character lines
+set textwidth=100
+set winwidth=110
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+nnoremap g0 :set ts=2 sts=2 sw=2 tw=80 wiw=90<CR>
+nnoremap g1 :set ts=4 sts=4 sw=4 tw=100 wiw=110<CR>
+
+" auto-reload files when modified outside of Vim
+set autoread
+" autocmd CursorHold * checktime
 
 " vim: set ft=vim fdm=marker fmr={{{,}}} fdl=0:

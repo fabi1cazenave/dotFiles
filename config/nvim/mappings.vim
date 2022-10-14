@@ -5,6 +5,8 @@
 "| Licence : WTFPL
 "|
 
+noremap U <C-R>
+
 "|    Space, Backspace, Enter                                               {{{
 "|-----------------------------------------------------------------------------
 " These keys are so easy to reach that they must be mapped to something useful.
@@ -13,15 +15,19 @@
 " nmap <Space> <Nop>
 " let mapleader = "\<Space>"
 
-" Suggestion: Enter as leader key — good choice on a TypeMatrix
-" let mapleader = "\<Enter>"
+" Suggestion: Enter as leader key — good choice on a TypeMatrix / Preonic
+nmap <Enter> <Nop>
+let mapleader = "\<Enter>"
 
 " Suggestion: quick save on <Enter>
 " (if you wonder why `noremap`, try with `map` ^^)
 " nnoremap <silent> <CR> :update<CR>
 
 " Note: remapping <Enter> also affects the command-line, so let’s revert:
-" cnoremap <CR> <C-c><CR>
+cnoremap <Enter> <CR>
+autocmd CmdwinEnter * nnoremap <buffer> <Enter> <CR>
+autocmd CmdwinEnter * nnoremap <buffer> <Space> <CR>
+autocmd CmdwinEnter * nnoremap <buffer> <Esc> :q<CR>
 
 " Suggestion: Space/BackSpace for Page Down/Up
 " (using `noremap` in case the “badass mode” is on)
@@ -183,20 +189,18 @@ vnoremap ; ,
 onoremap , ;
 onoremap ; ,
 
-nmap <C-S-j> :echo 'FOO'<CR>
-nmap <C-S-k> :echo 'BAR'<CR>
-
-" map <S-C-j> :echo 'FOO'<CR>
-" map <S-C-k> :echo 'BAR'<CR>
-
-" map <C-J> :echo 'FOO'<CR>
-" map <C-K> :echo 'BAR'<CR>
-
-nmap <C-j> :echo 'foo'<CR>
-nmap <C-k> :echo 'bar'<CR>
-
-map [<Space> O<Esc>
-map ]<Space> o<Esc>
+" this mapping is neat, but LSP does a better job
+" " switch from *.cpp to *.hpp (only works if both files are in the same directory)
+" " nmap gh :e %:p:s,.hpp$,.X123X,:s,.cpp$,.hpp,:s,.X123X$,.cpp,<CR>
+" function! CppSwitch()
+"   if expand("%:e") == "cpp"
+"     exe "edit" fnameescape(expand("%:r").".hpp")
+"     " exe "zR"
+"   elseif expand("%:e") == "hpp"
+"     exe "edit" fnameescape(expand("%:r").".cpp")
+"   endif
+" endfunction
+" nmap gh :call CppSwitch()<CR>
 
 " noremap <M-n> g,
 " noremap <M-p> g;
