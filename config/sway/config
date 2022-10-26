@@ -1,22 +1,26 @@
 #|
-#| File    : ~/.config/i3/config
+#| File    : ~/.config/sway/config
 #| Charset : UTF-8
 #| Author  : Fabien Cazenave
 #| Source  : https://github.com/fabi1cazenave/dotFiles
 #| License : WTFPL
 #|
 
-exec $(nm-applet)
-exec $(setxkbmap fr -variant lafayette -option "caps:swapescape,compose:prsc")
+output * bg #222222 solid_color
 
-# xsetroot does not work with Compton, using hsetroot instead
-exec $(compton)
-exec $(hsetroot -solid "#222222" -center ~/Pictures/wallpaper.png -gamma .5)
+# works with XKB 0.10 / XOrg 7.7 / Wayland 1.18 (Ubuntu 20.04)
+input type:keyboard {
+    xkb_layout "fr"
+    xkb_variant "lafayette"
+    xkb_options "caps:swapescape,compose:prsc"
+}
 
-# Touchpad: (11 is the device id of my x270 TouchPad, see `xinput list`)
-# https://wiki.archlinux.org/title/Libinput#Via_xinput
-exec $(xinput set-prop 11 "libinput Natural Scrolling Enabled" 1)
-exec $(xinput set-prop 11 "libinput Tapping Enabled" 1)
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+gaps inner 6
 
 #|
 #| The rest of the config below should be compatible with both i3 and sway.
