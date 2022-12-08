@@ -380,19 +380,18 @@ local set_lsp_keymaps = function(client, bufnr)
   local opts = { buffer=bufnr, noremap=true, silent=true }
   local telescope = require('telescope.builtin')
   -- mappings
-  vim.keymap.set('n', 'K',        vim.lsp.buf.hover,          opts)
-  vim.keymap.set('n', '<C-k>',    vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', 'gA',       vim.lsp.buf.code_action,    opts) -- {apply=true}
-  vim.keymap.set('n', 'gR',       vim.lsp.buf.rename,         opts)
-  vim.keymap.set('n', 'g=',       vim.lsp.buf.format,         opts)
-  vim.keymap.set('v', 'g=',       vim.lsp.buf.format,         opts)
-  vim.keymap.set('n', 'gi',       vim.lsp.buf.implementation, opts)
-  vim.keymap.set('n', '[<Enter>', vim.diagnostic.goto_prev,   opts)
-  vim.keymap.set('n', ']<Enter>', vim.diagnostic.goto_next,   opts)
+  vim.keymap.set( 'n',       'K',        vim.lsp.buf.hover,          opts)
+  vim.keymap.set( 'n',       '<C-k>',    vim.lsp.buf.signature_help, opts)
+  vim.keymap.set( 'n',       'gA',       vim.lsp.buf.code_action,    opts) -- {apply=true}
+  vim.keymap.set( 'n',       'gR',       vim.lsp.buf.rename,         opts)
+  vim.keymap.set({'n', 'v'}, 'g=',       vim.lsp.buf.format,         opts)
+  vim.keymap.set( 'n',       'gi',       vim.lsp.buf.implementation, opts)
+  vim.keymap.set( 'n',       '[<Enter>', vim.diagnostic.goto_prev,   opts)
+  vim.keymap.set( 'n',       ']<Enter>', vim.diagnostic.goto_next,   opts)
   -- LSP references, definitions and diagnostics are handled by Telescope
-  vim.keymap.set('n', 'gr',       telescope.lsp_references,   opts)
-  vim.keymap.set('n', 'gd',       telescope.lsp_definitions,  opts)
-  vim.keymap.set('n', 'gD',       telescope.diagnostics,      opts)
+  vim.keymap.set( 'n',       'gr',       telescope.lsp_references,   opts)
+  vim.keymap.set( 'n',       'gd',       telescope.lsp_definitions,  opts)
+  vim.keymap.set( 'n',       'gD',       telescope.diagnostics,      opts)
   -- source/header switch (should be restricted to clangd)
   vim.keymap.set('n', 'gh', ':ClangdSwitchSourceHeader<CR>', opts)
   -- enable completion triggered by <c-x><c-o> (and nvim-cmp)
@@ -433,7 +432,7 @@ local nvim_lsp = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 for _, lsp in ipairs(lsp_servers) do
   nvim_lsp[lsp].setup {
-    on_attach = on_attach,
+    on_attach = set_lsp_keymaps,
     flags = {
       debounce_text_changes = 150,
     },
@@ -463,17 +462,19 @@ require('gitsigns').setup {
     end, {expr=true})
 
     -- Actions
-    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>hS', gs.stage_buffer)
-    map('n', '<leader>hu', gs.undo_stage_hunk)
-    map('n', '<leader>hR', gs.reset_buffer)
-    map('n', '<leader>hp', gs.preview_hunk)
-    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-    map('n', '<leader>tb', gs.toggle_current_line_blame)
-    map('n', '<leader>hd', gs.diffthis)
-    map('n', '<leader>hD', function() gs.diffthis('~') end)
-    map('n', '<leader>td', gs.toggle_deleted)
+    -- map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    -- map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map({'n', 'v'}, '<leader>hs', gs.stage_hunk)
+    map({'n', 'v'}, '<leader>hr', gs.reset_hunk)
+    map( 'n',       '<leader>hS', gs.stage_buffer)
+    map( 'n',       '<leader>hu', gs.undo_stage_hunk)
+    map( 'n',       '<leader>hR', gs.reset_buffer)
+    map( 'n',       '<leader>hp', gs.preview_hunk)
+    map( 'n',       '<leader>hb', function() gs.blame_line{full=true} end)
+    map( 'n',       '<leader>tb', gs.toggle_current_line_blame)
+    map( 'n',       '<leader>hd', gs.diffthis)
+    map( 'n',       '<leader>hD', function() gs.diffthis('~') end)
+    map( 'n',       '<leader>td', gs.toggle_deleted)
 
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
